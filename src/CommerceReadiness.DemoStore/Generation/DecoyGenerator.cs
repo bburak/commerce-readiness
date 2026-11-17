@@ -3,6 +3,7 @@ using CommerceReadiness.Core.Delivery;
 using CommerceReadiness.Core.Domain;
 using CommerceReadiness.Core.Evaluation;
 using CommerceReadiness.Core.SourceOfTruth;
+using CommerceReadiness.Core.Storage;
 using CommerceReadiness.Core.Time;
 
 namespace CommerceReadiness.DemoStore.Generation;
@@ -27,7 +28,7 @@ public static class DecoyGenerator
         {
             decoys.Add(new DecoyCase(
                 $"DCY-OOS-{sku}", "ConsistentOutOfStock", DefectType.InventoryConflict,
-                clean.GetVariant(sku).ProductId, sku, null, "stockStatus",
+                clean.GetVariant(sku).ProductId, sku, null, PublishedFields.StockStatus,
                 StockStatusText.OutOfStock, "available=0", DataSource.Inventory,
                 "Catalog says OUT_OF_STOCK and inventory has 0 units: consistent, not an InventoryConflict."));
         }
@@ -51,7 +52,7 @@ public static class DecoyGenerator
             var listing = clean.GetListing(sku);
             decoys.Add(new DecoyCase(
                 $"DCY-CMP-{sku}", "DiscountedPriceMatchesPricing", DefectType.PriceConflict,
-                clean.GetVariant(sku).ProductId, sku, null, "listedPrice",
+                clean.GetVariant(sku).ProductId, sku, null, PublishedFields.ListedPrice,
                 $"listedPrice={InvariantFormat.Money(listing.ListedPrice)}; compareAtPrice={InvariantFormat.Money(listing.CompareAtPrice!.Value)}",
                 InvariantFormat.Money(clean.GetPrice(sku)), DataSource.Pricing,
                 "The strike-through compareAtPrice differs, but the listed price equals the Pricing source: not a PriceConflict."));
@@ -78,7 +79,7 @@ public static class DecoyGenerator
             var calculated = DeliveryCalculator.EstimateDelivery(clean, sku, City.Istanbul, context.Now)!.Value;
             decoys.Add(new DecoyCase(
                 $"DCY-CUT-{sku}", "AfterCutoffDeliveryPromise", DefectType.DeliveryConflict,
-                clean.GetVariant(sku).ProductId, sku, null, "deliveryPromiseIstanbul",
+                clean.GetVariant(sku).ProductId, sku, null, PublishedFields.DeliveryPromiseIstanbul,
                 InvariantFormat.Date(promise), InvariantFormat.Date(calculated), DataSource.Shipping,
                 "The later promise is correct: the Izmir warehouse cutoff (09:00) has passed at 10:00, so it ships the next business day."));
         }
@@ -88,7 +89,7 @@ public static class DecoyGenerator
         var conditionalRule = clean.FindReturnRule(Category.Headphones, ReturnQuestion.OpenedReturn)!;
         decoys.Add(new DecoyCase(
             $"DCY-CND-{conditionalCell.Replace(':', '-')}", "ExplicitConditionalReturn", DefectType.AmbiguousReturnRule,
-            null, null, conditionalCell, "answer",
+            null, null, conditionalCell, PublishedFields.ReturnAnswer,
             $"{conditionalRule.Answer}: {conditionalRule.ConditionTr}", conditionalRule.Answer.ToString(), DataSource.ReturnPolicy,
             "A Conditional answer with an explicit condition is a clear policy, not an ambiguous one."));
 
@@ -106,7 +107,7 @@ public static class DecoyGenerator
         reservations.Reserve(Reservations.Sku(sibling.Sku));
         decoys.Add(new DecoyCase(
             $"DCY-VPR-{first.Sku}", "SameProductDifferentColorSamePrice", DefectType.PriceConflict,
-            variantProductId, first.Sku, null, "listedPrice",
+            variantProductId, first.Sku, null, PublishedFields.ListedPrice,
             InvariantFormat.Money(clean.GetListing(first.Sku).ListedPrice), InvariantFormat.Money(clean.GetPrice(first.Sku)), DataSource.Pricing,
             $"Shares its price with sibling {sibling.Sku} in another color; both match Pricing, which is expected for variants."));
 

@@ -3,6 +3,7 @@ using CommerceReadiness.Core.Delivery;
 using CommerceReadiness.Core.Domain;
 using CommerceReadiness.Core.Evaluation;
 using CommerceReadiness.Core.SourceOfTruth;
+using CommerceReadiness.Core.Storage;
 using CommerceReadiness.Core.Time;
 
 namespace CommerceReadiness.DemoStore.Generation;
@@ -71,7 +72,7 @@ public static class DefectInjector
             var stalePromise = DeliveryCalculator.EstimateFromWarehouse(clean, inventory.WarehouseId, City.Istanbul, context.Now);
             state.Listings[sku] = state.Listings[sku] with { StockStatus = StockStatus.InStock, DeliveryPromiseIstanbul = stalePromise };
             defects.Add(new InjectedDefect(
-                $"DEF-INV-{sku}", DefectType.InventoryConflict, clean.GetVariant(sku).ProductId, sku, null, "stockStatus",
+                $"DEF-INV-{sku}", DefectType.InventoryConflict, clean.GetVariant(sku).ProductId, sku, null, PublishedFields.StockStatus,
                 StockStatusText.InStock, $"available={InvariantFormat.Number(inventory.Available)}", DataSource.Inventory,
                 "Set catalog stockStatus to OUT_OF_STOCK and remove the delivery promise; inventory.json reports 0 units."));
         }
@@ -82,7 +83,7 @@ public static class DefectInjector
             var available = clean.GetInventory(sku).Available;
             state.Listings[sku] = state.Listings[sku] with { StockStatus = StockStatus.OutOfStock, DeliveryPromiseIstanbul = null };
             defects.Add(new InjectedDefect(
-                $"DEF-INV-{sku}", DefectType.InventoryConflict, clean.GetVariant(sku).ProductId, sku, null, "stockStatus",
+                $"DEF-INV-{sku}", DefectType.InventoryConflict, clean.GetVariant(sku).ProductId, sku, null, PublishedFields.StockStatus,
                 StockStatusText.OutOfStock, $"available={InvariantFormat.Number(available)}", DataSource.Inventory,
                 $"Set catalog stockStatus to IN_STOCK; inventory.json reports {InvariantFormat.Number(available)} units."));
         }
@@ -104,7 +105,7 @@ public static class DefectInjector
 
             state.Listings[sku] = state.Listings[sku] with { ListedPrice = stale };
             defects.Add(new InjectedDefect(
-                $"DEF-PRC-{sku}", DefectType.PriceConflict, clean.GetVariant(sku).ProductId, sku, null, "listedPrice",
+                $"DEF-PRC-{sku}", DefectType.PriceConflict, clean.GetVariant(sku).ProductId, sku, null, PublishedFields.ListedPrice,
                 InvariantFormat.Money(stale), InvariantFormat.Money(price), DataSource.Pricing,
                 $"Update catalog listedPrice to {InvariantFormat.Money(price)} TRY from price-list.json."));
         }
@@ -122,7 +123,7 @@ public static class DefectInjector
             var claimed = calculated > tomorrow ? tomorrow : context.Today;
             state.Listings[sku] = state.Listings[sku] with { DeliveryPromiseIstanbul = claimed };
             defects.Add(new InjectedDefect(
-                $"DEF-DLV-{sku}", DefectType.DeliveryConflict, clean.GetVariant(sku).ProductId, sku, null, "deliveryPromiseIstanbul",
+                $"DEF-DLV-{sku}", DefectType.DeliveryConflict, clean.GetVariant(sku).ProductId, sku, null, PublishedFields.DeliveryPromiseIstanbul,
                 InvariantFormat.Date(claimed), InvariantFormat.Date(calculated), DataSource.Shipping,
                 $"Set the Istanbul delivery promise to {InvariantFormat.Date(calculated)} as calculated from shipping.json at the simulation clock."));
         }
@@ -244,7 +245,7 @@ public static class DefectInjector
             var window = rule.WindowDays is { } days ? $" within {InvariantFormat.Number(days)} days" : string.Empty;
             var condition = rule.ConditionTr is null ? string.Empty : $" (condition: {rule.ConditionTr})";
             defects.Add(new InjectedDefect(
-                $"DEF-RET-{cellId.Replace(':', '-')}", DefectType.AmbiguousReturnRule, null, null, cellId, "answer",
+                $"DEF-RET-{cellId.Replace(':', '-')}", DefectType.AmbiguousReturnRule, null, null, cellId, PublishedFields.ReturnAnswer,
                 $"{ReturnAnswer.Unspecified}: {vague}", rule.Answer.ToString(), DataSource.ReturnPolicy,
                 $"State an explicit answer: {rule.Answer}{window}{condition}."));
         }

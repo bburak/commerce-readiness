@@ -6,6 +6,7 @@ using CommerceReadiness.Core.Evaluation.Metrics;
 using CommerceReadiness.Core.Serialization;
 using CommerceReadiness.Core.Shopping;
 using CommerceReadiness.Core.SourceOfTruth;
+using CommerceReadiness.Core.Storage;
 using CommerceReadiness.DemoStore.Output;
 
 namespace CommerceReadiness.Tests;
@@ -65,7 +66,7 @@ public class GroundTruthTests
 
         var directory = TestData.NewTempDirectory();
         DatasetWriter.Write(TestData.Seed42, directory);
-        var reread = DatasetReader.ReadStore(Path.Combine(directory, DatasetWriter.PublishedFolder), StoreKind.Published, Truth.StoreVersion);
+        var reread = StoreFiles.Read(Path.Combine(directory, DatasetLayout.PublishedFolder)).Store;
         AssertFailuresMatch(ReadinessMetrics.Compute(reread, TestData.Seed42Units, Clean, Truth.SemanticFacts), expected);
     }
 
