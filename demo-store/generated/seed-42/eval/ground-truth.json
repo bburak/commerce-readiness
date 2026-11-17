@@ -62,7 +62,10 @@
       "publishedValue": "2026-11-17",
       "authoritativeValue": "2026-11-18",
       "source": "Shipping",
-      "expectedFix": "Set the Istanbul delivery promise to 2026-11-18 as calculated from shipping.json at the simulation clock."
+      "expectedFix": "Set the Istanbul delivery promise to 2026-11-18 as calculated from shipping.json at the simulation clock.",
+      "expectedImpacts": [
+        "delivery:SKU-SE-005"
+      ]
     },
     {
       "defectId": "DEF-DLV-SKU-SN-001-44-NVY",
@@ -73,7 +76,10 @@
       "publishedValue": "2026-11-18",
       "authoritativeValue": "2026-11-20",
       "source": "Shipping",
-      "expectedFix": "Set the Istanbul delivery promise to 2026-11-20 as calculated from shipping.json at the simulation clock."
+      "expectedFix": "Set the Istanbul delivery promise to 2026-11-20 as calculated from shipping.json at the simulation clock.",
+      "expectedImpacts": [
+        "delivery:SKU-SN-001-44-NVY"
+      ]
     },
     {
       "defectId": "DEF-DLV-SKU-SN-002-38-NVY",
@@ -84,7 +90,10 @@
       "publishedValue": "2026-11-17",
       "authoritativeValue": "2026-11-18",
       "source": "Shipping",
-      "expectedFix": "Set the Istanbul delivery promise to 2026-11-18 as calculated from shipping.json at the simulation clock."
+      "expectedFix": "Set the Istanbul delivery promise to 2026-11-18 as calculated from shipping.json at the simulation clock.",
+      "expectedImpacts": [
+        "delivery:SKU-SN-002-38-NVY"
+      ]
     },
     {
       "defectId": "DEF-INV-SKU-BP-007",
@@ -95,7 +104,11 @@
       "publishedValue": "OUT_OF_STOCK",
       "authoritativeValue": "available=32",
       "source": "Inventory",
-      "expectedFix": "Set catalog stockStatus to IN_STOCK; inventory.json reports 32 units."
+      "expectedFix": "Set catalog stockStatus to IN_STOCK; inventory.json reports 32 units.",
+      "expectedImpacts": [
+        "stock:SKU-BP-007",
+        "delivery:SKU-BP-007"
+      ]
     },
     {
       "defectId": "DEF-INV-SKU-BP-020",
@@ -106,7 +119,10 @@
       "publishedValue": "IN_STOCK",
       "authoritativeValue": "available=0",
       "source": "Inventory",
-      "expectedFix": "Set catalog stockStatus to OUT_OF_STOCK and remove the delivery promise; inventory.json reports 0 units."
+      "expectedFix": "Set catalog stockStatus to OUT_OF_STOCK and remove the delivery promise; inventory.json reports 0 units.",
+      "expectedImpacts": [
+        "stock:SKU-BP-020"
+      ]
     },
     {
       "defectId": "DEF-INV-SKU-SE-011",
@@ -117,7 +133,10 @@
       "publishedValue": "IN_STOCK",
       "authoritativeValue": "available=0",
       "source": "Inventory",
-      "expectedFix": "Set catalog stockStatus to OUT_OF_STOCK and remove the delivery promise; inventory.json reports 0 units."
+      "expectedFix": "Set catalog stockStatus to OUT_OF_STOCK and remove the delivery promise; inventory.json reports 0 units.",
+      "expectedImpacts": [
+        "stock:SKU-SE-011"
+      ]
     },
     {
       "defectId": "DEF-INV-SKU-SE-020",
@@ -128,7 +147,11 @@
       "publishedValue": "OUT_OF_STOCK",
       "authoritativeValue": "available=16",
       "source": "Inventory",
-      "expectedFix": "Set catalog stockStatus to IN_STOCK; inventory.json reports 16 units."
+      "expectedFix": "Set catalog stockStatus to IN_STOCK; inventory.json reports 16 units.",
+      "expectedImpacts": [
+        "stock:SKU-SE-020",
+        "delivery:SKU-SE-020"
+      ]
     },
     {
       "defectId": "DEF-INV-SKU-SN-004-42-GRN",
@@ -139,7 +162,10 @@
       "publishedValue": "IN_STOCK",
       "authoritativeValue": "available=0",
       "source": "Inventory",
-      "expectedFix": "Set catalog stockStatus to OUT_OF_STOCK and remove the delivery promise; inventory.json reports 0 units."
+      "expectedFix": "Set catalog stockStatus to OUT_OF_STOCK and remove the delivery promise; inventory.json reports 0 units.",
+      "expectedImpacts": [
+        "stock:SKU-SN-004-42-GRN"
+      ]
     },
     {
       "defectId": "DEF-MRA-P-BP-011-waterResistance",
@@ -149,7 +175,10 @@
       "field": "waterResistance",
       "authoritativeValue": "Waterproof",
       "source": "Catalog",
-      "expectedFix": "Populate structured attribute 'waterResistance' with 'Waterproof'."
+      "expectedFix": "Populate structured attribute 'waterResistance' with 'Waterproof'.",
+      "expectedImpacts": [
+        "completeness:SKU-BP-011:waterResistance"
+      ]
     },
     {
       "defectId": "DEF-MRA-P-HP-010-noiseCancellation",
@@ -159,7 +188,11 @@
       "field": "noiseCancellation",
       "authoritativeValue": "true",
       "source": "Catalog",
-      "expectedFix": "Populate structured attribute 'noiseCancellation' with 'true'."
+      "expectedFix": "Populate structured attribute 'noiseCancellation' with 'true'.",
+      "expectedImpacts": [
+        "completeness:SKU-HP-010:noiseCancellation",
+        "semantic:SKU-HP-010:noiseCancellation"
+      ]
     },
     {
       "defectId": "DEF-MRA-P-HP-017-noiseCancellation",
@@ -169,7 +202,10 @@
       "field": "noiseCancellation",
       "authoritativeValue": "true",
       "source": "Catalog",
-      "expectedFix": "Populate structured attribute 'noiseCancellation' with 'true'."
+      "expectedFix": "Populate structured attribute 'noiseCancellation' with 'true'.",
+      "expectedImpacts": [
+        "completeness:SKU-HP-017:noiseCancellation"
+      ]
     },
     {
       "defectId": "DEF-MRA-P-HP-019-brand",
@@ -179,7 +215,11 @@
       "field": "brand",
       "authoritativeValue": "Nota",
       "source": "Catalog",
-      "expectedFix": "Populate structured attribute 'brand' with 'Nota'."
+      "expectedFix": "Populate structured attribute 'brand' with 'Nota'.",
+      "expectedImpacts": [
+        "completeness:SKU-HP-019:brand",
+        "semantic:SKU-HP-019:brand"
+      ]
     },
     {
       "defectId": "DEF-MRA-P-SE-003-brand",
@@ -189,7 +229,11 @@
       "field": "brand",
       "authoritativeValue": "Pratik",
       "source": "Catalog",
-      "expectedFix": "Populate structured attribute 'brand' with 'Pratik'."
+      "expectedFix": "Populate structured attribute 'brand' with 'Pratik'.",
+      "expectedImpacts": [
+        "completeness:SKU-SE-003:brand",
+        "semantic:SKU-SE-003:brand"
+      ]
     },
     {
       "defectId": "DEF-MRA-P-SE-020-warrantyMonths",
@@ -199,7 +243,10 @@
       "field": "warrantyMonths",
       "authoritativeValue": "24",
       "source": "Catalog",
-      "expectedFix": "Populate structured attribute 'warrantyMonths' with '24'."
+      "expectedFix": "Populate structured attribute 'warrantyMonths' with '24'.",
+      "expectedImpacts": [
+        "completeness:SKU-SE-020:warrantyMonths"
+      ]
     },
     {
       "defectId": "DEF-MSD-P-BP-009-waterResistance",
@@ -210,7 +257,10 @@
       "publishedValue": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
       "authoritativeValue": "WaterRepellent",
       "source": "Catalog",
-      "expectedFix": "Rewrite the description so it states waterResistance=WaterRepellent (it currently asserts Waterproof)."
+      "expectedFix": "Rewrite the description so it states waterResistance=WaterRepellent (it currently asserts Waterproof).",
+      "expectedImpacts": [
+        "claim:P-BP-009:waterResistance"
+      ]
     },
     {
       "defectId": "DEF-MSD-P-HP-014-batteryHours",
@@ -221,7 +271,10 @@
       "publishedValue": "Tek şarjla 63 saate kadar kullanım.",
       "authoritativeValue": "38",
       "source": "Catalog",
-      "expectedFix": "Rewrite the description so it states batteryHours=38 (it currently asserts 63)."
+      "expectedFix": "Rewrite the description so it states batteryHours=38 (it currently asserts 63).",
+      "expectedImpacts": [
+        "claim:P-HP-014:batteryHours"
+      ]
     },
     {
       "defectId": "DEF-MSD-P-SE-009-warrantyMonths",
@@ -232,7 +285,10 @@
       "publishedValue": "36 ay resmi distribütör garantisi.",
       "authoritativeValue": "24",
       "source": "Catalog",
-      "expectedFix": "Rewrite the description so it states warrantyMonths=24 (it currently asserts 36)."
+      "expectedFix": "Rewrite the description so it states warrantyMonths=24 (it currently asserts 36).",
+      "expectedImpacts": [
+        "claim:P-SE-009:warrantyMonths"
+      ]
     },
     {
       "defectId": "DEF-MSD-P-SE-017-warrantyMonths",
@@ -243,7 +299,10 @@
       "publishedValue": "36 ay resmi distribütör garantisi.",
       "authoritativeValue": "24",
       "source": "Catalog",
-      "expectedFix": "Rewrite the description so it states warrantyMonths=24 (it currently asserts 36)."
+      "expectedFix": "Rewrite the description so it states warrantyMonths=24 (it currently asserts 36).",
+      "expectedImpacts": [
+        "claim:P-SE-017:warrantyMonths"
+      ]
     },
     {
       "defectId": "DEF-PRC-SKU-HP-007",
@@ -254,7 +313,10 @@
       "publishedValue": "2199.90",
       "authoritativeValue": "1799.90",
       "source": "Pricing",
-      "expectedFix": "Update catalog listedPrice to 1799.90 TRY from price-list.json."
+      "expectedFix": "Update catalog listedPrice to 1799.90 TRY from price-list.json.",
+      "expectedImpacts": [
+        "price:SKU-HP-007"
+      ]
     },
     {
       "defectId": "DEF-PRC-SKU-SE-003",
@@ -265,7 +327,10 @@
       "publishedValue": "999.90",
       "authoritativeValue": "1199.90",
       "source": "Pricing",
-      "expectedFix": "Update catalog listedPrice to 1199.90 TRY from price-list.json."
+      "expectedFix": "Update catalog listedPrice to 1199.90 TRY from price-list.json.",
+      "expectedImpacts": [
+        "price:SKU-SE-003"
+      ]
     },
     {
       "defectId": "DEF-PRC-SKU-SN-001-41-BLK",
@@ -276,7 +341,10 @@
       "publishedValue": "3199.90",
       "authoritativeValue": "3699.90",
       "source": "Pricing",
-      "expectedFix": "Update catalog listedPrice to 3699.90 TRY from price-list.json."
+      "expectedFix": "Update catalog listedPrice to 3699.90 TRY from price-list.json.",
+      "expectedImpacts": [
+        "price:SKU-SN-001-41-BLK"
+      ]
     },
     {
       "defectId": "DEF-PRC-SKU-SN-004-45-GRY",
@@ -287,7 +355,10 @@
       "publishedValue": "2599.90",
       "authoritativeValue": "2199.90",
       "source": "Pricing",
-      "expectedFix": "Update catalog listedPrice to 2199.90 TRY from price-list.json."
+      "expectedFix": "Update catalog listedPrice to 2199.90 TRY from price-list.json.",
+      "expectedImpacts": [
+        "price:SKU-SN-004-45-GRY"
+      ]
     },
     {
       "defectId": "DEF-RET-Headphones-UnopenedReturn",
@@ -297,7 +368,10 @@
       "publishedValue": "Unspecified: Duruma göre değerlendirilir.",
       "authoritativeValue": "Yes",
       "source": "ReturnPolicy",
-      "expectedFix": "State an explicit answer: Yes within 14 days."
+      "expectedFix": "State an explicit answer: Yes within 14 days.",
+      "expectedImpacts": [
+        "return:Headphones:UnopenedReturn"
+      ]
     },
     {
       "defectId": "DEF-RET-SmallElectronics-OpenedReturn",
@@ -307,7 +381,10 @@
       "publishedValue": "Unspecified: Duruma göre değerlendirilir.",
       "authoritativeValue": "No",
       "source": "ReturnPolicy",
-      "expectedFix": "State an explicit answer: No (condition: Ambalajı açılmış elektronik ürünler iade alınmaz.)."
+      "expectedFix": "State an explicit answer: No (condition: Ambalajı açılmış elektronik ürünler iade alınmaz.).",
+      "expectedImpacts": [
+        "return:SmallElectronics:OpenedReturn"
+      ]
     }
   ],
   "decoys": [

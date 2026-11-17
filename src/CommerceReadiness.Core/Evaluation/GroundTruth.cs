@@ -40,7 +40,11 @@ public sealed record InjectedDefect(
     string? PublishedValue,
     string AuthoritativeValue,
     DataSource Source,
-    string ExpectedFix);
+    string ExpectedFix)
+{
+    /// <summary>Evaluation units this defect is expected to make not pass (see <see cref="EvaluationUnits.ExpectedImpacts"/>).</summary>
+    public ImmutableArray<string> ExpectedImpacts { get; init; } = [];
+}
 
 /// <summary>
 /// A published case that looks like a defect but is consistent with authoritative truth. Analyzers that flag

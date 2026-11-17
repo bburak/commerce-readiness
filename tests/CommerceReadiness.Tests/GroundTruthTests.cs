@@ -58,14 +58,15 @@ public class GroundTruthTests
     [Fact]
     public void Published_failures_are_exactly_the_injected_defects()
     {
-        var expected = Truth.Defects.Select(EvaluationUnits.For).Order(StringComparer.Ordinal).ToList();
+        var expected = Truth.Defects.SelectMany(d => d.ExpectedImpacts).Order(StringComparer.Ordinal).ToList();
+        Assert.Equal(expected.Count, expected.Distinct().Count());
 
         AssertFailuresMatch(TestData.Seed42.Metrics.Stores.Single(s => s.Store == StoreKind.Published), expected);
 
         var directory = TestData.NewTempDirectory();
         DatasetWriter.Write(TestData.Seed42, directory);
         var reread = DatasetReader.ReadStore(Path.Combine(directory, DatasetWriter.PublishedFolder), StoreKind.Published, Truth.StoreVersion);
-        AssertFailuresMatch(ReadinessMetrics.Compute(reread, Clean, Truth.SemanticFacts, TestData.Seed42.Context), expected);
+        AssertFailuresMatch(ReadinessMetrics.Compute(reread, TestData.Seed42Units, Clean, Truth.SemanticFacts), expected);
     }
 
     [Fact]
@@ -115,11 +116,8 @@ public class GroundTruthTests
     public void Every_decoy_is_consistent_and_not_a_defect()
     {
         var published = TestData.Seed42.Metrics.Stores.Single(s => s.Store == StoreKind.Published);
-        var failed = published.CatalogCompleteness.FailedUnits
-            .Concat(published.SemanticCoverage.FailedUnits)
-            .Concat(published.DataConsistency.FailedUnits)
-            .ToHashSet(StringComparer.Ordinal);
-        var defectUnits = Truth.Defects.Select(EvaluationUnits.For).ToHashSet(StringComparer.Ordinal);
+        var failed = published.AllNotPassingUnits().ToHashSet(StringComparer.Ordinal);
+        var defectUnits = Truth.Defects.SelectMany(d => d.ExpectedImpacts).ToHashSet(StringComparer.Ordinal);
 
         Assert.All(Truth.Decoys, decoy =>
         {
@@ -129,8 +127,8 @@ public class GroundTruthTests
             Assert.Equal(DefectSource(decoy.NearMissOf), decoy.Source);
         });
 
-        var allUnits = ReadinessMetrics.CatalogCompleteness(Published).Units
-            .Concat(ReadinessMetrics.DataConsistency(Published, Clean, Truth.SemanticFacts, TestData.Seed42.Context).Units)
+        var allUnits = ReadinessMetrics.CatalogCompleteness(Published, TestData.Seed42Units).Units
+            .Concat(ReadinessMetrics.DataConsistency(Published, TestData.Seed42Units, Clean, Truth.SemanticFacts).Units)
             .Select(u => u.UnitId)
             .ToHashSet(StringComparer.Ordinal);
         Assert.All(Truth.Decoys, decoy => Assert.Contains(EvaluationUnits.For(decoy), allUnits));
@@ -191,10 +189,7 @@ public class GroundTruthTests
 
     private static void AssertFailuresMatch(StoreMetrics metrics, List<string> expected)
     {
-        var actual = metrics.CatalogCompleteness.FailedUnits
-            .Concat(metrics.DataConsistency.FailedUnits)
-            .Order(StringComparer.Ordinal)
-            .ToList();
+        var actual = metrics.AllNotPassingUnits().Order(StringComparer.Ordinal).ToList();
         Assert.Equal(expected, actual);
     }
 

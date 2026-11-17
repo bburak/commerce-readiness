@@ -59,9 +59,19 @@ foreach (var store in dataset.Metrics.Stores)
     Console.WriteLine($"  {store.Store}");
     foreach (var metric in new[] { store.CatalogCompleteness, store.SemanticCoverage, store.DataConsistency })
     {
-        Console.WriteLine($"    {metric.Name,-20}: {metric.Numerator} / {metric.Denominator} = {Percent(metric)}");
+        Console.WriteLine($"    {metric.Name,-20}: {metric.Numerator} / {metric.Denominator} = {Percent(metric)}" +
+                          $"  (failed {metric.FailedUnits.Length}, not evaluable {metric.NotEvaluableUnits.Length})");
     }
 }
+
+var coverage = dataset.Metrics.PublishedDefectCoverage;
+Console.WriteLine("Published defect coverage:");
+Console.WriteLine($"  Unique injected defects         : {coverage.InjectedDefects}");
+Console.WriteLine($"  Defects with expected impact    : {coverage.DefectsWithExpectedImpact}");
+Console.WriteLine($"  Defects detected by failing units: {coverage.DefectsDetectedByFailingUnits}");
+Console.WriteLine($"  CatalogCompleteness failures    : {coverage.CatalogCompletenessFailures}");
+Console.WriteLine($"  SemanticCoverage failures       : {coverage.SemanticCoverageFailures}");
+Console.WriteLine($"  DataConsistency failures        : {coverage.DataConsistencyFailures}");
 
 Console.WriteLine($"Written to        : {Path.GetFullPath(directory)}");
 return 0;

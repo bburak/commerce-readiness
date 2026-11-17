@@ -1,3 +1,4 @@
+using CommerceReadiness.Core.Evaluation;
 using CommerceReadiness.DemoStore;
 
 namespace CommerceReadiness.Tests;
@@ -6,7 +7,12 @@ internal static class TestData
 {
     private static readonly Lazy<DemoStoreDataset> Seed42Lazy = new(() => DemoStoreBuilder.Build(42));
 
+    private static readonly Lazy<EvaluationUnitSet> Seed42UnitsLazy =
+        new(() => EvaluationUnitSet.FromClean(Seed42.Clean, Seed42.Context));
+
     public static DemoStoreDataset Seed42 => Seed42Lazy.Value;
+
+    public static EvaluationUnitSet Seed42Units => Seed42UnitsLazy.Value;
 
     public static string NewTempDirectory()
     {

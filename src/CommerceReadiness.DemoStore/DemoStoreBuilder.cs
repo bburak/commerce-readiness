@@ -40,11 +40,11 @@ public static class DemoStoreBuilder
         ImmutableArray<SemanticFact> facts = [.. cleanFacts, .. publishedFacts];
         var groundTruth = new GroundTruth(storeVersion, context.Seed, context.Now, FieldOwnership.All, defects, decoys, facts);
 
-        var metrics = new MetricsReport(storeVersion, context.Now,
-        [
-            ReadinessMetrics.Compute(clean, clean, facts, context),
-            ReadinessMetrics.Compute(published, clean, facts, context),
-        ]);
+        var units = EvaluationUnitSet.FromClean(clean, context);
+        var cleanMetrics = ReadinessMetrics.Compute(clean, units, clean, facts);
+        var publishedMetrics = ReadinessMetrics.Compute(published, units, clean, facts);
+        var metrics = new MetricsReport(
+            storeVersion, context.Now, [cleanMetrics, publishedMetrics], DefectCoverage.Compute(defects, publishedMetrics));
 
         return new DemoStoreDataset(context, clean, published, groundTruth, new IntentsFile(storeVersion, context.Now, intents), metrics);
     }

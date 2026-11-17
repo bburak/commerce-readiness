@@ -1,8 +1,10 @@
+using CommerceReadiness.Core.Domain;
+
 namespace CommerceReadiness.Core.Evaluation;
 
 /// <summary>
-/// Stable identifiers of the evaluable units behind every metric. Each defect and decoy maps to exactly one unit,
-/// which lets tests prove that published failures are exactly the injected defects.
+/// Stable identifiers of the evaluable units behind every metric, plus the traceability from defects and decoys to
+/// those units. A decoy maps to the single unit it nearly breaks; a defect can affect more than one unit.
 /// </summary>
 public static class EvaluationUnits
 {
@@ -22,11 +24,30 @@ public static class EvaluationUnits
 
     public static string Return(string cellId) => $"return:{cellId}";
 
-    public static string For(InjectedDefect defect) => ForCase(defect.Type, defect.ProductId, defect.Sku, defect.Policy, defect.Field);
+    /// <summary>The unit a decoy nearly breaks; it must stay passing.</summary>
+    public static string For(DecoyCase decoy) => PrimaryUnit(decoy.NearMissOf, decoy.ProductId, decoy.Sku, decoy.Policy, decoy.Field);
 
-    public static string For(DecoyCase decoy) => ForCase(decoy.NearMissOf, decoy.ProductId, decoy.Sku, decoy.Policy, decoy.Field);
+    /// <summary>
+    /// Every unit a defect is expected to make not pass, primary unit first:
+    /// a missing attribute without supporting text also fails Semantic Coverage, and a stale OUT_OF_STOCK row
+    /// publishes no delivery promise, which makes its delivery unit NotEvaluable.
+    /// </summary>
+    public static ImmutableArray<string> ExpectedImpacts(InjectedDefect defect, IEnumerable<SemanticFact> cleanFacts)
+    {
+        var primary = PrimaryUnit(defect.Type, defect.ProductId, defect.Sku, defect.Policy, defect.Field);
+        switch (defect.Type)
+        {
+            case DefectType.MissingRequiredAttribute
+                when !cleanFacts.Any(f => f.Store == StoreKind.Clean && f.ProductId == defect.ProductId && f.AttributeKey == defect.Field):
+                return [primary, Semantic(Require(defect.Sku), defect.Field)];
+            case DefectType.InventoryConflict when defect.PublishedValue == StockStatusText.OutOfStock:
+                return [primary, Delivery(Require(defect.Sku))];
+            default:
+                return [primary];
+        }
+    }
 
-    private static string ForCase(DefectType type, string? productId, string? sku, string? policy, string field) => type switch
+    private static string PrimaryUnit(DefectType type, string? productId, string? sku, string? policy, string field) => type switch
     {
         DefectType.MissingRequiredAttribute => Completeness(Require(sku), field),
         DefectType.InventoryConflict => Stock(Require(sku)),

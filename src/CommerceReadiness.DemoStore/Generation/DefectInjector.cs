@@ -47,7 +47,9 @@ public static class DefectInjector
         return new InjectionResult(
             state.ToSnapshot(),
             [.. state.Facts.OrderBy(f => f.ProductId, StringComparer.Ordinal).ThenBy(f => f.AttributeKey, StringComparer.Ordinal)],
-            [.. defects.OrderBy(d => d.DefectId, StringComparer.Ordinal)]);
+            [.. defects
+                .OrderBy(d => d.DefectId, StringComparer.Ordinal)
+                .Select(d => d with { ExpectedImpacts = EvaluationUnits.ExpectedImpacts(d, cleanFacts) })]);
     }
 
     private static void InjectInventoryConflicts(
