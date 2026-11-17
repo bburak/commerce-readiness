@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\CommerceReadiness.Core\CommerceReadiness.Core.csproj" />
     <ProjectReference Include="..\..\src\CommerceReadiness.DemoStore\CommerceReadiness.DemoStore.csproj" />
+    <ProjectReference Include="..\..\src\CommerceReadiness.Analyzer\CommerceReadiness.Analyzer.csproj" />
   </ItemGroup>
 
 </Project>

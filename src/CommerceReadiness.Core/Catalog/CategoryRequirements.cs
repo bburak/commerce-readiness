@@ -106,6 +106,13 @@ public static class CategoryRequirements
     /// <summary>Product-level attributes a description can make a claim about (everything but brand).</summary>
     public static IEnumerable<string> DescriptionClaimKeys(Category category) =>
         For(category).Where(r => r.Level == AttributeLevel.Product && r.Key != AttributeKeys.Brand).Select(r => r.Key);
+
+    /// <summary>
+    /// Whether an attribute key lives on the variant (SKU). Keys are never product-level in one category and
+    /// variant-level in another, so the key alone decides whether a case targets a product or a SKU.
+    /// </summary>
+    public static bool IsVariantLevelKey(string key) =>
+        Enum.GetValues<Category>().Any(c => VariantLevelKeys(c).Contains(key, StringComparer.Ordinal));
 }
 
 public static class StructuredValues
