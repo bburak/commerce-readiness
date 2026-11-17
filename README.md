@@ -4,8 +4,9 @@ Commerce Readiness Lab tests whether an ecommerce store can be reliably understo
 can an agent find the right product, respect the shopper's constraints, and avoid confidently wrong answers when the
 store's own data is stale, incomplete or contradictory?
 
-This repository is at **Milestone 0**: a deterministic synthetic store (DemoStore) plus a trustworthy evaluation
-foundation. There is no AI in it yet, on purpose.
+This repository is at **Milestone 1**. It contains a deterministic synthetic store (DemoStore) with a trustworthy
+evaluation foundation (Milestone 0) and a deterministic Readiness Analyzer that reads only published data, scored by a
+separate evaluator (Milestone 1). There is no AI in it yet, on purpose.
 
 ## What Milestone 0 contains
 
@@ -17,7 +18,15 @@ foundation. There is no AI in it yet, on purpose.
   deterministic **oracle** (14 with valid products, 4 with no valid product, 2 with insufficient information).
 - **Readiness metrics** with explicit numerators and denominators, computed for the clean and published stores.
 - The **output contract** a future LLM shopper must follow, so its answers can be evaluated deterministically.
-- 86 xUnit tests proving reproducibility and internal consistency.
+## What Milestone 1 adds
+
+- A **Readiness Analyzer** with five explicit rules. It reads only the published store and emits actionable
+  **findings**, each with evidence and a suggested fix.
+- A separate **AnalyzerEvaluator** that scores findings against ground truth: precision, deterministic recall,
+  overall recall and decoy hits.
+- An analyzer CLI whose normal mode never touches the clean store or ground truth.
+- A `store.json` manifest per store folder (schema version, store version, kind, as-of time).
+- 165 xUnit tests in total, including trust-boundary tests.
 
 ## Why ground truth comes before AI
 
@@ -180,6 +189,96 @@ Claim          { Type (InStock, DeliveryBy, Price, InstallmentCount, ReturnEligi
 
 See [docs/evaluation-contract.md](docs/evaluation-contract.md) for details.
 
+## Readiness Analyzer (Milestone 1)
+
+The analyzer is the first product-analysis layer. It answers one question: what is wrong with this store's
+observable data, and how should it be fixed? Its output is a list of findings.
+
+```
+Published Store
+      |
+      v
+Readiness Analyzer ---> Findings ----------+
+                                           |
+                     Ground Truth -------> Evaluator ---> precision / recall / false positives / false negatives
+                     (hidden; read only with --evaluate)
+```
+
+### Trust boundary
+
+The analyzer only ever sees the published store:
+
+- the published catalog;
+- the authoritative Pricing, Inventory, Shipping, Return Policy and Payments files;
+- `CategoryRequirements`;
+- the store's as-of time from `published/store.json`.
+
+It never reads the clean store, ground truth, injected defects or oracle results. This is enforced in four ways:
+
+- **API shape.** `ReadinessAnalyzer.Analyze(StoreSnapshot published, DateTimeOffset asOf)` has no ground-truth
+  parameter and rejects a clean snapshot.
+- **Loader.** `PublishedDatasetLoader` only builds paths under `published/`. It rejects stores declared `Clean`,
+  missing manifests and unsupported schema versions.
+- **Namespace direction.** `Core.Analysis` never references `Core.Evaluation` or `Core.Shopping`; the evaluator lives in
+  `Core.Evaluation` and consumes analyzer output.
+- **Tests.** The primary proof is behavioral:
+  - a dataset containing only `published/` analyzes to byte-identical findings;
+  - a dataset whose `clean/` and `eval/` folders contain garbage still analyzes normally.
+
+  A reflection test over the public analyzer API and a narrow source scan for forbidden folder, file and type
+  references back this up.
+
+### Findings
+
+| Finding type | Rule | Severity |
+|---|---|---|
+| `MissingRequiredAttribute` | A required structured attribute is absent. Description text never satisfies it. There is one finding per product for product-level attributes and one per SKU for variant-level attributes. | Medium |
+| `InventoryConflict` | Catalog `stockStatus` disagrees with the Inventory quantity, in either direction. `OUT_OF_STOCK` with 0 units is fine. | High |
+| `PriceConflict` | Catalog `listedPrice` differs from Pricing. `compareAtPrice` is not a price claim. | High |
+| `DeliveryConflict` | The Istanbul promise differs from the shipping calculation (warehouse cutoff, transit business days, as-of time). Only SKUs with stock are checked. A missing promise is not a delivery defect. | High |
+| `AmbiguousReturnRule` | A return-policy cell is `Unspecified`. Yes, No and Conditional are never flagged. | Medium |
+
+Severity is a simple V0 product heuristic (conflicts that can mislead a purchase are High, gaps are Medium), not a
+universal commerce risk score.
+
+**MisleadingDescription is intentionally deferred.** Detecting a semantic contradiction between description text and
+structured data requires later semantic or AI analysis. Leaving it out is part of the experiment design, not a missing
+implementation: this deterministic baseline is what later semantic analysis must measurably improve on.
+
+### Readiness metrics vs analyzer findings
+
+They answer different questions:
+
+- **Readiness metrics** (Catalog Completeness, Semantic Coverage, Data Consistency) are store metrics computed per
+  evaluable unit with access to hidden truth. For example, Catalog Completeness is 669 / 675 SKU x requirement units.
+- **Findings** are actionable issues the analyzer detects from published data, one per root cause. For example, there
+  are 6 `MissingRequiredAttribute` findings.
+
+### Evaluation (only with `--evaluate`)
+
+The evaluator reduces findings, defects and decoys to the same semantic identity
+`CaseKey(type, target, field)` and matches them one-to-one. The target is the SKU, product or policy cell. Matching
+never uses summary text or IDs, and a second finding for an already-matched defect is a duplicate false positive.
+
+- **Precision** = true-positive findings / findings
+- **Deterministic recall** = detected defects of supported types / injected defects of supported types
+- **Overall recall** = detected defects / all injected defects, including the deferred semantic ones
+- **Decoy false-positive rate** = decoys flagged by at least one finding / decoys
+
+Seed 42 runtime results:
+
+| | Value |
+|---|---|
+| Findings | 20 (12 High, 8 Medium) |
+| Deterministic defects detected | 20 / 20, 0 false positives, 0 false negatives |
+| Deterministic recall | 100.0% |
+| Overall defect recall | 83.3% (20 / 24) |
+| Precision | 100.0% |
+| Decoys flagged | 0 / 8 |
+| Deferred | MisleadingDescription: 4 |
+
+A 40-seed test confirms that precision and deterministic recall stay at 100% with no seed-specific logic.
+
 ## Generate the dataset
 
 ```
@@ -189,13 +288,31 @@ dotnet run --project src/CommerceReadiness.DemoStore -- --seed 42
 The command writes `demo-store/generated/seed-42/`:
 
 ```
-clean/      catalog.csv, price-list.json, inventory.json, shipping.json, payments.json, returns.json
+clean/      store.json, catalog.csv, price-list.json, inventory.json, shipping.json, payments.json, returns.json
 published/  same files, with defects injected
 eval/       ground-truth.json, intents.json, metrics.json
+analysis/   findings.json, summary.json, evaluation.json (written by the analyzer)
 ```
+
+`store.json` is the store manifest: `schemaVersion` (currently 1), `storeVersion`, `kind` and `asOf`, the simulation
+clock the store's delivery promises refer to. Readers reject unsupported schema versions.
 
 `--out <dir>` changes the output directory. The seed-42 dataset is committed. Output is byte-identical for a given
 seed regardless of machine culture. Intent outcomes are designed for the default simulation clock.
+
+## Run the analyzer
+
+```
+dotnet run --project src/CommerceReadiness.Analyzer -- --dataset demo-store/generated/seed-42
+dotnet run --project src/CommerceReadiness.Analyzer -- --dataset demo-store/generated/seed-42 --evaluate
+```
+
+- **Normal mode** reads `published/` only, prints a report, and writes `analysis/findings.json` and
+  `analysis/summary.json`.
+- **`--evaluate`** additionally reads `eval/ground-truth.json` and writes `analysis/evaluation.json`. It is the only
+  path that touches ground truth.
+
+`--out <dir>` changes the analysis output directory. Output is byte-identical for the same dataset.
 
 ## Run the tests
 
@@ -221,18 +338,27 @@ The tests cover:
 - JSON and CSV round-trip;
 - a regression test proving a misleading description cannot raise Semantic Coverage;
 - variant evidence: a SKU-scoped fact covers only its own SKU, unscoped variant evidence never counts, and a wrong
-  SKU-scoped claim fails only that SKU's claim unit.
+  SKU-scoped claim fails only that SKU's claim unit;
+- store manifests: the reader rejects unsupported schema versions and missing manifests;
+- analyzer trust boundary: the analyzer rejects the clean store and its API takes no ground truth; the published-only
+  and poisoned-folder datasets behave as described above; evaluation happens only with `--evaluate`;
+- analyzer rules: every supported seed-42 defect is detected, MisleadingDescription is not, no decoy is flagged, and a
+  consistent store yields zero findings;
+- evaluator: correct TP/FP/FN counts, deterministic vs overall recall, duplicate findings counted as false positives,
+  per-decoy hits, and matching by semantic identity only;
+- analyzer determinism: stable and unique finding IDs, byte-identical analysis files, and 40 seeds analyzed
+  generically.
 
 ## Not built yet (by design)
 
 No LLM or AI calls, RAG, embeddings, vector search or pgvector; no database or EF Core; no web API or UI; no Shopify
-or other external integration; no checkout or authentication; no analyzer or repair flow; no evaluation runner. The
-only dependencies are the .NET 10 SDK and xUnit.
+or other external integration; no checkout or authentication; no semantic analysis of description text; no repair
+flow; no shopper evaluation runner. The only dependencies are the .NET 10 SDK and xUnit.
 
 ## Roadmap
 
-- **Milestone 1**: Deterministic Readiness Analyzer that reads only published data and is scored against this ground
-  truth (precision and recall, with decoys).
+- **Milestone 1 (done)**: Deterministic Readiness Analyzer that reads only published data and is scored against this
+  ground truth (precision and recall, with decoys).
 - **Milestone 2**: Hybrid product retrieval: structured filters plus semantic search (pgvector).
 - **Milestone 3**: LLM shopper with tool calling, producing the `ShopperResult` contract.
 - **Milestone 4**: Evaluation runner and before/after comparison (published vs repaired store).
@@ -241,8 +367,10 @@ only dependencies are the .NET 10 SDK and xUnit.
 ## Layout
 
 ```
-src/CommerceReadiness.Core        domain, source-of-truth map, delivery, oracle, metrics, contracts
-src/CommerceReadiness.DemoStore   CLI: seeded generator, defect/decoy injection, intents, file output
+src/CommerceReadiness.Core        domain, source-of-truth map, delivery, oracle, metrics, contracts,
+                                  store storage (Storage/), readiness analyzer (Analysis/), evaluators (Evaluation/)
+src/CommerceReadiness.DemoStore   CLI: seeded generator, defect/decoy injection, intents, dataset output
+src/CommerceReadiness.Analyzer    CLI: published-only analysis, optional --evaluate
 tests/CommerceReadiness.Tests     xUnit tests
 demo-store/generated/seed-42      committed reference dataset
 ```
