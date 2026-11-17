@@ -1,0 +1,92 @@
+{
+  "source": "ReturnPolicy",
+  "rules": [
+    {
+      "category": "Backpacks",
+      "question": "UnopenedReturn",
+      "answer": "Yes",
+      "windowDays": 14,
+      "cellId": "Backpacks:UnopenedReturn"
+    },
+    {
+      "category": "Backpacks",
+      "question": "OpenedReturn",
+      "answer": "Conditional",
+      "conditionTr": "Ürün kullanılmamış ve etiketleri üzerinde olmalıdır.",
+      "windowDays": 14,
+      "cellId": "Backpacks:OpenedReturn"
+    },
+    {
+      "category": "Backpacks",
+      "question": "DefectiveReturn",
+      "answer": "Yes",
+      "windowDays": 30,
+      "cellId": "Backpacks:DefectiveReturn"
+    },
+    {
+      "category": "Sneakers",
+      "question": "UnopenedReturn",
+      "answer": "Yes",
+      "windowDays": 30,
+      "cellId": "Sneakers:UnopenedReturn"
+    },
+    {
+      "category": "Sneakers",
+      "question": "OpenedReturn",
+      "answer": "Conditional",
+      "conditionTr": "Ayakkabı dış mekânda giyilmemiş olmalıdır.",
+      "windowDays": 30,
+      "cellId": "Sneakers:OpenedReturn"
+    },
+    {
+      "category": "Sneakers",
+      "question": "DefectiveReturn",
+      "answer": "Yes",
+      "windowDays": 30,
+      "cellId": "Sneakers:DefectiveReturn"
+    },
+    {
+      "category": "Headphones",
+      "question": "UnopenedReturn",
+      "answer": "Unspecified",
+      "conditionTr": "Duruma göre değerlendirilir.",
+      "cellId": "Headphones:UnopenedReturn"
+    },
+    {
+      "category": "Headphones",
+      "question": "OpenedReturn",
+      "answer": "Conditional",
+      "conditionTr": "Hijyen bandı açılmamış ve ürün hasarsız olmalıdır.",
+      "windowDays": 14,
+      "cellId": "Headphones:OpenedReturn"
+    },
+    {
+      "category": "Headphones",
+      "question": "DefectiveReturn",
+      "answer": "Yes",
+      "windowDays": 30,
+      "cellId": "Headphones:DefectiveReturn"
+    },
+    {
+      "category": "SmallElectronics",
+      "question": "UnopenedReturn",
+      "answer": "Yes",
+      "windowDays": 14,
+      "cellId": "SmallElectronics:UnopenedReturn"
+    },
+    {
+      "category": "SmallElectronics",
+      "question": "OpenedReturn",
+      "answer": "Unspecified",
+      "conditionTr": "Duruma göre değerlendirilir.",
+      "cellId": "SmallElectronics:OpenedReturn"
+    },
+    {
+      "category": "SmallElectronics",
+      "question": "DefectiveReturn",
+      "answer": "Yes",
+      "windowDays": 30,
+      "cellId": "SmallElectronics:DefectiveReturn"
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+{
+  "source": "Pricing",
+  "currency": "TRY",
+  "prices": [
+    {
+      "sku": "SKU-BP-001",
+      "priceTry": 2699.90
+    },
+    {
+      "sku": "SKU-BP-002",
+      "priceTry": 3299.90
+    },
+    {
+      "sku": "SKU-BP-003",
+      "priceTry": 1399.90
+    },
+    {
+      "sku": "SKU-BP-004",
+      "priceTry": 1699.90
+    },
+    {
+      "sku": "SKU-BP-005",
+      "priceTry": 2199.90
+    },
+    {
+      "sku": "SKU-BP-006",
+      "priceTry": 3199.90
+    },
+    {
+      "sku": "SKU-BP-007",
+      "priceTry": 3099.90
+    },
+    {
+      "sku": "SKU-BP-008",
+      "priceTry": 2699.90
+    },
+    {
+      "sku": "SKU-BP-009",
+      "priceTry": 2899.90
+    },
+    {
+      "sku": "SKU-BP-010",
+      "priceTry": 2899.90
+    },
+    {
+      "sku": "SKU-BP-011",
+      "priceTry": 3199.90
+    },
+    {
+      "sku": "SKU-BP-012",
+      "priceTry": 2599.90
+    },
+    {
+      "sku": "SKU-BP-013",
+      "priceTry": 1899.90
+    },
+    {
+      "sku": "SKU-BP-014",
+      "priceTry": 2399.90
+    },
+    {
+      "sku": "SKU-BP-015",
+      "priceTry": 2399.90
+    },
+    {
+      "sku": "SKU-BP-016",
+      "priceTry": 2299.90
+    },
+    {
+      "sku": "SKU-BP-017",
+      "priceTry": 1999.90
+    },
+    {
+      "sku": "SKU-BP-018",
+      "priceTry": 2899.90
+    },
+    {
+      "sku": "SKU-BP-019",
+      "priceTry": 3899.90
+    },
+    {
+      "sku": "SKU-BP-020",
+      "priceTry": 2199.90
+    },
+    {
+      "sku": "SKU-BP-021",
+      "priceTry": 3199.90
+    },
+    {
+      "sku": "SKU-BP-022",
+      "priceTry": 2699.90
+    },
+    {
+      "sku": "SKU-BP-023",
+      "priceTry": 2599.90
+    },
+    {
+      "sku": "SKU-BP-024",
+      "priceTry": 3299.90
+    },
+    {
+      "sku": "SKU-BP-025",
+      "priceTry": 3399.90
+    },
+    {
+      "sku": "SKU-HP-001",
+      "priceTry": 3499.90
+    },
+    {
+      "sku": "SKU-HP-002",
+      "priceTry": 1299.90
+    },
+    {
+      "sku": "SKU-HP-003",
+      "priceTry": 3599.90
+    },
+    {
+      "sku": "SKU-HP-004",
+      "priceTry": 1799.90
+    },
+    {
+      "sku": "SKU-HP-005",
+      "priceTry": 3399.90
+    },
+    {
+      "sku": "SKU-HP-006",
+      "priceTry": 3199.90
+    },
+    {
+      "sku": "SKU-HP-007",
+      "priceTry": 1799.90
+    },
+    {
+      "sku": "SKU-HP-008",
+      "priceTry": 3299.90
+    },
+    {
+      "sku": "SKU-HP-009",
+      "priceTry": 1999.90
+    },
+    {
+      "sku": "SKU-HP-010",
+      "priceTry": 3699.90
+    },
+    {
+      "sku": "SKU-HP-011",
+      "priceTry": 3299.90
+    },
+    {
+      "sku": "SKU-HP-012",
+      "priceTry": 1299.90
+    },
+    {
+      "sku": "SKU-HP-013",
+      "priceTry": 3199.90
+    },
+    {
+      "sku": "SKU-HP-014",
+      "priceTry": 1999.90
+    },
+    {
+      "sku": "SKU-HP-015",
+      "priceTry": 1099.90
+    },
+    {
+      "sku": "SKU-HP-016",
+      "priceTry": 3599.90
+    },
+    {
+      "sku": "SKU-HP-017",
+      "priceTry": 3799.90
+    },
+    {
+      "sku": "SKU-HP-018",
+      "priceTry": 1599.90
+    },
+    {
+      "sku": "SKU-HP-019",
+      "priceTry": 3799.90
+    },
+    {
+      "sku": "SKU-HP-020",
+      "priceTry": 3299.90
+    },
+    {
+      "sku": "SKU-SE-001",
+      "priceTry": 1499.90
+    },
+    {
+      "sku": "SKU-SE-002",
+      "priceTry": 1299.90
+    },
+    {
+      "sku": "SKU-SE-003",
+      "priceTry": 1199.90
+    },
+    {
+      "sku": "SKU-SE-004",
+      "priceTry": 2899.90
+    },
+    {
+      "sku": "SKU-SE-005",
+      "priceTry": 2099.90
+    },
+    {
+      "sku": "SKU-SE-006",
+      "priceTry": 699.90
+    },
+    {
+      "sku": "SKU-SE-007",
+      "priceTry": 5499.90
+    },
+    {
+      "sku": "SKU-SE-008",
+      "priceTry": 999.90
+    },
+    {
+      "sku": "SKU-SE-009",
+      "priceTry": 2399.90
+    },
+    {
+      "sku": "SKU-SE-010",
+      "priceTry": 1199.90
+    },
+    {
+      "sku": "SKU-SE-011",
+      "priceTry": 3499.90
+    },
+    {
+      "sku": "SKU-SE-012",
+      "priceTry": 1099.90
+    },
+    {
+      "sku": "SKU-SE-013",
+      "priceTry": 2199.90
+    },
+    {
+      "sku": "SKU-SE-014",
+      "priceTry": 2799.90
+    },
+    {
+      "sku": "SKU-SE-015",
+      "priceTry": 1399.90
+    },
+    {
+      "sku": "SKU-SE-016",
+      "priceTry": 2099.90
+    },
+    {
+      "sku": "SKU-SE-017",
+      "priceTry": 3499.90
+    },
+    {
+      "sku": "SKU-SE-018",
+      "priceTry": 1099.90
+    },
+    {
+      "sku": "SKU-SE-019",
+      "priceTry": 1799.90
+    },
+    {
+      "sku": "SKU-SE-020",
+      "priceTry": 1699.90
+    },
+    {
+      "sku": "SKU-SE-021",
+      "priceTry": 2099.90
+    },
+    {
+      "sku": "SKU-SE-022",
+      "priceTry": 2399.90
+    },
+    {
+      "sku": "SKU-SE-023",
+      "priceTry": 1999.90
+    },
+    {
+      "sku": "SKU-SE-024",
+      "priceTry": 1899.90
+    },
+    {
+      "sku": "SKU-SE-025",
+      "priceTry": 2299.90
+    },
+    {
+      "sku": "SKU-SN-001-41-BLK",
+      "priceTry": 3699.90
+    },
+    {
+      "sku": "SKU-SN-001-43-NVY",
+      "priceTry": 3699.90
+    },
+    {
+      "sku": "SKU-SN-001-44-NVY",
+      "priceTry": 3699.90
+    },
+    {
+      "sku": "SKU-SN-002-38-NVY",
+      "priceTry": 2799.90
+    },
+    {
+      "sku": "SKU-SN-002-38-WHT",
+      "priceTry": 2799.90
+    },
+    {
+      "sku": "SKU-SN-002-40-NVY",
+      "priceTry": 2799.90
+    },
+    {
+      "sku": "SKU-SN-002-45-WHT",
+      "priceTry": 2799.90
+    },
+    {
+      "sku": "SKU-SN-003-39-GRY",
+      "priceTry": 3099.90
+    },
+    {
+      "sku": "SKU-SN-003-42-GRY",
+      "priceTry": 3099.90
+    },
+    {
+      "sku": "SKU-SN-003-43-GRY",
+      "priceTry": 3099.90
+    },
+    {
+      "sku": "SKU-SN-003-45-GRY",
+      "priceTry": 3099.90
+    },
+    {
+      "sku": "SKU-SN-004-42-GRN",
+      "priceTry": 2199.90
+    },
+    {
+      "sku": "SKU-SN-004-44-GRN",
+      "priceTry": 2199.90
+    },
+    {
+      "sku": "SKU-SN-004-44-GRY",
+      "priceTry": 2199.90
+    },
+    {
+      "sku": "SKU-SN-004-45-GRY",
+      "priceTry": 2199.90
+    },
+    {
+      "sku": "SKU-SN-005-36-WHT",
+      "priceTry": 4899.90
+    },
+    {
+      "sku": "SKU-SN-005-39-WHT",
+      "priceTry": 4899.90
+    },
+    {
+      "sku": "SKU-SN-005-40-WHT",
+      "priceTry": 4899.90
+    },
+    {
+      "sku": "SKU-SN-005-41-WHT",
+      "priceTry": 4899.90
+    },
+    {
+      "sku": "SKU-SN-006-36-WHT",
+      "priceTry": 3199.90
+    },
+    {
+      "sku": "SKU-SN-006-38-GRN",
+      "priceTry": 3199.90
+    },
+    {
+      "sku": "SKU-SN-006-40-GRN",
+      "priceTry": 3199.90
+    },
+    {
+      "sku": "SKU-SN-006-41-GRN",
+      "priceTry": 3199.90
+    },
+    {
+      "sku": "SKU-SN-007-40-GRN",
+      "priceTry": 3799.90
+    },
+    {
+      "sku": "SKU-SN-007-41-GRN",
+      "priceTry": 3799.90
+    },
+    {
+      "sku": "SKU-SN-007-42-GRN",
+      "priceTry": 3799.90
+    },
+    {
+      "sku": "SKU-SN-007-43-GRN",
+      "priceTry": 3799.90
+    },
+    {
+      "sku": "SKU-SN-008-43-BLK",
+      "priceTry": 2499.90
+    },
+    {
+      "sku": "SKU-SN-008-44-BLK",
+      "priceTry": 2499.90
+    },
+    {
+      "sku": "SKU-SN-008-44-RED",
+      "priceTry": 2499.90
+    }
+  ]
+}

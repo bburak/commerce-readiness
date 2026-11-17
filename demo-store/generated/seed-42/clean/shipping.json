@@ -1,0 +1,50 @@
+{
+  "source": "Shipping",
+  "businessDays": "Monday-Friday; public holidays not modeled",
+  "warehouses": [
+    {
+      "warehouseId": "IST-TUZLA",
+      "name": "İstanbul Tuzla Depo",
+      "city": "Istanbul",
+      "cutoffHour": 14
+    },
+    {
+      "warehouseId": "IZM-GAZIEMIR",
+      "name": "İzmir Gaziemir Depo",
+      "city": "Izmir",
+      "cutoffHour": 9
+    }
+  ],
+  "rules": [
+    {
+      "warehouseId": "IST-TUZLA",
+      "destination": "Istanbul",
+      "transitBusinessDays": 1
+    },
+    {
+      "warehouseId": "IST-TUZLA",
+      "destination": "Ankara",
+      "transitBusinessDays": 2
+    },
+    {
+      "warehouseId": "IST-TUZLA",
+      "destination": "Izmir",
+      "transitBusinessDays": 2
+    },
+    {
+      "warehouseId": "IZM-GAZIEMIR",
+      "destination": "Istanbul",
+      "transitBusinessDays": 2
+    },
+    {
+      "warehouseId": "IZM-GAZIEMIR",
+      "destination": "Ankara",
+      "transitBusinessDays": 2
+    },
+    {
+      "warehouseId": "IZM-GAZIEMIR",
+      "destination": "Izmir",
+      "transitBusinessDays": 1
+    }
+  ]
+}

@@ -1,0 +1,3420 @@
+{
+  "storeVersion": "demostore-v0-seed-42",
+  "seed": 42,
+  "simulationClock": "2026-11-17T10:00:00+03:00",
+  "sourceOfTruth": [
+    {
+      "field": "product.identity",
+      "owner": "Catalog",
+      "authoritativeFile": "catalog.csv"
+    },
+    {
+      "field": "product.title",
+      "owner": "Catalog",
+      "authoritativeFile": "catalog.csv"
+    },
+    {
+      "field": "product.description",
+      "owner": "Catalog",
+      "authoritativeFile": "catalog.csv"
+    },
+    {
+      "field": "product.attributes",
+      "owner": "Catalog",
+      "authoritativeFile": "catalog.csv"
+    },
+    {
+      "field": "sku.price",
+      "owner": "Pricing",
+      "authoritativeFile": "price-list.json",
+      "storefrontProjection": "catalog.csv:listedPrice"
+    },
+    {
+      "field": "sku.stock",
+      "owner": "Inventory",
+      "authoritativeFile": "inventory.json",
+      "storefrontProjection": "catalog.csv:stockStatus"
+    },
+    {
+      "field": "sku.delivery",
+      "owner": "Shipping",
+      "authoritativeFile": "shipping.json",
+      "storefrontProjection": "catalog.csv:deliveryPromiseIstanbul"
+    },
+    {
+      "field": "policy.returns",
+      "owner": "ReturnPolicy",
+      "authoritativeFile": "returns.json"
+    },
+    {
+      "field": "payment.installments",
+      "owner": "Payments",
+      "authoritativeFile": "payments.json"
+    }
+  ],
+  "defects": [
+    {
+      "defectId": "DEF-DLV-SKU-SE-005",
+      "type": "DeliveryConflict",
+      "productId": "P-SE-005",
+      "sku": "SKU-SE-005",
+      "field": "deliveryPromiseIstanbul",
+      "publishedValue": "2026-11-17",
+      "authoritativeValue": "2026-11-18",
+      "source": "Shipping",
+      "expectedFix": "Set the Istanbul delivery promise to 2026-11-18 as calculated from shipping.json at the simulation clock."
+    },
+    {
+      "defectId": "DEF-DLV-SKU-SN-001-44-NVY",
+      "type": "DeliveryConflict",
+      "productId": "P-SN-001",
+      "sku": "SKU-SN-001-44-NVY",
+      "field": "deliveryPromiseIstanbul",
+      "publishedValue": "2026-11-18",
+      "authoritativeValue": "2026-11-20",
+      "source": "Shipping",
+      "expectedFix": "Set the Istanbul delivery promise to 2026-11-20 as calculated from shipping.json at the simulation clock."
+    },
+    {
+      "defectId": "DEF-DLV-SKU-SN-002-38-NVY",
+      "type": "DeliveryConflict",
+      "productId": "P-SN-002",
+      "sku": "SKU-SN-002-38-NVY",
+      "field": "deliveryPromiseIstanbul",
+      "publishedValue": "2026-11-17",
+      "authoritativeValue": "2026-11-18",
+      "source": "Shipping",
+      "expectedFix": "Set the Istanbul delivery promise to 2026-11-18 as calculated from shipping.json at the simulation clock."
+    },
+    {
+      "defectId": "DEF-INV-SKU-BP-007",
+      "type": "InventoryConflict",
+      "productId": "P-BP-007",
+      "sku": "SKU-BP-007",
+      "field": "stockStatus",
+      "publishedValue": "OUT_OF_STOCK",
+      "authoritativeValue": "available=32",
+      "source": "Inventory",
+      "expectedFix": "Set catalog stockStatus to IN_STOCK; inventory.json reports 32 units."
+    },
+    {
+      "defectId": "DEF-INV-SKU-BP-020",
+      "type": "InventoryConflict",
+      "productId": "P-BP-020",
+      "sku": "SKU-BP-020",
+      "field": "stockStatus",
+      "publishedValue": "IN_STOCK",
+      "authoritativeValue": "available=0",
+      "source": "Inventory",
+      "expectedFix": "Set catalog stockStatus to OUT_OF_STOCK and remove the delivery promise; inventory.json reports 0 units."
+    },
+    {
+      "defectId": "DEF-INV-SKU-SE-011",
+      "type": "InventoryConflict",
+      "productId": "P-SE-011",
+      "sku": "SKU-SE-011",
+      "field": "stockStatus",
+      "publishedValue": "IN_STOCK",
+      "authoritativeValue": "available=0",
+      "source": "Inventory",
+      "expectedFix": "Set catalog stockStatus to OUT_OF_STOCK and remove the delivery promise; inventory.json reports 0 units."
+    },
+    {
+      "defectId": "DEF-INV-SKU-SE-020",
+      "type": "InventoryConflict",
+      "productId": "P-SE-020",
+      "sku": "SKU-SE-020",
+      "field": "stockStatus",
+      "publishedValue": "OUT_OF_STOCK",
+      "authoritativeValue": "available=16",
+      "source": "Inventory",
+      "expectedFix": "Set catalog stockStatus to IN_STOCK; inventory.json reports 16 units."
+    },
+    {
+      "defectId": "DEF-INV-SKU-SN-004-42-GRN",
+      "type": "InventoryConflict",
+      "productId": "P-SN-004",
+      "sku": "SKU-SN-004-42-GRN",
+      "field": "stockStatus",
+      "publishedValue": "IN_STOCK",
+      "authoritativeValue": "available=0",
+      "source": "Inventory",
+      "expectedFix": "Set catalog stockStatus to OUT_OF_STOCK and remove the delivery promise; inventory.json reports 0 units."
+    },
+    {
+      "defectId": "DEF-MRA-P-BP-011-waterResistance",
+      "type": "MissingRequiredAttribute",
+      "productId": "P-BP-011",
+      "sku": "SKU-BP-011",
+      "field": "waterResistance",
+      "authoritativeValue": "Waterproof",
+      "source": "Catalog",
+      "expectedFix": "Populate structured attribute 'waterResistance' with 'Waterproof'."
+    },
+    {
+      "defectId": "DEF-MRA-P-HP-010-noiseCancellation",
+      "type": "MissingRequiredAttribute",
+      "productId": "P-HP-010",
+      "sku": "SKU-HP-010",
+      "field": "noiseCancellation",
+      "authoritativeValue": "true",
+      "source": "Catalog",
+      "expectedFix": "Populate structured attribute 'noiseCancellation' with 'true'."
+    },
+    {
+      "defectId": "DEF-MRA-P-HP-017-noiseCancellation",
+      "type": "MissingRequiredAttribute",
+      "productId": "P-HP-017",
+      "sku": "SKU-HP-017",
+      "field": "noiseCancellation",
+      "authoritativeValue": "true",
+      "source": "Catalog",
+      "expectedFix": "Populate structured attribute 'noiseCancellation' with 'true'."
+    },
+    {
+      "defectId": "DEF-MRA-P-HP-019-brand",
+      "type": "MissingRequiredAttribute",
+      "productId": "P-HP-019",
+      "sku": "SKU-HP-019",
+      "field": "brand",
+      "authoritativeValue": "Nota",
+      "source": "Catalog",
+      "expectedFix": "Populate structured attribute 'brand' with 'Nota'."
+    },
+    {
+      "defectId": "DEF-MRA-P-SE-003-brand",
+      "type": "MissingRequiredAttribute",
+      "productId": "P-SE-003",
+      "sku": "SKU-SE-003",
+      "field": "brand",
+      "authoritativeValue": "Pratik",
+      "source": "Catalog",
+      "expectedFix": "Populate structured attribute 'brand' with 'Pratik'."
+    },
+    {
+      "defectId": "DEF-MRA-P-SE-020-warrantyMonths",
+      "type": "MissingRequiredAttribute",
+      "productId": "P-SE-020",
+      "sku": "SKU-SE-020",
+      "field": "warrantyMonths",
+      "authoritativeValue": "24",
+      "source": "Catalog",
+      "expectedFix": "Populate structured attribute 'warrantyMonths' with '24'."
+    },
+    {
+      "defectId": "DEF-MSD-P-BP-009-waterResistance",
+      "type": "MisleadingDescription",
+      "productId": "P-BP-009",
+      "sku": "SKU-BP-009",
+      "field": "waterResistance",
+      "publishedValue": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "authoritativeValue": "WaterRepellent",
+      "source": "Catalog",
+      "expectedFix": "Rewrite the description so it states waterResistance=WaterRepellent (it currently asserts Waterproof)."
+    },
+    {
+      "defectId": "DEF-MSD-P-HP-014-batteryHours",
+      "type": "MisleadingDescription",
+      "productId": "P-HP-014",
+      "sku": "SKU-HP-014",
+      "field": "batteryHours",
+      "publishedValue": "Tek şarjla 63 saate kadar kullanım.",
+      "authoritativeValue": "38",
+      "source": "Catalog",
+      "expectedFix": "Rewrite the description so it states batteryHours=38 (it currently asserts 63)."
+    },
+    {
+      "defectId": "DEF-MSD-P-SE-009-warrantyMonths",
+      "type": "MisleadingDescription",
+      "productId": "P-SE-009",
+      "sku": "SKU-SE-009",
+      "field": "warrantyMonths",
+      "publishedValue": "36 ay resmi distribütör garantisi.",
+      "authoritativeValue": "24",
+      "source": "Catalog",
+      "expectedFix": "Rewrite the description so it states warrantyMonths=24 (it currently asserts 36)."
+    },
+    {
+      "defectId": "DEF-MSD-P-SE-017-warrantyMonths",
+      "type": "MisleadingDescription",
+      "productId": "P-SE-017",
+      "sku": "SKU-SE-017",
+      "field": "warrantyMonths",
+      "publishedValue": "36 ay resmi distribütör garantisi.",
+      "authoritativeValue": "24",
+      "source": "Catalog",
+      "expectedFix": "Rewrite the description so it states warrantyMonths=24 (it currently asserts 36)."
+    },
+    {
+      "defectId": "DEF-PRC-SKU-HP-007",
+      "type": "PriceConflict",
+      "productId": "P-HP-007",
+      "sku": "SKU-HP-007",
+      "field": "listedPrice",
+      "publishedValue": "2199.90",
+      "authoritativeValue": "1799.90",
+      "source": "Pricing",
+      "expectedFix": "Update catalog listedPrice to 1799.90 TRY from price-list.json."
+    },
+    {
+      "defectId": "DEF-PRC-SKU-SE-003",
+      "type": "PriceConflict",
+      "productId": "P-SE-003",
+      "sku": "SKU-SE-003",
+      "field": "listedPrice",
+      "publishedValue": "999.90",
+      "authoritativeValue": "1199.90",
+      "source": "Pricing",
+      "expectedFix": "Update catalog listedPrice to 1199.90 TRY from price-list.json."
+    },
+    {
+      "defectId": "DEF-PRC-SKU-SN-001-41-BLK",
+      "type": "PriceConflict",
+      "productId": "P-SN-001",
+      "sku": "SKU-SN-001-41-BLK",
+      "field": "listedPrice",
+      "publishedValue": "3199.90",
+      "authoritativeValue": "3699.90",
+      "source": "Pricing",
+      "expectedFix": "Update catalog listedPrice to 3699.90 TRY from price-list.json."
+    },
+    {
+      "defectId": "DEF-PRC-SKU-SN-004-45-GRY",
+      "type": "PriceConflict",
+      "productId": "P-SN-004",
+      "sku": "SKU-SN-004-45-GRY",
+      "field": "listedPrice",
+      "publishedValue": "2599.90",
+      "authoritativeValue": "2199.90",
+      "source": "Pricing",
+      "expectedFix": "Update catalog listedPrice to 2199.90 TRY from price-list.json."
+    },
+    {
+      "defectId": "DEF-RET-Headphones-UnopenedReturn",
+      "type": "AmbiguousReturnRule",
+      "policy": "Headphones:UnopenedReturn",
+      "field": "answer",
+      "publishedValue": "Unspecified: Duruma göre değerlendirilir.",
+      "authoritativeValue": "Yes",
+      "source": "ReturnPolicy",
+      "expectedFix": "State an explicit answer: Yes within 14 days."
+    },
+    {
+      "defectId": "DEF-RET-SmallElectronics-OpenedReturn",
+      "type": "AmbiguousReturnRule",
+      "policy": "SmallElectronics:OpenedReturn",
+      "field": "answer",
+      "publishedValue": "Unspecified: Duruma göre değerlendirilir.",
+      "authoritativeValue": "No",
+      "source": "ReturnPolicy",
+      "expectedFix": "State an explicit answer: No (condition: Ambalajı açılmış elektronik ürünler iade alınmaz.)."
+    }
+  ],
+  "decoys": [
+    {
+      "decoyId": "DCY-ANC-P-HP-018",
+      "pattern": "ExplicitFalseIsPresent",
+      "nearMissOf": "MissingRequiredAttribute",
+      "productId": "P-HP-018",
+      "sku": "SKU-HP-018",
+      "field": "noiseCancellation",
+      "publishedValue": "false",
+      "authoritativeValue": "false",
+      "source": "Catalog",
+      "explanation": "noiseCancellation=false is an explicit structured value, not a missing attribute."
+    },
+    {
+      "decoyId": "DCY-CMP-SKU-SE-019",
+      "pattern": "DiscountedPriceMatchesPricing",
+      "nearMissOf": "PriceConflict",
+      "productId": "P-SE-019",
+      "sku": "SKU-SE-019",
+      "field": "listedPrice",
+      "publishedValue": "listedPrice=1799.90; compareAtPrice=2299.90",
+      "authoritativeValue": "1799.90",
+      "source": "Pricing",
+      "explanation": "The strike-through compareAtPrice differs, but the listed price equals the Pricing source: not a PriceConflict."
+    },
+    {
+      "decoyId": "DCY-CND-Headphones-OpenedReturn",
+      "pattern": "ExplicitConditionalReturn",
+      "nearMissOf": "AmbiguousReturnRule",
+      "policy": "Headphones:OpenedReturn",
+      "field": "answer",
+      "publishedValue": "Conditional: Hijyen bandı açılmamış ve ürün hasarsız olmalıdır.",
+      "authoritativeValue": "Conditional",
+      "source": "ReturnPolicy",
+      "explanation": "A Conditional answer with an explicit condition is a clear policy, not an ambiguous one."
+    },
+    {
+      "decoyId": "DCY-CUT-SKU-HP-015",
+      "pattern": "AfterCutoffDeliveryPromise",
+      "nearMissOf": "DeliveryConflict",
+      "productId": "P-HP-015",
+      "sku": "SKU-HP-015",
+      "field": "deliveryPromiseIstanbul",
+      "publishedValue": "2026-11-20",
+      "authoritativeValue": "2026-11-20",
+      "source": "Shipping",
+      "explanation": "The later promise is correct: the Izmir warehouse cutoff (09:00) has passed at 10:00, so it ships the next business day."
+    },
+    {
+      "decoyId": "DCY-OOS-SKU-BP-006",
+      "pattern": "ConsistentOutOfStock",
+      "nearMissOf": "InventoryConflict",
+      "productId": "P-BP-006",
+      "sku": "SKU-BP-006",
+      "field": "stockStatus",
+      "publishedValue": "OUT_OF_STOCK",
+      "authoritativeValue": "available=0",
+      "source": "Inventory",
+      "explanation": "Catalog says OUT_OF_STOCK and inventory has 0 units: consistent, not an InventoryConflict."
+    },
+    {
+      "decoyId": "DCY-OOS-SKU-SE-017",
+      "pattern": "ConsistentOutOfStock",
+      "nearMissOf": "InventoryConflict",
+      "productId": "P-SE-017",
+      "sku": "SKU-SE-017",
+      "field": "stockStatus",
+      "publishedValue": "OUT_OF_STOCK",
+      "authoritativeValue": "available=0",
+      "source": "Inventory",
+      "explanation": "Catalog says OUT_OF_STOCK and inventory has 0 units: consistent, not an InventoryConflict."
+    },
+    {
+      "decoyId": "DCY-VPR-SKU-SN-008-43-BLK",
+      "pattern": "SameProductDifferentColorSamePrice",
+      "nearMissOf": "PriceConflict",
+      "productId": "P-SN-008",
+      "sku": "SKU-SN-008-43-BLK",
+      "field": "listedPrice",
+      "publishedValue": "2499.90",
+      "authoritativeValue": "2499.90",
+      "source": "Pricing",
+      "explanation": "Shares its price with sibling SKU-SN-008-44-RED in another color; both match Pricing, which is expected for variants."
+    },
+    {
+      "decoyId": "DCY-WRP-P-BP-023",
+      "pattern": "WaterRepellentDescriptionMatches",
+      "nearMissOf": "MisleadingDescription",
+      "productId": "P-BP-023",
+      "sku": "SKU-BP-023",
+      "field": "waterResistance",
+      "publishedValue": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "authoritativeValue": "WaterRepellent",
+      "source": "Catalog",
+      "explanation": "\"Su itici kumaş\" describes water repellency, which matches the structured value: not misleading."
+    }
+  ],
+  "semanticFacts": [
+    {
+      "store": "Clean",
+      "productId": "P-BP-001",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "19",
+      "phrase": "19 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-001",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "15.6",
+      "phrase": "15,6 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-001",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-002",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "20",
+      "phrase": "20 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-002",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "15.6",
+      "phrase": "15,6 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-002",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-003",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "17",
+      "phrase": "17 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-003",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-003",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-004",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "20",
+      "phrase": "20 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-004",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-004",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-005",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "14",
+      "phrase": "14 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-005",
+      "attributeKey": "material",
+      "assertedValue": "Cordura",
+      "phrase": "Malzeme: Cordura.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-005",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-006",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "26",
+      "phrase": "26 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-006",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-006",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-007",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "37",
+      "phrase": "37 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-007",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-007",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-008",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "30",
+      "phrase": "30 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-008",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "15.6",
+      "phrase": "15,6 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-008",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-009",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "31",
+      "phrase": "31 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-009",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-009",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-010",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "13",
+      "phrase": "13 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-010",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-010",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-011",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "30",
+      "phrase": "30 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-011",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-011",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-012",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "14",
+      "phrase": "14 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-012",
+      "attributeKey": "material",
+      "assertedValue": "Cordura",
+      "phrase": "Malzeme: Cordura.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-012",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-013",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "16",
+      "phrase": "16 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-013",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-013",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-014",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "24",
+      "phrase": "24 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-014",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "14",
+      "phrase": "14 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-014",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-015",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-015",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-015",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-016",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "14",
+      "phrase": "14 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-016",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-016",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-017",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "27",
+      "phrase": "27 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-017",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "16",
+      "phrase": "16 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-017",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-018",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "39",
+      "phrase": "39 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-018",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-018",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-019",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-019",
+      "attributeKey": "material",
+      "assertedValue": "Naylon",
+      "phrase": "Malzeme: Naylon.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-019",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-020",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "16",
+      "phrase": "16 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-020",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-020",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-021",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "18",
+      "phrase": "18 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-021",
+      "attributeKey": "material",
+      "assertedValue": "Naylon",
+      "phrase": "Malzeme: Naylon.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-021",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-022",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-022",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-022",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-023",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "40",
+      "phrase": "40 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-023",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "13",
+      "phrase": "13 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-023",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-024",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-024",
+      "attributeKey": "material",
+      "assertedValue": "Cordura",
+      "phrase": "Malzeme: Cordura.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-024",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-025",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "33",
+      "phrase": "33 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-025",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-BP-025",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-001",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-001",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-002",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-002",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-003",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.0",
+      "phrase": "Bluetooth 5.0 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-003",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-004",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.3",
+      "phrase": "Bluetooth 5.3 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-004",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-005",
+      "attributeKey": "batteryHours",
+      "assertedValue": "24",
+      "phrase": "Tek şarjla 24 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-005",
+      "attributeKey": "microphone",
+      "assertedValue": "false",
+      "phrase": "Mikrofon bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-005",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-006",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.0",
+      "phrase": "Bluetooth 5.0 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-006",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-007",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-007",
+      "attributeKey": "microphone",
+      "assertedValue": "false",
+      "phrase": "Mikrofon bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-007",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-008",
+      "attributeKey": "batteryHours",
+      "assertedValue": "8",
+      "phrase": "Tek şarjla 8 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-008",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.0",
+      "phrase": "Bluetooth 5.0 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-008",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-009",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.3",
+      "phrase": "Bluetooth 5.3 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-009",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-010",
+      "attributeKey": "batteryHours",
+      "assertedValue": "22",
+      "phrase": "Tek şarjla 22 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-010",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-011",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-011",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-012",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.3",
+      "phrase": "Bluetooth 5.3 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-012",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-013",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.3",
+      "phrase": "Bluetooth 5.3 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-013",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-014",
+      "attributeKey": "batteryHours",
+      "assertedValue": "38",
+      "phrase": "Tek şarjla 38 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-014",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-015",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-015",
+      "attributeKey": "microphone",
+      "assertedValue": "false",
+      "phrase": "Mikrofon bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-015",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-016",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.3",
+      "phrase": "Bluetooth 5.3 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-016",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-016",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-017",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-017",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-018",
+      "attributeKey": "batteryHours",
+      "assertedValue": "17",
+      "phrase": "Tek şarjla 17 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-018",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.0",
+      "phrase": "Bluetooth 5.0 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-018",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-019",
+      "attributeKey": "batteryHours",
+      "assertedValue": "40",
+      "phrase": "Tek şarjla 40 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-019",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.0",
+      "phrase": "Bluetooth 5.0 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-019",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-020",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-HP-020",
+      "attributeKey": "microphone",
+      "assertedValue": "false",
+      "phrase": "Mikrofon bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-001",
+      "attributeKey": "powerSource",
+      "assertedValue": "Dahili Li-ion pil, 10000 mAh",
+      "phrase": "Güç kaynağı: Dahili Li-ion pil, 10000 mAh.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-001",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-002",
+      "attributeKey": "model",
+      "assertedValue": "VX-715",
+      "phrase": "Model kodu: VX-715.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-002",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 11 saat kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 11 saat kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-003",
+      "attributeKey": "powerSource",
+      "assertedValue": "Dahili Li-ion pil, 20000 mAh",
+      "phrase": "Güç kaynağı: Dahili Li-ion pil, 20000 mAh.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-003",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-004",
+      "attributeKey": "model",
+      "assertedValue": "KV-615",
+      "phrase": "Model kodu: KV-615.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-004",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-005",
+      "attributeKey": "model",
+      "assertedValue": "PR-533",
+      "phrase": "Model kodu: PR-533.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-005",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-006",
+      "attributeKey": "model",
+      "assertedValue": "VX-933",
+      "phrase": "Model kodu: VX-933.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-006",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-007",
+      "attributeKey": "model",
+      "assertedValue": "KV-301",
+      "phrase": "Model kodu: KV-301.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-007",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-008",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, USB-C ile şarj",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, USB-C ile şarj.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-008",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-009",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 7 gün kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 7 gün kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-009",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-010",
+      "attributeKey": "model",
+      "assertedValue": "PR-954",
+      "phrase": "Model kodu: PR-954.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-010",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, USB-C ile şarj",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, USB-C ile şarj.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-011",
+      "attributeKey": "model",
+      "assertedValue": "MK-666",
+      "phrase": "Model kodu: MK-666.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-011",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-012",
+      "attributeKey": "model",
+      "assertedValue": "NX-675",
+      "phrase": "Model kodu: NX-675.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-012",
+      "attributeKey": "powerSource",
+      "assertedValue": "Dahili Li-ion pil, 10000 mAh",
+      "phrase": "Güç kaynağı: Dahili Li-ion pil, 10000 mAh.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-013",
+      "attributeKey": "model",
+      "assertedValue": "MK-346",
+      "phrase": "Model kodu: MK-346.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-013",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-014",
+      "attributeKey": "model",
+      "assertedValue": "MK-195",
+      "phrase": "Model kodu: MK-195.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-014",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 15 saat kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 15 saat kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-015",
+      "attributeKey": "model",
+      "assertedValue": "VX-816",
+      "phrase": "Model kodu: VX-816.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-015",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-016",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 10 gün kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 10 gün kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-016",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-017",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şebeke elektriği, 2000 W",
+      "phrase": "Güç kaynağı: Şebeke elektriği, 2000 W.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-017",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-018",
+      "attributeKey": "powerSource",
+      "assertedValue": "Dahili Li-ion pil, 20000 mAh",
+      "phrase": "Güç kaynağı: Dahili Li-ion pil, 20000 mAh.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-018",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-019",
+      "attributeKey": "model",
+      "assertedValue": "NX-626",
+      "phrase": "Model kodu: NX-626.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-019",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, USB-C ile şarj",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, USB-C ile şarj.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-020",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 16 saat kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 16 saat kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-020",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-021",
+      "attributeKey": "model",
+      "assertedValue": "NX-948",
+      "phrase": "Model kodu: NX-948.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-021",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, USB-C ile şarj",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, USB-C ile şarj.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-022",
+      "attributeKey": "model",
+      "assertedValue": "KV-897",
+      "phrase": "Model kodu: KV-897.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-022",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 10 gün kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 10 gün kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-023",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 21 saat kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 21 saat kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-023",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-024",
+      "attributeKey": "model",
+      "assertedValue": "MK-639",
+      "phrase": "Model kodu: MK-639.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-024",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 14 saat kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 14 saat kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-025",
+      "attributeKey": "model",
+      "assertedValue": "VX-568",
+      "phrase": "Model kodu: VX-568.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SE-025",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-001",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Erkek",
+      "phrase": "Erkek kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-001",
+      "attributeKey": "material",
+      "assertedValue": "Sentetik",
+      "phrase": "Malzeme: Sentetik.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-002",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Unisex",
+      "phrase": "Unisex kalıp.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-002",
+      "attributeKey": "material",
+      "assertedValue": "Örgü kumaş",
+      "phrase": "Malzeme: Örgü kumaş.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-003",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Unisex",
+      "phrase": "Unisex kalıp.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-003",
+      "attributeKey": "material",
+      "assertedValue": "Sentetik",
+      "phrase": "Malzeme: Sentetik.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-004",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Erkek",
+      "phrase": "Erkek kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-004",
+      "attributeKey": "material",
+      "assertedValue": "Sentetik",
+      "phrase": "Malzeme: Sentetik.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-005",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Kadın",
+      "phrase": "Kadın kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-005",
+      "attributeKey": "material",
+      "assertedValue": "Mesh",
+      "phrase": "Malzeme: Mesh.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-006",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Kadın",
+      "phrase": "Kadın kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-006",
+      "attributeKey": "material",
+      "assertedValue": "Örgü kumaş",
+      "phrase": "Malzeme: Örgü kumaş.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-007",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Erkek",
+      "phrase": "Erkek kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-007",
+      "attributeKey": "material",
+      "assertedValue": "Süet",
+      "phrase": "Malzeme: Süet.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-008",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Erkek",
+      "phrase": "Erkek kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Clean",
+      "productId": "P-SN-008",
+      "attributeKey": "material",
+      "assertedValue": "Deri",
+      "phrase": "Malzeme: Deri.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-001",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "19",
+      "phrase": "19 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-001",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "15.6",
+      "phrase": "15,6 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-001",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-002",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "20",
+      "phrase": "20 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-002",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "15.6",
+      "phrase": "15,6 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-002",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-003",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "17",
+      "phrase": "17 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-003",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-003",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-004",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "20",
+      "phrase": "20 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-004",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-004",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-005",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "14",
+      "phrase": "14 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-005",
+      "attributeKey": "material",
+      "assertedValue": "Cordura",
+      "phrase": "Malzeme: Cordura.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-005",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-006",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "26",
+      "phrase": "26 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-006",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-006",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-007",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "37",
+      "phrase": "37 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-007",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-007",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-008",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "30",
+      "phrase": "30 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-008",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "15.6",
+      "phrase": "15,6 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-008",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-009",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "31",
+      "phrase": "31 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-009",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-009",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": false
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-010",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "13",
+      "phrase": "13 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-010",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-010",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-011",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "30",
+      "phrase": "30 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-011",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-011",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-012",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "14",
+      "phrase": "14 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-012",
+      "attributeKey": "material",
+      "assertedValue": "Cordura",
+      "phrase": "Malzeme: Cordura.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-012",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-013",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "16",
+      "phrase": "16 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-013",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-013",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-014",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "24",
+      "phrase": "24 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-014",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "14",
+      "phrase": "14 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-014",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-015",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-015",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-015",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-016",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "14",
+      "phrase": "14 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-016",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-016",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-017",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "27",
+      "phrase": "27 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-017",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "16",
+      "phrase": "16 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-017",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-018",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "39",
+      "phrase": "39 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-018",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-018",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-019",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-019",
+      "attributeKey": "material",
+      "assertedValue": "Naylon",
+      "phrase": "Malzeme: Naylon.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-019",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-020",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "16",
+      "phrase": "16 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-020",
+      "attributeKey": "material",
+      "assertedValue": "Kanvas",
+      "phrase": "Malzeme: Kanvas.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-020",
+      "attributeKey": "waterResistance",
+      "assertedValue": "None",
+      "phrase": "Su geçirmezlik özelliği bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-021",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "18",
+      "phrase": "18 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-021",
+      "attributeKey": "material",
+      "assertedValue": "Naylon",
+      "phrase": "Malzeme: Naylon.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-021",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-022",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-022",
+      "attributeKey": "material",
+      "assertedValue": "Geri dönüştürülmüş PET",
+      "phrase": "Malzeme: Geri dönüştürülmüş PET.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-022",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-023",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "40",
+      "phrase": "40 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-023",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "13",
+      "phrase": "13 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-023",
+      "attributeKey": "waterResistance",
+      "assertedValue": "WaterRepellent",
+      "phrase": "Su itici kumaş hafif yağmurda içeriği korur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-024",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-024",
+      "attributeKey": "material",
+      "assertedValue": "Cordura",
+      "phrase": "Malzeme: Cordura.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-024",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-025",
+      "attributeKey": "capacityLiters",
+      "assertedValue": "33",
+      "phrase": "33 litre iç hacim.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-025",
+      "attributeKey": "laptopSizeIn",
+      "assertedValue": "17",
+      "phrase": "17 inç dizüstü bilgisayar bölmesi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-BP-025",
+      "attributeKey": "waterResistance",
+      "assertedValue": "Waterproof",
+      "phrase": "Tamamen su geçirmez yapı, sağanak yağmurda bile koruma sağlar.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-001",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-001",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-002",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-002",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-003",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.0",
+      "phrase": "Bluetooth 5.0 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-003",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-004",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.3",
+      "phrase": "Bluetooth 5.3 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-004",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-005",
+      "attributeKey": "batteryHours",
+      "assertedValue": "24",
+      "phrase": "Tek şarjla 24 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-005",
+      "attributeKey": "microphone",
+      "assertedValue": "false",
+      "phrase": "Mikrofon bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-005",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-006",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.0",
+      "phrase": "Bluetooth 5.0 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-006",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-007",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-007",
+      "attributeKey": "microphone",
+      "assertedValue": "false",
+      "phrase": "Mikrofon bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-007",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-008",
+      "attributeKey": "batteryHours",
+      "assertedValue": "8",
+      "phrase": "Tek şarjla 8 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-008",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.0",
+      "phrase": "Bluetooth 5.0 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-008",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-009",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.3",
+      "phrase": "Bluetooth 5.3 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-009",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-010",
+      "attributeKey": "batteryHours",
+      "assertedValue": "22",
+      "phrase": "Tek şarjla 22 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-010",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-011",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-011",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-012",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.3",
+      "phrase": "Bluetooth 5.3 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-012",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-013",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.3",
+      "phrase": "Bluetooth 5.3 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-013",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-014",
+      "attributeKey": "batteryHours",
+      "assertedValue": "63",
+      "phrase": "Tek şarjla 63 saate kadar kullanım.",
+      "supportsAuthoritativeValue": false
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-014",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-015",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-015",
+      "attributeKey": "microphone",
+      "assertedValue": "false",
+      "phrase": "Mikrofon bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-015",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-016",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.3",
+      "phrase": "Bluetooth 5.3 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-016",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-016",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-017",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-017",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "true",
+      "phrase": "Aktif gürültü engelleme (ANC) özelliğine sahiptir.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-018",
+      "attributeKey": "batteryHours",
+      "assertedValue": "17",
+      "phrase": "Tek şarjla 17 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-018",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.0",
+      "phrase": "Bluetooth 5.0 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-018",
+      "attributeKey": "noiseCancellation",
+      "assertedValue": "false",
+      "phrase": "Aktif gürültü engelleme özelliği yoktur.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-019",
+      "attributeKey": "batteryHours",
+      "assertedValue": "40",
+      "phrase": "Tek şarjla 40 saate kadar kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-019",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.0",
+      "phrase": "Bluetooth 5.0 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-019",
+      "attributeKey": "microphone",
+      "assertedValue": "true",
+      "phrase": "Dahili mikrofon ile net görüşme.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-020",
+      "attributeKey": "connectivity",
+      "assertedValue": "Bluetooth 5.2",
+      "phrase": "Bluetooth 5.2 bağlantı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-HP-020",
+      "attributeKey": "microphone",
+      "assertedValue": "false",
+      "phrase": "Mikrofon bulunmaz.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-001",
+      "attributeKey": "powerSource",
+      "assertedValue": "Dahili Li-ion pil, 10000 mAh",
+      "phrase": "Güç kaynağı: Dahili Li-ion pil, 10000 mAh.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-001",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-002",
+      "attributeKey": "model",
+      "assertedValue": "VX-715",
+      "phrase": "Model kodu: VX-715.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-002",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 11 saat kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 11 saat kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-003",
+      "attributeKey": "powerSource",
+      "assertedValue": "Dahili Li-ion pil, 20000 mAh",
+      "phrase": "Güç kaynağı: Dahili Li-ion pil, 20000 mAh.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-003",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-004",
+      "attributeKey": "model",
+      "assertedValue": "KV-615",
+      "phrase": "Model kodu: KV-615.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-004",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-005",
+      "attributeKey": "model",
+      "assertedValue": "PR-533",
+      "phrase": "Model kodu: PR-533.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-005",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-006",
+      "attributeKey": "model",
+      "assertedValue": "VX-933",
+      "phrase": "Model kodu: VX-933.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-006",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-007",
+      "attributeKey": "model",
+      "assertedValue": "KV-301",
+      "phrase": "Model kodu: KV-301.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-007",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-008",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, USB-C ile şarj",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, USB-C ile şarj.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-008",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-009",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 7 gün kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 7 gün kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-009",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": false
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-010",
+      "attributeKey": "model",
+      "assertedValue": "PR-954",
+      "phrase": "Model kodu: PR-954.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-010",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, USB-C ile şarj",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, USB-C ile şarj.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-011",
+      "attributeKey": "model",
+      "assertedValue": "MK-666",
+      "phrase": "Model kodu: MK-666.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-011",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-012",
+      "attributeKey": "model",
+      "assertedValue": "NX-675",
+      "phrase": "Model kodu: NX-675.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-012",
+      "attributeKey": "powerSource",
+      "assertedValue": "Dahili Li-ion pil, 10000 mAh",
+      "phrase": "Güç kaynağı: Dahili Li-ion pil, 10000 mAh.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-013",
+      "attributeKey": "model",
+      "assertedValue": "MK-346",
+      "phrase": "Model kodu: MK-346.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-013",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-014",
+      "attributeKey": "model",
+      "assertedValue": "MK-195",
+      "phrase": "Model kodu: MK-195.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-014",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 15 saat kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 15 saat kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-015",
+      "attributeKey": "model",
+      "assertedValue": "VX-816",
+      "phrase": "Model kodu: VX-816.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-015",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-016",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 10 gün kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 10 gün kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-016",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-017",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şebeke elektriği, 2000 W",
+      "phrase": "Güç kaynağı: Şebeke elektriği, 2000 W.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-017",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": false
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-018",
+      "attributeKey": "powerSource",
+      "assertedValue": "Dahili Li-ion pil, 20000 mAh",
+      "phrase": "Güç kaynağı: Dahili Li-ion pil, 20000 mAh.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-018",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-019",
+      "attributeKey": "model",
+      "assertedValue": "NX-626",
+      "phrase": "Model kodu: NX-626.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-019",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, USB-C ile şarj",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, USB-C ile şarj.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-020",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 16 saat kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 16 saat kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-020",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-021",
+      "attributeKey": "model",
+      "assertedValue": "NX-948",
+      "phrase": "Model kodu: NX-948.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-021",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, USB-C ile şarj",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, USB-C ile şarj.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-022",
+      "attributeKey": "model",
+      "assertedValue": "KV-897",
+      "phrase": "Model kodu: KV-897.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-022",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 10 gün kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 10 gün kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-023",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 21 saat kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 21 saat kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-023",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "36",
+      "phrase": "36 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-024",
+      "attributeKey": "model",
+      "assertedValue": "MK-639",
+      "phrase": "Model kodu: MK-639.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-024",
+      "attributeKey": "powerSource",
+      "assertedValue": "Şarj edilebilir pil, 14 saat kullanım",
+      "phrase": "Güç kaynağı: Şarj edilebilir pil, 14 saat kullanım.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-025",
+      "attributeKey": "model",
+      "assertedValue": "VX-568",
+      "phrase": "Model kodu: VX-568.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SE-025",
+      "attributeKey": "warrantyMonths",
+      "assertedValue": "24",
+      "phrase": "24 ay resmi distribütör garantisi.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-001",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Erkek",
+      "phrase": "Erkek kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-001",
+      "attributeKey": "material",
+      "assertedValue": "Sentetik",
+      "phrase": "Malzeme: Sentetik.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-002",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Unisex",
+      "phrase": "Unisex kalıp.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-002",
+      "attributeKey": "material",
+      "assertedValue": "Örgü kumaş",
+      "phrase": "Malzeme: Örgü kumaş.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-003",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Unisex",
+      "phrase": "Unisex kalıp.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-003",
+      "attributeKey": "material",
+      "assertedValue": "Sentetik",
+      "phrase": "Malzeme: Sentetik.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-004",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Erkek",
+      "phrase": "Erkek kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-004",
+      "attributeKey": "material",
+      "assertedValue": "Sentetik",
+      "phrase": "Malzeme: Sentetik.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-005",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Kadın",
+      "phrase": "Kadın kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-005",
+      "attributeKey": "material",
+      "assertedValue": "Mesh",
+      "phrase": "Malzeme: Mesh.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-006",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Kadın",
+      "phrase": "Kadın kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-006",
+      "attributeKey": "material",
+      "assertedValue": "Örgü kumaş",
+      "phrase": "Malzeme: Örgü kumaş.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-007",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Erkek",
+      "phrase": "Erkek kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-007",
+      "attributeKey": "material",
+      "assertedValue": "Süet",
+      "phrase": "Malzeme: Süet.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-008",
+      "attributeKey": "genderOrTargetGroup",
+      "assertedValue": "Erkek",
+      "phrase": "Erkek kalıbı.",
+      "supportsAuthoritativeValue": true
+    },
+    {
+      "store": "Published",
+      "productId": "P-SN-008",
+      "attributeKey": "material",
+      "assertedValue": "Deri",
+      "phrase": "Malzeme: Deri.",
+      "supportsAuthoritativeValue": true
+    }
+  ]
+}

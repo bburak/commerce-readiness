@@ -1,0 +1,505 @@
+{
+  "source": "Inventory",
+  "records": [
+    {
+      "sku": "SKU-BP-001",
+      "warehouseId": "IST-TUZLA",
+      "available": 13
+    },
+    {
+      "sku": "SKU-BP-002",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 19
+    },
+    {
+      "sku": "SKU-BP-003",
+      "warehouseId": "IST-TUZLA",
+      "available": 40
+    },
+    {
+      "sku": "SKU-BP-004",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-BP-005",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-BP-006",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-BP-007",
+      "warehouseId": "IST-TUZLA",
+      "available": 32
+    },
+    {
+      "sku": "SKU-BP-008",
+      "warehouseId": "IST-TUZLA",
+      "available": 27
+    },
+    {
+      "sku": "SKU-BP-009",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-BP-010",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 2
+    },
+    {
+      "sku": "SKU-BP-011",
+      "warehouseId": "IST-TUZLA",
+      "available": 11
+    },
+    {
+      "sku": "SKU-BP-012",
+      "warehouseId": "IST-TUZLA",
+      "available": 4
+    },
+    {
+      "sku": "SKU-BP-013",
+      "warehouseId": "IST-TUZLA",
+      "available": 27
+    },
+    {
+      "sku": "SKU-BP-014",
+      "warehouseId": "IST-TUZLA",
+      "available": 27
+    },
+    {
+      "sku": "SKU-BP-015",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 30
+    },
+    {
+      "sku": "SKU-BP-016",
+      "warehouseId": "IST-TUZLA",
+      "available": 8
+    },
+    {
+      "sku": "SKU-BP-017",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 25
+    },
+    {
+      "sku": "SKU-BP-018",
+      "warehouseId": "IST-TUZLA",
+      "available": 25
+    },
+    {
+      "sku": "SKU-BP-019",
+      "warehouseId": "IST-TUZLA",
+      "available": 30
+    },
+    {
+      "sku": "SKU-BP-020",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 0
+    },
+    {
+      "sku": "SKU-BP-021",
+      "warehouseId": "IST-TUZLA",
+      "available": 2
+    },
+    {
+      "sku": "SKU-BP-022",
+      "warehouseId": "IST-TUZLA",
+      "available": 24
+    },
+    {
+      "sku": "SKU-BP-023",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 1
+    },
+    {
+      "sku": "SKU-BP-024",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 17
+    },
+    {
+      "sku": "SKU-BP-025",
+      "warehouseId": "IST-TUZLA",
+      "available": 15
+    },
+    {
+      "sku": "SKU-HP-001",
+      "warehouseId": "IST-TUZLA",
+      "available": 29
+    },
+    {
+      "sku": "SKU-HP-002",
+      "warehouseId": "IST-TUZLA",
+      "available": 11
+    },
+    {
+      "sku": "SKU-HP-003",
+      "warehouseId": "IST-TUZLA",
+      "available": 27
+    },
+    {
+      "sku": "SKU-HP-004",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 6
+    },
+    {
+      "sku": "SKU-HP-005",
+      "warehouseId": "IST-TUZLA",
+      "available": 27
+    },
+    {
+      "sku": "SKU-HP-006",
+      "warehouseId": "IST-TUZLA",
+      "available": 19
+    },
+    {
+      "sku": "SKU-HP-007",
+      "warehouseId": "IST-TUZLA",
+      "available": 9
+    },
+    {
+      "sku": "SKU-HP-008",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 0
+    },
+    {
+      "sku": "SKU-HP-009",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 2
+    },
+    {
+      "sku": "SKU-HP-010",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-HP-011",
+      "warehouseId": "IST-TUZLA",
+      "available": 5
+    },
+    {
+      "sku": "SKU-HP-012",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 0
+    },
+    {
+      "sku": "SKU-HP-013",
+      "warehouseId": "IST-TUZLA",
+      "available": 9
+    },
+    {
+      "sku": "SKU-HP-014",
+      "warehouseId": "IST-TUZLA",
+      "available": 2
+    },
+    {
+      "sku": "SKU-HP-015",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 27
+    },
+    {
+      "sku": "SKU-HP-016",
+      "warehouseId": "IST-TUZLA",
+      "available": 7
+    },
+    {
+      "sku": "SKU-HP-017",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 12
+    },
+    {
+      "sku": "SKU-HP-018",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-HP-019",
+      "warehouseId": "IST-TUZLA",
+      "available": 28
+    },
+    {
+      "sku": "SKU-HP-020",
+      "warehouseId": "IST-TUZLA",
+      "available": 4
+    },
+    {
+      "sku": "SKU-SE-001",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SE-002",
+      "warehouseId": "IST-TUZLA",
+      "available": 4
+    },
+    {
+      "sku": "SKU-SE-003",
+      "warehouseId": "IST-TUZLA",
+      "available": 19
+    },
+    {
+      "sku": "SKU-SE-004",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 47
+    },
+    {
+      "sku": "SKU-SE-005",
+      "warehouseId": "IST-TUZLA",
+      "available": 46
+    },
+    {
+      "sku": "SKU-SE-006",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SE-007",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SE-008",
+      "warehouseId": "IST-TUZLA",
+      "available": 41
+    },
+    {
+      "sku": "SKU-SE-009",
+      "warehouseId": "IST-TUZLA",
+      "available": 6
+    },
+    {
+      "sku": "SKU-SE-010",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 33
+    },
+    {
+      "sku": "SKU-SE-011",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SE-012",
+      "warehouseId": "IST-TUZLA",
+      "available": 48
+    },
+    {
+      "sku": "SKU-SE-013",
+      "warehouseId": "IST-TUZLA",
+      "available": 35
+    },
+    {
+      "sku": "SKU-SE-014",
+      "warehouseId": "IST-TUZLA",
+      "available": 45
+    },
+    {
+      "sku": "SKU-SE-015",
+      "warehouseId": "IST-TUZLA",
+      "available": 16
+    },
+    {
+      "sku": "SKU-SE-016",
+      "warehouseId": "IST-TUZLA",
+      "available": 4
+    },
+    {
+      "sku": "SKU-SE-017",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SE-018",
+      "warehouseId": "IST-TUZLA",
+      "available": 35
+    },
+    {
+      "sku": "SKU-SE-019",
+      "warehouseId": "IST-TUZLA",
+      "available": 43
+    },
+    {
+      "sku": "SKU-SE-020",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 16
+    },
+    {
+      "sku": "SKU-SE-021",
+      "warehouseId": "IST-TUZLA",
+      "available": 36
+    },
+    {
+      "sku": "SKU-SE-022",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 37
+    },
+    {
+      "sku": "SKU-SE-023",
+      "warehouseId": "IST-TUZLA",
+      "available": 44
+    },
+    {
+      "sku": "SKU-SE-024",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 41
+    },
+    {
+      "sku": "SKU-SE-025",
+      "warehouseId": "IST-TUZLA",
+      "available": 14
+    },
+    {
+      "sku": "SKU-SN-001-41-BLK",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 12
+    },
+    {
+      "sku": "SKU-SN-001-43-NVY",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SN-001-44-NVY",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 2
+    },
+    {
+      "sku": "SKU-SN-002-38-NVY",
+      "warehouseId": "IST-TUZLA",
+      "available": 13
+    },
+    {
+      "sku": "SKU-SN-002-38-WHT",
+      "warehouseId": "IST-TUZLA",
+      "available": 5
+    },
+    {
+      "sku": "SKU-SN-002-40-NVY",
+      "warehouseId": "IST-TUZLA",
+      "available": 4
+    },
+    {
+      "sku": "SKU-SN-002-45-WHT",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SN-003-39-GRY",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 9
+    },
+    {
+      "sku": "SKU-SN-003-42-GRY",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SN-003-43-GRY",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 2
+    },
+    {
+      "sku": "SKU-SN-003-45-GRY",
+      "warehouseId": "IZM-GAZIEMIR",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SN-004-42-GRN",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SN-004-44-GRN",
+      "warehouseId": "IST-TUZLA",
+      "available": 2
+    },
+    {
+      "sku": "SKU-SN-004-44-GRY",
+      "warehouseId": "IST-TUZLA",
+      "available": 1
+    },
+    {
+      "sku": "SKU-SN-004-45-GRY",
+      "warehouseId": "IST-TUZLA",
+      "available": 10
+    },
+    {
+      "sku": "SKU-SN-005-36-WHT",
+      "warehouseId": "IST-TUZLA",
+      "available": 3
+    },
+    {
+      "sku": "SKU-SN-005-39-WHT",
+      "warehouseId": "IST-TUZLA",
+      "available": 10
+    },
+    {
+      "sku": "SKU-SN-005-40-WHT",
+      "warehouseId": "IST-TUZLA",
+      "available": 6
+    },
+    {
+      "sku": "SKU-SN-005-41-WHT",
+      "warehouseId": "IST-TUZLA",
+      "available": 9
+    },
+    {
+      "sku": "SKU-SN-006-36-WHT",
+      "warehouseId": "IST-TUZLA",
+      "available": 8
+    },
+    {
+      "sku": "SKU-SN-006-38-GRN",
+      "warehouseId": "IST-TUZLA",
+      "available": 15
+    },
+    {
+      "sku": "SKU-SN-006-40-GRN",
+      "warehouseId": "IST-TUZLA",
+      "available": 12
+    },
+    {
+      "sku": "SKU-SN-006-41-GRN",
+      "warehouseId": "IST-TUZLA",
+      "available": 12
+    },
+    {
+      "sku": "SKU-SN-007-40-GRN",
+      "warehouseId": "IST-TUZLA",
+      "available": 12
+    },
+    {
+      "sku": "SKU-SN-007-41-GRN",
+      "warehouseId": "IST-TUZLA",
+      "available": 1
+    },
+    {
+      "sku": "SKU-SN-007-42-GRN",
+      "warehouseId": "IST-TUZLA",
+      "available": 2
+    },
+    {
+      "sku": "SKU-SN-007-43-GRN",
+      "warehouseId": "IST-TUZLA",
+      "available": 10
+    },
+    {
+      "sku": "SKU-SN-008-43-BLK",
+      "warehouseId": "IST-TUZLA",
+      "available": 0
+    },
+    {
+      "sku": "SKU-SN-008-44-BLK",
+      "warehouseId": "IST-TUZLA",
+      "available": 9
+    },
+    {
+      "sku": "SKU-SN-008-44-RED",
+      "warehouseId": "IST-TUZLA",
+      "available": 3
+    }
+  ]
+}

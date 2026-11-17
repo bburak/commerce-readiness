@@ -1,0 +1,6345 @@
+{
+  "storeVersion": "demostore-v0-seed-42",
+  "simulationClock": "2026-11-17T10:00:00+03:00",
+  "intents": [
+    {
+      "id": "I01",
+      "persona": "UrgentDelivery",
+      "text": "İstanbul'a iki gün içinde gelecek, 3.500 TL altında, 17 inç laptop sığan ve yağmurda kullanılabilecek bir sırt çantası arıyorum.",
+      "constraints": {
+        "category": "Backpacks",
+        "maxPriceTry": 3500,
+        "deliverTo": "Istanbul",
+        "deliverWithinDays": 2,
+        "minimumLaptopSizeIn": 17,
+        "minimumWaterResistance": "WaterRepellent"
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-BP-007",
+          "SKU-BP-022",
+          "SKU-BP-025"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-BP-001",
+            "violations": [
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "15.6"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-002",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-19",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "15.6"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-003",
+            "violations": [
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "14"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= WaterRepellent",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-004",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "13"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= WaterRepellent",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-005",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "14"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= WaterRepellent",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-006",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "15.6"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-008",
+            "violations": [
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "15.6"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-009",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "16"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-010",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-19",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "13"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-011",
+            "violations": [
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "15.6"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-012",
+            "violations": [
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "14"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-013",
+            "violations": [
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "15.6"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= WaterRepellent",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-014",
+            "violations": [
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "14"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-015",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-19",
+                "actual": "2026-11-20"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-016",
+            "violations": [
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "14"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= WaterRepellent",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-017",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-19",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "16"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= WaterRepellent",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-018",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= WaterRepellent",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-019",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3899.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-020",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "16"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= WaterRepellent",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-021",
+            "violations": [
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "15.6"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-023",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-19",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 17",
+                "actual": "13"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-024",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-19",
+                "actual": "2026-11-20"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I02",
+      "persona": "BudgetShopper",
+      "text": "Bütçem kısıtlı: 2.500 TL'yi geçmeyen, stokta olan bir sırt çantası arıyorum.",
+      "constraints": {
+        "category": "Backpacks",
+        "maxPriceTry": 2500
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-BP-003",
+          "SKU-BP-013",
+          "SKU-BP-014",
+          "SKU-BP-015",
+          "SKU-BP-016",
+          "SKU-BP-017"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-BP-001",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2699.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-002",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3299.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-004",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-005",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-006",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3199.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-007",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3099.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-008",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2699.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-009",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2899.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-010",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2899.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-011",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3199.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-012",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2599.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-018",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2899.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-019",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3899.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-020",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": true
+          },
+          {
+            "sku": "SKU-BP-021",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3199.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-022",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2699.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-023",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2599.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-024",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3299.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-025",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3399.90"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I03",
+      "persona": "SizeSensitive",
+      "text": "44 numara, yeşil renkte bir spor ayakkabı arıyorum. Bütçem 2.500 TL.",
+      "constraints": {
+        "category": "Sneakers",
+        "maxPriceTry": 2500,
+        "shoeSize": 44,
+        "color": "Yeşil"
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-SN-004-44-GRN"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-SN-001-41-BLK",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3699.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "41"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Siyah"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-001-43-NVY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3699.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "43"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Lacivert"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-001-44-NVY",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3699.90"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Lacivert"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-38-NVY",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "38"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Lacivert"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-38-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "38"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-40-NVY",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "40"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Lacivert"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-45-WHT",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "2799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "45"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-39-GRY",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3099.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "39"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-42-GRY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3099.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "42"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-43-GRY",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3099.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "43"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-45-GRY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3099.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "45"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-42-GRN",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "42"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-44-GRY",
+            "violations": [
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-45-GRY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "45"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-36-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "4899.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "36"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-39-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "4899.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "39"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-40-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "4899.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "40"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-41-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "4899.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "41"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-36-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3199.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "36"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-38-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3199.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "38"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-40-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3199.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "40"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-41-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3199.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "41"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-40-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "40"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-41-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "41"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-42-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "42"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-43-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2500.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "43"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-43-BLK",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "43"
+              },
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Siyah"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-44-BLK",
+            "violations": [
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Siyah"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-44-RED",
+            "violations": [
+              {
+                "constraint": "color",
+                "required": "Yeşil",
+                "actual": "Kırmızı"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I04",
+      "persona": "SizeSensitive",
+      "text": "Ankara'ya 3 gün içinde teslim edilecek, 36 numara bir kadın spor ayakkabısı istiyorum.",
+      "constraints": {
+        "category": "Sneakers",
+        "deliverTo": "Ankara",
+        "deliverWithinDays": 3,
+        "shoeSize": 36,
+        "targetGroup": "Kadın"
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-SN-005-36-WHT",
+          "SKU-SN-006-36-WHT"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-SN-001-41-BLK",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "41"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-001-43-NVY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "43"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-001-44-NVY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "44"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-38-NVY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "38"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-38-WHT",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "38"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-40-NVY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "40"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-45-WHT",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "45"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-39-GRY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "39"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-42-GRY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "42"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-43-GRY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "43"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-45-GRY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "45"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-42-GRN",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "42"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-44-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "44"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-44-GRY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "44"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-45-GRY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "45"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-39-WHT",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "39"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-40-WHT",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "40"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-41-WHT",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "41"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-38-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "38"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-40-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "40"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-41-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "41"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-40-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "40"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-41-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "41"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-42-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "42"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-43-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "43"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-43-BLK",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "43"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-44-BLK",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "44"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-44-RED",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "36",
+                "actual": "44"
+              },
+              {
+                "constraint": "targetGroup",
+                "required": "Kadın",
+                "actual": "Erkek"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I05",
+      "persona": "InstallmentSensitive",
+      "text": "Kredi kartıma 6 taksitle alabileceğim, aktif gürültü engellemeli bir kulaklık arıyorum. En fazla 3.500 TL ödeyebilirim.",
+      "constraints": {
+        "category": "Headphones",
+        "maxPriceTry": 3500,
+        "noiseCancellation": true,
+        "installmentCount": 6
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-HP-001",
+          "SKU-HP-005",
+          "SKU-HP-006",
+          "SKU-HP-011",
+          "SKU-HP-013",
+          "SKU-HP-020"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-HP-002",
+            "violations": [
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-003",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3599.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-004",
+            "violations": [
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-007",
+            "violations": [
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-008",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-009",
+            "violations": [
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-010",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3699.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-012",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-014",
+            "violations": [
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-015",
+            "violations": [
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-016",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3599.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-017",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3799.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-018",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-019",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3799.90"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I06",
+      "persona": "ComparisonShopper",
+      "text": "Telefon görüşmeleri için mikrofonlu ve en az 20 saat pil ömrü olan kulaklıkları karşılaştırmak istiyorum. Üst limitim 4.000 TL.",
+      "constraints": {
+        "category": "Headphones",
+        "maxPriceTry": 4000,
+        "minimumBatteryHours": 20,
+        "microphone": true
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-HP-003",
+          "SKU-HP-004",
+          "SKU-HP-009",
+          "SKU-HP-011",
+          "SKU-HP-014",
+          "SKU-HP-016",
+          "SKU-HP-017",
+          "SKU-HP-019"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-HP-001",
+            "violations": [
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 20",
+                "actual": "13"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-002",
+            "violations": [
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 20",
+                "actual": "11"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-005",
+            "violations": [
+              {
+                "constraint": "microphone",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-006",
+            "violations": [
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 20",
+                "actual": "15"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-007",
+            "violations": [
+              {
+                "constraint": "microphone",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-008",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 20",
+                "actual": "8"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-010",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-012",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "microphone",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-013",
+            "violations": [
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 20",
+                "actual": "15"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-015",
+            "violations": [
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 20",
+                "actual": "19"
+              },
+              {
+                "constraint": "microphone",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-018",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 20",
+                "actual": "17"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-020",
+            "violations": [
+              {
+                "constraint": "microphone",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I07",
+      "persona": "ReturnSensitive",
+      "text": "Açtıktan sonra beğenmezsem iade edebileceğim, 2.000 TL altında kablosuz bir kulaklık istiyorum.",
+      "constraints": {
+        "category": "Headphones",
+        "maxPriceTry": 2000,
+        "returnRequirement": {
+          "question": "OpenedReturn",
+          "allowConditional": true
+        }
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-HP-002",
+          "SKU-HP-004",
+          "SKU-HP-007",
+          "SKU-HP-009",
+          "SKU-HP-014",
+          "SKU-HP-015"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-HP-001",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3499.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-003",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3599.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-005",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3399.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-006",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3199.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-008",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3299.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-010",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3699.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-011",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3299.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-012",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-013",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3199.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-016",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3599.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-017",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3799.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-018",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-019",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3799.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-020",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3299.90"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I08",
+      "persona": "GiftShopper",
+      "text": "Babama hediye olarak 1.500 TL altında, en az 24 ay garantili bir powerbank arıyorum; İzmir'e 3 gün içinde ulaşması gerekiyor.",
+      "constraints": {
+        "category": "SmallElectronics",
+        "productType": "Powerbank",
+        "maxPriceTry": 1500,
+        "deliverTo": "Izmir",
+        "deliverWithinDays": 3,
+        "minimumWarrantyMonths": 24
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-SE-003",
+          "SKU-SE-012",
+          "SKU-SE-018"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-SE-001",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Izmir",
+                "actual": "notDeliverable"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-002",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-004",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "2899.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Saç Kurutma Makinesi"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-005",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "2099.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-006",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Izmir",
+                "actual": "notDeliverable"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-007",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "5499.90"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Izmir",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Saç Kurutma Makinesi"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-008",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-009",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "2399.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Akıllı Bileklik"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-010",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-011",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "3499.90"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Izmir",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Saç Kurutma Makinesi"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-013",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "2199.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Akıllı Bileklik"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-014",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "2799.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-015",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Saç Kurutma Makinesi"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-016",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "2099.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Akıllı Bileklik"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-017",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "3499.90"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Izmir",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Saç Kurutma Makinesi"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-019",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "1799.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-020",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "1699.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-021",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "2099.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-022",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "2399.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Akıllı Bileklik"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-023",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "1999.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-024",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "1899.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-025",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 1500.00",
+                "actual": "2299.90"
+              },
+              {
+                "constraint": "productType",
+                "required": "Powerbank",
+                "actual": "Akıllı Bileklik"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I09",
+      "persona": "AvailabilitySensitive",
+      "text": "Yarın İstanbul'da elimde olacak, stokta olan bir akıllı bileklik lazım.",
+      "constraints": {
+        "category": "SmallElectronics",
+        "productType": "Akıllı Bileklik",
+        "deliverTo": "Istanbul",
+        "deliverWithinDays": 1
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-SE-009",
+          "SKU-SE-013",
+          "SKU-SE-016",
+          "SKU-SE-025"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-SE-001",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Powerbank"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-002",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-003",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Powerbank"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-004",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Saç Kurutma Makinesi"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-005",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-006",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Powerbank"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-007",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Saç Kurutma Makinesi"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-008",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-010",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-011",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Saç Kurutma Makinesi"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-012",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Powerbank"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-014",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-015",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Saç Kurutma Makinesi"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-017",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Saç Kurutma Makinesi"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-018",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Powerbank"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-019",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-020",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-021",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-022",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-023",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-024",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I10",
+      "persona": "InstallmentSensitive",
+      "text": "6 taksit seçeneği olan ve 3.000 TL'yi geçmeyen bir saç kurutma makinesi almak istiyorum.",
+      "constraints": {
+        "category": "SmallElectronics",
+        "productType": "Saç Kurutma Makinesi",
+        "maxPriceTry": 3000,
+        "installmentCount": 6
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-SE-004"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-SE-001",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Powerbank"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-002",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Bluetooth Hoparlör"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-003",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Powerbank"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-005",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-006",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Powerbank"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-007",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3000.00",
+                "actual": "5499.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-008",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Elektrikli Diş Fırçası"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-009",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Akıllı Bileklik"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-010",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Elektrikli Diş Fırçası"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-011",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3000.00",
+                "actual": "3499.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-012",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Powerbank"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-013",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Akıllı Bileklik"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-014",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-015",
+            "violations": [
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-016",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Akıllı Bileklik"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-017",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3000.00",
+                "actual": "3499.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-018",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Powerbank"
+              },
+              {
+                "constraint": "installmentCount",
+                "required": ">= 6",
+                "actual": "1"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-019",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-020",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-021",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Elektrikli Diş Fırçası"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-022",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Akıllı Bileklik"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-023",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-024",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Bluetooth Hoparlör"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-025",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Saç Kurutma Makinesi",
+                "actual": "Akıllı Bileklik"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I11",
+      "persona": "BudgetShopper",
+      "text": "44 numara, 2.250 TL altındaki en uygun spor ayakkabı hangisi?",
+      "constraints": {
+        "category": "Sneakers",
+        "maxPriceTry": 2250,
+        "shoeSize": 44
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-SN-004-44-GRN",
+          "SKU-SN-004-44-GRY"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-SN-001-41-BLK",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3699.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "41"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-001-43-NVY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3699.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "43"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-001-44-NVY",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3699.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-38-NVY",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "2799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "38"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-38-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "2799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "38"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-40-NVY",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "2799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "40"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-45-WHT",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "2799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "45"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-39-GRY",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3099.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "39"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-42-GRY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3099.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "42"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-43-GRY",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3099.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "43"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-45-GRY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3099.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "45"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-42-GRN",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "42"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-45-GRY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "45"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-36-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "4899.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "36"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-39-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "4899.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "39"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-40-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "4899.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "40"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-41-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "4899.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "41"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-36-WHT",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3199.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "36"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-38-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3199.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "38"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-40-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3199.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "40"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-41-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3199.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "41"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-40-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "40"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-41-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "41"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-42-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "42"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-43-GRN",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "43"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-43-BLK",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "2499.90"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "44",
+                "actual": "43"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-44-BLK",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "2499.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-44-RED",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2250.00",
+                "actual": "2499.90"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I12",
+      "persona": "UrgentDelivery",
+      "text": "Yarın İstanbul'a teslim edilebilecek, 3.500 TL altında bir kulaklık arıyorum.",
+      "constraints": {
+        "category": "Headphones",
+        "maxPriceTry": 3500,
+        "deliverTo": "Istanbul",
+        "deliverWithinDays": 1
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-HP-001",
+          "SKU-HP-002",
+          "SKU-HP-005",
+          "SKU-HP-006",
+          "SKU-HP-007",
+          "SKU-HP-011",
+          "SKU-HP-013",
+          "SKU-HP-014",
+          "SKU-HP-020"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-HP-003",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3599.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-004",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-008",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-009",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-010",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3699.90"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-012",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-015",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-016",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3599.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-017",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-018",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Istanbul",
+                "actual": "notDeliverable"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-019",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 3500.00",
+                "actual": "3799.90"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I13",
+      "persona": "ReturnSensitive",
+      "text": "Tamamen su geçirmez bir sırt çantası istiyorum. İzmir'e 3 gün içinde gelmeli ve açtıktan sonra da en az 14 gün içinde iade edebilmeliyim.",
+      "constraints": {
+        "category": "Backpacks",
+        "deliverTo": "Izmir",
+        "deliverWithinDays": 3,
+        "minimumWaterResistance": "Waterproof",
+        "returnRequirement": {
+          "question": "OpenedReturn",
+          "allowConditional": true,
+          "minimumWindowDays": 14
+        }
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-BP-002",
+          "SKU-BP-010",
+          "SKU-BP-011",
+          "SKU-BP-019",
+          "SKU-BP-021",
+          "SKU-BP-024",
+          "SKU-BP-025"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-BP-001",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-003",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-004",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Izmir",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-005",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Izmir",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-006",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Izmir",
+                "actual": "notDeliverable"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-007",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-008",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-009",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Izmir",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-012",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-013",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-014",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-015",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-016",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-017",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-018",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-020",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Izmir",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-022",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-023",
+            "violations": [
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I14",
+      "persona": "ComparisonShopper",
+      "text": "En az 15 litre, 14 inç laptop sığan sırt çantalarını karşılaştırmak istiyorum. Bütçem 2.000 TL.",
+      "constraints": {
+        "category": "Backpacks",
+        "maxPriceTry": 2000,
+        "minimumLaptopSizeIn": 14,
+        "minimumCapacityLiters": 15
+      },
+      "expected": {
+        "outcome": "ValidProductsExist",
+        "validSkus": [
+          "SKU-BP-003",
+          "SKU-BP-013",
+          "SKU-BP-017"
+        ],
+        "forbidden": [
+          {
+            "sku": "SKU-BP-001",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2699.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-002",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3299.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-004",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 14",
+                "actual": "13"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-005",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2199.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-006",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3199.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-007",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3099.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-008",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2699.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-009",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2899.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-010",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2899.90"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 14",
+                "actual": "13"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-011",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3199.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-012",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2599.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-014",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2399.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-015",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2399.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-016",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2299.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-018",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2899.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-019",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3899.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-020",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2199.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-021",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3199.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-022",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2699.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-023",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "2599.90"
+              },
+              {
+                "constraint": "minimumLaptopSizeIn",
+                "required": ">= 14",
+                "actual": "13"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-024",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3299.90"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-025",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 2000.00",
+                "actual": "3399.90"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": false,
+        "shouldAbstain": false
+      }
+    },
+    {
+      "id": "I15",
+      "persona": "SizeSensitive",
+      "text": "47 numara siyah bir koşu ayakkabısı arıyorum.",
+      "constraints": {
+        "category": "Sneakers",
+        "shoeSize": 47,
+        "color": "Siyah"
+      },
+      "expected": {
+        "outcome": "NoValidProduct",
+        "validSkus": [],
+        "forbidden": [
+          {
+            "sku": "SKU-SN-001-41-BLK",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "41"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-001-43-NVY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "43"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Lacivert"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-001-44-NVY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "44"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Lacivert"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-38-NVY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "38"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Lacivert"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-38-WHT",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "38"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-40-NVY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "40"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Lacivert"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-002-45-WHT",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "45"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-39-GRY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "39"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-42-GRY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "42"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-43-GRY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "43"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-003-45-GRY",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "45"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-42-GRN",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "42"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Yeşil"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-44-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "44"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Yeşil"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-44-GRY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "44"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-004-45-GRY",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "45"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Gri"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-36-WHT",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "36"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-39-WHT",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "39"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-40-WHT",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "40"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-005-41-WHT",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "41"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-36-WHT",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "36"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Beyaz"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-38-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "38"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Yeşil"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-40-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "40"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Yeşil"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-006-41-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "41"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Yeşil"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-40-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "40"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Yeşil"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-41-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "41"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Yeşil"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-42-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "42"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Yeşil"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-007-43-GRN",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "43"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Yeşil"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-43-BLK",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "43"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-44-BLK",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "44"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SN-008-44-RED",
+            "violations": [
+              {
+                "constraint": "shoeSize",
+                "required": "47",
+                "actual": "44"
+              },
+              {
+                "constraint": "color",
+                "required": "Siyah",
+                "actual": "Kırmızı"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": true,
+        "shouldAbstain": true
+      }
+    },
+    {
+      "id": "I16",
+      "persona": "BudgetShopper",
+      "text": "500 TL altında, aktif gürültü engellemeli ve en az 60 saat pil ömrü olan bir kulaklık istiyorum.",
+      "constraints": {
+        "category": "Headphones",
+        "maxPriceTry": 500,
+        "minimumBatteryHours": 60,
+        "noiseCancellation": true
+      },
+      "expected": {
+        "outcome": "NoValidProduct",
+        "validSkus": [],
+        "forbidden": [
+          {
+            "sku": "SKU-HP-001",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3499.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "13"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-002",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "1299.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "11"
+              },
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-003",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3599.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "21"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-004",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "1799.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "31"
+              },
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-005",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3399.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "24"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-006",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3199.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "15"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-007",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "1799.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "22"
+              },
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-008",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3299.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "8"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-009",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "1999.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "20"
+              },
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-010",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3699.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "22"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-011",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3299.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "27"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-012",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "1299.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "23"
+              },
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-013",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3199.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "15"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-014",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "1999.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "38"
+              },
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-015",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "1099.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "19"
+              },
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-016",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3599.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "26"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-017",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "50"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-018",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "1599.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "17"
+              },
+              {
+                "constraint": "noiseCancellation",
+                "required": "true",
+                "actual": "false"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-019",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3799.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "40"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-HP-020",
+            "violations": [
+              {
+                "constraint": "maxPriceTry",
+                "required": "<= 500.00",
+                "actual": "3299.90"
+              },
+              {
+                "constraint": "minimumBatteryHours",
+                "required": ">= 60",
+                "actual": "31"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": true,
+        "shouldAbstain": true
+      }
+    },
+    {
+      "id": "I17",
+      "persona": "ReturnSensitive",
+      "text": "Kutusunu açtıktan sonra da koşulsuz iade edebileceğim bir akıllı bileklik istiyorum.",
+      "constraints": {
+        "category": "SmallElectronics",
+        "productType": "Akıllı Bileklik",
+        "returnRequirement": {
+          "question": "OpenedReturn",
+          "allowConditional": false
+        }
+      },
+      "expected": {
+        "outcome": "NoValidProduct",
+        "validSkus": [],
+        "forbidden": [
+          {
+            "sku": "SKU-SE-001",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Powerbank"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-002",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Bluetooth Hoparlör"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-003",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Powerbank"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-004",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Saç Kurutma Makinesi"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-005",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Elektrikli Diş Fırçası"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-006",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Powerbank"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-007",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Saç Kurutma Makinesi"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-008",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Elektrikli Diş Fırçası"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-009",
+            "violations": [
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-010",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Elektrikli Diş Fırçası"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-011",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Saç Kurutma Makinesi"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-012",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Powerbank"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-013",
+            "violations": [
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-014",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Bluetooth Hoparlör"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-015",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Saç Kurutma Makinesi"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-016",
+            "violations": [
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-017",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Saç Kurutma Makinesi"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-018",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Powerbank"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-019",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Elektrikli Diş Fırçası"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-020",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Bluetooth Hoparlör"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-021",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Elektrikli Diş Fırçası"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-022",
+            "violations": [
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-023",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Bluetooth Hoparlör"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-024",
+            "violations": [
+              {
+                "constraint": "productType",
+                "required": "Akıllı Bileklik",
+                "actual": "Bluetooth Hoparlör"
+              },
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-SE-025",
+            "violations": [
+              {
+                "constraint": "returnRequirement",
+                "required": "OpenedReturn: Yes",
+                "actual": "No"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": true,
+        "shouldAbstain": true
+      }
+    },
+    {
+      "id": "I18",
+      "persona": "UrgentDelivery",
+      "text": "Yarın Ankara'da olacak, tamamen su geçirmez bir sırt çantası lazım.",
+      "constraints": {
+        "category": "Backpacks",
+        "deliverTo": "Ankara",
+        "deliverWithinDays": 1,
+        "minimumWaterResistance": "Waterproof"
+      },
+      "expected": {
+        "outcome": "NoValidProduct",
+        "validSkus": [],
+        "forbidden": [
+          {
+            "sku": "SKU-BP-001",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-002",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-003",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-004",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-005",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-006",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-007",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-008",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-009",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-010",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-011",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-012",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-013",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-014",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-015",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-016",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-017",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-018",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-019",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-020",
+            "violations": [
+              {
+                "constraint": "inStock",
+                "required": "true",
+                "actual": "false"
+              },
+              {
+                "constraint": "deliverTo",
+                "required": "Ankara",
+                "actual": "notDeliverable"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "None"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-021",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-022",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-023",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              },
+              {
+                "constraint": "minimumWaterResistance",
+                "required": ">= Waterproof",
+                "actual": "WaterRepellent"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-024",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-20"
+              }
+            ],
+            "looksValidInPublished": false
+          },
+          {
+            "sku": "SKU-BP-025",
+            "violations": [
+              {
+                "constraint": "deliverWithinDays",
+                "required": "<= 2026-11-18",
+                "actual": "2026-11-19"
+              }
+            ],
+            "looksValidInPublished": false
+          }
+        ],
+        "missingInformation": [],
+        "noValidAnswer": true,
+        "shouldAbstain": true
+      }
+    },
+    {
+      "id": "I19",
+      "persona": "GiftShopper",
+      "text": "Kız arkadaşıma hediye olarak beyaz bir spor ayakkabı almak istiyorum, bütçem 3.000 TL civarı.",
+      "constraints": {
+        "category": "Sneakers",
+        "maxPriceTry": 3000,
+        "color": "Beyaz"
+      },
+      "expected": {
+        "outcome": "InsufficientInformation",
+        "validSkus": [],
+        "forbidden": [],
+        "missingInformation": [
+          "shoeSize"
+        ],
+        "noValidAnswer": false,
+        "shouldAbstain": true
+      }
+    },
+    {
+      "id": "I20",
+      "persona": "UrgentDelivery",
+      "text": "En geç iki gün içinde elimde olacak bir Bluetooth hoparlör istiyorum.",
+      "constraints": {
+        "category": "SmallElectronics",
+        "productType": "Bluetooth Hoparlör",
+        "deliverWithinDays": 2
+      },
+      "expected": {
+        "outcome": "InsufficientInformation",
+        "validSkus": [],
+        "forbidden": [],
+        "missingInformation": [
+          "deliverTo"
+        ],
+        "noValidAnswer": false,
+        "shouldAbstain": true
+      }
+    }
+  ]
+}

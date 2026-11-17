@@ -1,0 +1,46 @@
+{
+  "source": "Payments",
+  "currency": "TRY",
+  "installmentRules": [
+    {
+      "category": "Backpacks",
+      "minimumPriceTry": 1000,
+      "maxInstallments": 3
+    },
+    {
+      "category": "Backpacks",
+      "minimumPriceTry": 2500,
+      "maxInstallments": 6
+    },
+    {
+      "category": "Sneakers",
+      "minimumPriceTry": 1500,
+      "maxInstallments": 3
+    },
+    {
+      "category": "Sneakers",
+      "minimumPriceTry": 3000,
+      "maxInstallments": 6
+    },
+    {
+      "category": "Headphones",
+      "minimumPriceTry": 2000,
+      "maxInstallments": 6
+    },
+    {
+      "category": "Headphones",
+      "minimumPriceTry": 4000,
+      "maxInstallments": 9
+    },
+    {
+      "category": "SmallElectronics",
+      "minimumPriceTry": 1500,
+      "maxInstallments": 6
+    },
+    {
+      "category": "SmallElectronics",
+      "minimumPriceTry": 5000,
+      "maxInstallments": 12
+    }
+  ]
+}
