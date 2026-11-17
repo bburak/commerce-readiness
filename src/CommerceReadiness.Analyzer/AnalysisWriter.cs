@@ -12,9 +12,14 @@ public static class AnalysisWriter
     public const string SummaryFileName = "summary.json";
     public const string EvaluationFileName = "evaluation.json";
 
+    /// <summary>
+    /// Writes findings and summary, and deletes any evaluation left by an earlier run: it would score a different
+    /// set of findings. --evaluate writes a fresh one afterwards.
+    /// </summary>
     public static void Write(ReadinessAnalysis analysis, string directory)
     {
         Directory.CreateDirectory(directory);
+        File.Delete(Path.Combine(directory, EvaluationFileName));
         var summary = analysis.Summary;
         TextFiles.Write(
             Path.Combine(directory, FindingsFileName),

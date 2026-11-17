@@ -308,7 +308,8 @@ dotnet run --project src/CommerceReadiness.Analyzer -- --dataset demo-store/gene
 ```
 
 - **Normal mode** reads `published/` only, prints a report, and writes `analysis/findings.json` and
-  `analysis/summary.json`.
+  `analysis/summary.json`. It deletes any `evaluation.json` left by an earlier run, since that file would score a
+  different set of findings.
 - **`--evaluate`** additionally reads `eval/ground-truth.json` and writes `analysis/evaluation.json`. It is the only
   path that touches ground truth.
 

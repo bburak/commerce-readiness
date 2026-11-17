@@ -136,6 +136,25 @@ public class AnalyzerTrustBoundaryTests
     }
 
     [Fact]
+    public void Normal_analysis_removes_a_stale_evaluation_from_an_earlier_run()
+    {
+        var dataset = TestData.NewSeed42DatasetDirectory();
+        var analysis = Path.Combine(dataset, DatasetLayout.AnalysisFolder);
+        var evaluation = Path.Combine(analysis, AnalysisWriter.EvaluationFileName);
+
+        Assert.Equal(0, Run("--dataset", dataset, "--evaluate").Code);
+        Assert.True(File.Exists(evaluation));
+
+        Assert.Equal(0, Run("--dataset", dataset).Code);
+        Assert.False(File.Exists(evaluation));
+        Assert.True(File.Exists(Path.Combine(analysis, AnalysisWriter.FindingsFileName)));
+        Assert.True(File.Exists(Path.Combine(analysis, AnalysisWriter.SummaryFileName)));
+
+        Assert.Equal(0, Run("--dataset", dataset, "--evaluate").Code);
+        Assert.True(File.Exists(evaluation));
+    }
+
+    [Fact]
     public void Evaluate_without_ground_truth_fails_clearly()
     {
         var dataset = TestData.NewSeed42DatasetDirectory();
