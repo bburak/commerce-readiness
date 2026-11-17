@@ -1,0 +1,180 @@
+{
+  "storeVersion": "demostore-v0-seed-42",
+  "analyzerVersion": "readiness-analyzer-v0",
+  "supportedDefectTypes": [
+    "MissingRequiredAttribute",
+    "InventoryConflict",
+    "PriceConflict",
+    "AmbiguousReturnRule",
+    "DeliveryConflict"
+  ],
+  "findingCount": 20,
+  "truePositiveCount": 20,
+  "falsePositiveCount": 0,
+  "duplicateFindingCount": 0,
+  "injectedDefectCount": 24,
+  "supportedDefectCount": 20,
+  "detectedDefectCount": 20,
+  "detectedSupportedDefectCount": 20,
+  "falseNegativeCount": 0,
+  "deferredDefectCount": 4,
+  "decoyCount": 8,
+  "decoyHitCount": 0,
+  "precision": 1,
+  "deterministicRecall": 1,
+  "overallRecall": 0.8333,
+  "decoyFalsePositiveRate": 0,
+  "byType": [
+    {
+      "type": "MissingRequiredAttribute",
+      "supported": true,
+      "injected": 6,
+      "detected": 6,
+      "findings": 6,
+      "falsePositives": 0
+    },
+    {
+      "type": "InventoryConflict",
+      "supported": true,
+      "injected": 5,
+      "detected": 5,
+      "findings": 5,
+      "falsePositives": 0
+    },
+    {
+      "type": "PriceConflict",
+      "supported": true,
+      "injected": 4,
+      "detected": 4,
+      "findings": 4,
+      "falsePositives": 0
+    },
+    {
+      "type": "MisleadingDescription",
+      "supported": false,
+      "injected": 4,
+      "detected": 0,
+      "findings": 0,
+      "falsePositives": 0
+    },
+    {
+      "type": "AmbiguousReturnRule",
+      "supported": true,
+      "injected": 2,
+      "detected": 2,
+      "findings": 2,
+      "falsePositives": 0
+    },
+    {
+      "type": "DeliveryConflict",
+      "supported": true,
+      "injected": 3,
+      "detected": 3,
+      "findings": 3,
+      "falsePositives": 0
+    }
+  ],
+  "matches": [
+    {
+      "findingId": "FND-DLV-SKU-SE-005",
+      "defectId": "DEF-DLV-SKU-SE-005"
+    },
+    {
+      "findingId": "FND-DLV-SKU-SN-001-44-NVY",
+      "defectId": "DEF-DLV-SKU-SN-001-44-NVY"
+    },
+    {
+      "findingId": "FND-DLV-SKU-SN-002-38-NVY",
+      "defectId": "DEF-DLV-SKU-SN-002-38-NVY"
+    },
+    {
+      "findingId": "FND-INV-SKU-BP-007",
+      "defectId": "DEF-INV-SKU-BP-007"
+    },
+    {
+      "findingId": "FND-INV-SKU-BP-020",
+      "defectId": "DEF-INV-SKU-BP-020"
+    },
+    {
+      "findingId": "FND-INV-SKU-SE-011",
+      "defectId": "DEF-INV-SKU-SE-011"
+    },
+    {
+      "findingId": "FND-INV-SKU-SE-020",
+      "defectId": "DEF-INV-SKU-SE-020"
+    },
+    {
+      "findingId": "FND-INV-SKU-SN-004-42-GRN",
+      "defectId": "DEF-INV-SKU-SN-004-42-GRN"
+    },
+    {
+      "findingId": "FND-MRA-P-BP-011-waterResistance",
+      "defectId": "DEF-MRA-P-BP-011-waterResistance"
+    },
+    {
+      "findingId": "FND-MRA-P-HP-010-noiseCancellation",
+      "defectId": "DEF-MRA-P-HP-010-noiseCancellation"
+    },
+    {
+      "findingId": "FND-MRA-P-HP-017-noiseCancellation",
+      "defectId": "DEF-MRA-P-HP-017-noiseCancellation"
+    },
+    {
+      "findingId": "FND-MRA-P-HP-019-brand",
+      "defectId": "DEF-MRA-P-HP-019-brand"
+    },
+    {
+      "findingId": "FND-MRA-P-SE-003-brand",
+      "defectId": "DEF-MRA-P-SE-003-brand"
+    },
+    {
+      "findingId": "FND-MRA-P-SE-020-warrantyMonths",
+      "defectId": "DEF-MRA-P-SE-020-warrantyMonths"
+    },
+    {
+      "findingId": "FND-PRC-SKU-HP-007",
+      "defectId": "DEF-PRC-SKU-HP-007"
+    },
+    {
+      "findingId": "FND-PRC-SKU-SE-003",
+      "defectId": "DEF-PRC-SKU-SE-003"
+    },
+    {
+      "findingId": "FND-PRC-SKU-SN-001-41-BLK",
+      "defectId": "DEF-PRC-SKU-SN-001-41-BLK"
+    },
+    {
+      "findingId": "FND-PRC-SKU-SN-004-45-GRY",
+      "defectId": "DEF-PRC-SKU-SN-004-45-GRY"
+    },
+    {
+      "findingId": "FND-RET-Headphones-UnopenedReturn",
+      "defectId": "DEF-RET-Headphones-UnopenedReturn"
+    },
+    {
+      "findingId": "FND-RET-SmallElectronics-OpenedReturn",
+      "defectId": "DEF-RET-SmallElectronics-OpenedReturn"
+    }
+  ],
+  "falsePositives": [],
+  "falseNegatives": [],
+  "deferredDefects": [
+    {
+      "defectId": "DEF-MSD-P-BP-009-waterResistance",
+      "type": "MisleadingDescription"
+    },
+    {
+      "defectId": "DEF-MSD-P-HP-014-batteryHours",
+      "type": "MisleadingDescription"
+    },
+    {
+      "defectId": "DEF-MSD-P-SE-009-warrantyMonths",
+      "type": "MisleadingDescription"
+    },
+    {
+      "defectId": "DEF-MSD-P-SE-017-warrantyMonths",
+      "type": "MisleadingDescription"
+    }
+  ],
+  "decoyHits": []
+}

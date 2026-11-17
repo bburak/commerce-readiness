@@ -1,0 +1,43 @@
+{
+  "analyzerVersion": "readiness-analyzer-v0",
+  "storeVersion": "demostore-v0-seed-42",
+  "asOf": "2026-11-17T10:00:00+03:00",
+  "productsAnalyzed": 78,
+  "skusAnalyzed": 100,
+  "totalFindings": 20,
+  "bySeverity": [
+    {
+      "severity": "High",
+      "count": 12
+    },
+    {
+      "severity": "Medium",
+      "count": 8
+    }
+  ],
+  "byType": [
+    {
+      "type": "MissingRequiredAttribute",
+      "count": 6
+    },
+    {
+      "type": "InventoryConflict",
+      "count": 5
+    },
+    {
+      "type": "PriceConflict",
+      "count": 4
+    },
+    {
+      "type": "DeliveryConflict",
+      "count": 3
+    },
+    {
+      "type": "AmbiguousReturnRule",
+      "count": 2
+    }
+  ],
+  "notAnalyzed": [
+    "DescriptionSemanticConsistency"
+  ]
+}

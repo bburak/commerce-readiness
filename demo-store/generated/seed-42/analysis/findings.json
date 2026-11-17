@@ -1,0 +1,503 @@
+{
+  "analyzerVersion": "readiness-analyzer-v0",
+  "storeVersion": "demostore-v0-seed-42",
+  "asOf": "2026-11-17T10:00:00+03:00",
+  "findings": [
+    {
+      "findingId": "FND-DLV-SKU-SE-005",
+      "type": "DeliveryConflict",
+      "severity": "High",
+      "productId": "P-SE-005",
+      "sku": "SKU-SE-005",
+      "field": "deliveryPromiseIstanbul",
+      "summary": "Published Istanbul delivery promise conflicts with the shipping calculation.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "deliveryPromiseIstanbul",
+          "value": "2026-11-17"
+        },
+        {
+          "source": "Inventory",
+          "field": "warehouseId",
+          "value": "IST-TUZLA"
+        },
+        {
+          "source": "Shipping",
+          "field": "cutoffHour",
+          "value": "14"
+        },
+        {
+          "source": "Shipping",
+          "field": "transitBusinessDays",
+          "value": "1"
+        },
+        {
+          "source": "Shipping",
+          "field": "calculatedDelivery",
+          "value": "2026-11-18"
+        }
+      ],
+      "suggestedFix": "Set the Istanbul delivery promise to 2026-11-18."
+    },
+    {
+      "findingId": "FND-DLV-SKU-SN-001-44-NVY",
+      "type": "DeliveryConflict",
+      "severity": "High",
+      "productId": "P-SN-001",
+      "sku": "SKU-SN-001-44-NVY",
+      "field": "deliveryPromiseIstanbul",
+      "summary": "Published Istanbul delivery promise conflicts with the shipping calculation.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "deliveryPromiseIstanbul",
+          "value": "2026-11-18"
+        },
+        {
+          "source": "Inventory",
+          "field": "warehouseId",
+          "value": "IZM-GAZIEMIR"
+        },
+        {
+          "source": "Shipping",
+          "field": "cutoffHour",
+          "value": "9"
+        },
+        {
+          "source": "Shipping",
+          "field": "transitBusinessDays",
+          "value": "2"
+        },
+        {
+          "source": "Shipping",
+          "field": "calculatedDelivery",
+          "value": "2026-11-20"
+        }
+      ],
+      "suggestedFix": "Set the Istanbul delivery promise to 2026-11-20."
+    },
+    {
+      "findingId": "FND-DLV-SKU-SN-002-38-NVY",
+      "type": "DeliveryConflict",
+      "severity": "High",
+      "productId": "P-SN-002",
+      "sku": "SKU-SN-002-38-NVY",
+      "field": "deliveryPromiseIstanbul",
+      "summary": "Published Istanbul delivery promise conflicts with the shipping calculation.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "deliveryPromiseIstanbul",
+          "value": "2026-11-17"
+        },
+        {
+          "source": "Inventory",
+          "field": "warehouseId",
+          "value": "IST-TUZLA"
+        },
+        {
+          "source": "Shipping",
+          "field": "cutoffHour",
+          "value": "14"
+        },
+        {
+          "source": "Shipping",
+          "field": "transitBusinessDays",
+          "value": "1"
+        },
+        {
+          "source": "Shipping",
+          "field": "calculatedDelivery",
+          "value": "2026-11-18"
+        }
+      ],
+      "suggestedFix": "Set the Istanbul delivery promise to 2026-11-18."
+    },
+    {
+      "findingId": "FND-INV-SKU-BP-007",
+      "type": "InventoryConflict",
+      "severity": "High",
+      "productId": "P-BP-007",
+      "sku": "SKU-BP-007",
+      "field": "stockStatus",
+      "summary": "Published stock status conflicts with inventory.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "stockStatus",
+          "value": "OUT_OF_STOCK"
+        },
+        {
+          "source": "Inventory",
+          "field": "available",
+          "value": "32"
+        },
+        {
+          "source": "Inventory",
+          "field": "warehouseId",
+          "value": "IST-TUZLA"
+        }
+      ],
+      "suggestedFix": "Update the published stock status to IN_STOCK (32 units in inventory) and publish a delivery promise."
+    },
+    {
+      "findingId": "FND-INV-SKU-BP-020",
+      "type": "InventoryConflict",
+      "severity": "High",
+      "productId": "P-BP-020",
+      "sku": "SKU-BP-020",
+      "field": "stockStatus",
+      "summary": "Published stock status conflicts with inventory.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "stockStatus",
+          "value": "IN_STOCK"
+        },
+        {
+          "source": "Inventory",
+          "field": "available",
+          "value": "0"
+        },
+        {
+          "source": "Inventory",
+          "field": "warehouseId",
+          "value": "IZM-GAZIEMIR"
+        }
+      ],
+      "suggestedFix": "Update the published stock status to OUT_OF_STOCK and remove any delivery promise."
+    },
+    {
+      "findingId": "FND-INV-SKU-SE-011",
+      "type": "InventoryConflict",
+      "severity": "High",
+      "productId": "P-SE-011",
+      "sku": "SKU-SE-011",
+      "field": "stockStatus",
+      "summary": "Published stock status conflicts with inventory.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "stockStatus",
+          "value": "IN_STOCK"
+        },
+        {
+          "source": "Inventory",
+          "field": "available",
+          "value": "0"
+        },
+        {
+          "source": "Inventory",
+          "field": "warehouseId",
+          "value": "IZM-GAZIEMIR"
+        }
+      ],
+      "suggestedFix": "Update the published stock status to OUT_OF_STOCK and remove any delivery promise."
+    },
+    {
+      "findingId": "FND-INV-SKU-SE-020",
+      "type": "InventoryConflict",
+      "severity": "High",
+      "productId": "P-SE-020",
+      "sku": "SKU-SE-020",
+      "field": "stockStatus",
+      "summary": "Published stock status conflicts with inventory.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "stockStatus",
+          "value": "OUT_OF_STOCK"
+        },
+        {
+          "source": "Inventory",
+          "field": "available",
+          "value": "16"
+        },
+        {
+          "source": "Inventory",
+          "field": "warehouseId",
+          "value": "IZM-GAZIEMIR"
+        }
+      ],
+      "suggestedFix": "Update the published stock status to IN_STOCK (16 units in inventory) and publish a delivery promise."
+    },
+    {
+      "findingId": "FND-INV-SKU-SN-004-42-GRN",
+      "type": "InventoryConflict",
+      "severity": "High",
+      "productId": "P-SN-004",
+      "sku": "SKU-SN-004-42-GRN",
+      "field": "stockStatus",
+      "summary": "Published stock status conflicts with inventory.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "stockStatus",
+          "value": "IN_STOCK"
+        },
+        {
+          "source": "Inventory",
+          "field": "available",
+          "value": "0"
+        },
+        {
+          "source": "Inventory",
+          "field": "warehouseId",
+          "value": "IST-TUZLA"
+        }
+      ],
+      "suggestedFix": "Update the published stock status to OUT_OF_STOCK and remove any delivery promise."
+    },
+    {
+      "findingId": "FND-MRA-P-BP-011-waterResistance",
+      "type": "MissingRequiredAttribute",
+      "severity": "Medium",
+      "productId": "P-BP-011",
+      "field": "waterResistance",
+      "summary": "Required structured attribute 'waterResistance' is missing for Backpacks P-BP-011.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "waterResistance"
+        },
+        {
+          "source": "Catalog",
+          "field": "categoryRequirement",
+          "value": "Backpacks requires waterResistance"
+        }
+      ],
+      "suggestedFix": "Populate the structured 'waterResistance' attribute for P-BP-011; description text does not satisfy the requirement."
+    },
+    {
+      "findingId": "FND-MRA-P-HP-010-noiseCancellation",
+      "type": "MissingRequiredAttribute",
+      "severity": "Medium",
+      "productId": "P-HP-010",
+      "field": "noiseCancellation",
+      "summary": "Required structured attribute 'noiseCancellation' is missing for Headphones P-HP-010.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "noiseCancellation"
+        },
+        {
+          "source": "Catalog",
+          "field": "categoryRequirement",
+          "value": "Headphones requires noiseCancellation"
+        }
+      ],
+      "suggestedFix": "Populate the structured 'noiseCancellation' attribute for P-HP-010; description text does not satisfy the requirement."
+    },
+    {
+      "findingId": "FND-MRA-P-HP-017-noiseCancellation",
+      "type": "MissingRequiredAttribute",
+      "severity": "Medium",
+      "productId": "P-HP-017",
+      "field": "noiseCancellation",
+      "summary": "Required structured attribute 'noiseCancellation' is missing for Headphones P-HP-017.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "noiseCancellation"
+        },
+        {
+          "source": "Catalog",
+          "field": "categoryRequirement",
+          "value": "Headphones requires noiseCancellation"
+        }
+      ],
+      "suggestedFix": "Populate the structured 'noiseCancellation' attribute for P-HP-017; description text does not satisfy the requirement."
+    },
+    {
+      "findingId": "FND-MRA-P-HP-019-brand",
+      "type": "MissingRequiredAttribute",
+      "severity": "Medium",
+      "productId": "P-HP-019",
+      "field": "brand",
+      "summary": "Required structured attribute 'brand' is missing for Headphones P-HP-019.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "brand"
+        },
+        {
+          "source": "Catalog",
+          "field": "categoryRequirement",
+          "value": "Headphones requires brand"
+        }
+      ],
+      "suggestedFix": "Populate the structured 'brand' attribute for P-HP-019; description text does not satisfy the requirement."
+    },
+    {
+      "findingId": "FND-MRA-P-SE-003-brand",
+      "type": "MissingRequiredAttribute",
+      "severity": "Medium",
+      "productId": "P-SE-003",
+      "field": "brand",
+      "summary": "Required structured attribute 'brand' is missing for SmallElectronics P-SE-003.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "brand"
+        },
+        {
+          "source": "Catalog",
+          "field": "categoryRequirement",
+          "value": "SmallElectronics requires brand"
+        }
+      ],
+      "suggestedFix": "Populate the structured 'brand' attribute for P-SE-003; description text does not satisfy the requirement."
+    },
+    {
+      "findingId": "FND-MRA-P-SE-020-warrantyMonths",
+      "type": "MissingRequiredAttribute",
+      "severity": "Medium",
+      "productId": "P-SE-020",
+      "field": "warrantyMonths",
+      "summary": "Required structured attribute 'warrantyMonths' is missing for SmallElectronics P-SE-020.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "warrantyMonths"
+        },
+        {
+          "source": "Catalog",
+          "field": "categoryRequirement",
+          "value": "SmallElectronics requires warrantyMonths"
+        }
+      ],
+      "suggestedFix": "Populate the structured 'warrantyMonths' attribute for P-SE-020; description text does not satisfy the requirement."
+    },
+    {
+      "findingId": "FND-PRC-SKU-HP-007",
+      "type": "PriceConflict",
+      "severity": "High",
+      "productId": "P-HP-007",
+      "sku": "SKU-HP-007",
+      "field": "listedPrice",
+      "summary": "Published price differs from the Pricing source.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "listedPrice",
+          "value": "2199.90"
+        },
+        {
+          "source": "Pricing",
+          "field": "priceTry",
+          "value": "1799.90"
+        }
+      ],
+      "suggestedFix": "Update the published listedPrice to 1799.90 TRY from the Pricing source."
+    },
+    {
+      "findingId": "FND-PRC-SKU-SE-003",
+      "type": "PriceConflict",
+      "severity": "High",
+      "productId": "P-SE-003",
+      "sku": "SKU-SE-003",
+      "field": "listedPrice",
+      "summary": "Published price differs from the Pricing source.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "listedPrice",
+          "value": "999.90"
+        },
+        {
+          "source": "Pricing",
+          "field": "priceTry",
+          "value": "1199.90"
+        }
+      ],
+      "suggestedFix": "Update the published listedPrice to 1199.90 TRY from the Pricing source."
+    },
+    {
+      "findingId": "FND-PRC-SKU-SN-001-41-BLK",
+      "type": "PriceConflict",
+      "severity": "High",
+      "productId": "P-SN-001",
+      "sku": "SKU-SN-001-41-BLK",
+      "field": "listedPrice",
+      "summary": "Published price differs from the Pricing source.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "listedPrice",
+          "value": "3199.90"
+        },
+        {
+          "source": "Pricing",
+          "field": "priceTry",
+          "value": "3699.90"
+        }
+      ],
+      "suggestedFix": "Update the published listedPrice to 3699.90 TRY from the Pricing source."
+    },
+    {
+      "findingId": "FND-PRC-SKU-SN-004-45-GRY",
+      "type": "PriceConflict",
+      "severity": "High",
+      "productId": "P-SN-004",
+      "sku": "SKU-SN-004-45-GRY",
+      "field": "listedPrice",
+      "summary": "Published price differs from the Pricing source.",
+      "evidence": [
+        {
+          "source": "Catalog",
+          "field": "listedPrice",
+          "value": "2599.90"
+        },
+        {
+          "source": "Pricing",
+          "field": "priceTry",
+          "value": "2199.90"
+        }
+      ],
+      "suggestedFix": "Update the published listedPrice to 2199.90 TRY from the Pricing source."
+    },
+    {
+      "findingId": "FND-RET-Headphones-UnopenedReturn",
+      "type": "AmbiguousReturnRule",
+      "severity": "Medium",
+      "policy": "Headphones:UnopenedReturn",
+      "field": "answer",
+      "summary": "Return policy gives no explicit answer for Headphones / UnopenedReturn.",
+      "evidence": [
+        {
+          "source": "ReturnPolicy",
+          "field": "answer",
+          "value": "Unspecified"
+        },
+        {
+          "source": "ReturnPolicy",
+          "field": "conditionTr",
+          "value": "Duruma göre değerlendirilir."
+        }
+      ],
+      "suggestedFix": "State an explicit Yes, No or Conditional answer for Headphones / UnopenedReturn."
+    },
+    {
+      "findingId": "FND-RET-SmallElectronics-OpenedReturn",
+      "type": "AmbiguousReturnRule",
+      "severity": "Medium",
+      "policy": "SmallElectronics:OpenedReturn",
+      "field": "answer",
+      "summary": "Return policy gives no explicit answer for SmallElectronics / OpenedReturn.",
+      "evidence": [
+        {
+          "source": "ReturnPolicy",
+          "field": "answer",
+          "value": "Unspecified"
+        },
+        {
+          "source": "ReturnPolicy",
+          "field": "conditionTr",
+          "value": "Duruma göre değerlendirilir."
+        }
+      ],
+      "suggestedFix": "State an explicit Yes, No or Conditional answer for SmallElectronics / OpenedReturn."
+    }
+  ]
+}
