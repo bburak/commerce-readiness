@@ -70,6 +70,14 @@ public class DeterminismTests
         Assert.Equal(14, outcomes[IntentOutcome.ValidProductsExist]);
         Assert.Equal(4, outcomes[IntentOutcome.NoValidProduct]);
         Assert.Equal(2, outcomes[IntentOutcome.InsufficientInformation]);
+
+        var clean = dataset.Metrics.Stores.Single(s => s.Store == StoreKind.Clean);
+        var published = dataset.Metrics.Stores.Single(s => s.Store == StoreKind.Published);
+        Assert.Equal(clean.DataConsistency.Denominator, published.DataConsistency.Denominator);
+        Assert.Empty(clean.AllNotPassingUnits());
+        Assert.Equal(
+            dataset.GroundTruth.Defects.SelectMany(d => d.ExpectedImpacts).Order(StringComparer.Ordinal),
+            published.AllNotPassingUnits().Order(StringComparer.Ordinal));
     }
 
     [Fact]

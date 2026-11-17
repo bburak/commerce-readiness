@@ -47,7 +47,9 @@ public static class DefectInjector
         return new InjectionResult(
             state.ToSnapshot(),
             [.. state.Facts.OrderBy(f => f.ProductId, StringComparer.Ordinal).ThenBy(f => f.AttributeKey, StringComparer.Ordinal)],
-            [.. defects.OrderBy(d => d.DefectId, StringComparer.Ordinal)]);
+            [.. defects
+                .OrderBy(d => d.DefectId, StringComparer.Ordinal)
+                .Select(d => d with { ExpectedImpacts = EvaluationUnits.ExpectedImpacts(d, cleanFacts) })]);
     }
 
     private static void InjectInventoryConflicts(
@@ -181,7 +183,7 @@ public static class DefectInjector
             }
 
             state.Products[productId] = product with { Description = description };
-            state.Facts.Add(new SemanticFact(StoreKind.Published, productId, key, asserted, phrase, SupportsAuthoritativeValue: false));
+            state.Facts.Add(new SemanticFact(StoreKind.Published, productId, null, key, asserted, phrase, SupportsAuthoritativeValue: false));
 
             var authoritative = product.Attributes[key];
             defects.Add(new InjectedDefect(

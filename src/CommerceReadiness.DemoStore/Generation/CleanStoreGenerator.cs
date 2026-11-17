@@ -258,7 +258,7 @@ public static class CleanStoreGenerator
                 var value = attributes[key];
                 var phrase = DescriptionPhrases.For(key, value);
                 phrases.Add(phrase);
-                Facts.Add(new SemanticFact(StoreKind.Clean, productId, key, value, phrase, SupportsAuthoritativeValue: true));
+                Facts.Add(new SemanticFact(StoreKind.Clean, productId, null, key, value, phrase, SupportsAuthoritativeValue: true));
             }
 
             Products.Add(new Product(productId, category, title, string.Join(" ", phrases.Prepend(intro)), attributes));

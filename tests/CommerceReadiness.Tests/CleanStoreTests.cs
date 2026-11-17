@@ -68,6 +68,7 @@ public class CleanStoreTests
             Assert.Equal(metric.Denominator, metric.Numerator);
             Assert.Equal(1.0, metric.Value);
             Assert.Empty(metric.FailedUnits);
+            Assert.Empty(metric.NotEvaluableUnits);
         }
     }
 
@@ -102,7 +103,7 @@ public class CleanStoreTests
         Assert.Equal(StoreKind.Published, published.Kind);
         Assert.NotEqual(JsonDefaults.Serialize(Clean with { Kind = StoreKind.Published }), JsonDefaults.Serialize(published));
         Assert.NotEqual(
-            ReadinessMetrics.CatalogCompleteness(Clean).Numerator,
-            ReadinessMetrics.CatalogCompleteness(published).Numerator);
+            ReadinessMetrics.CatalogCompleteness(Clean, TestData.Seed42Units).Numerator,
+            ReadinessMetrics.CatalogCompleteness(published, TestData.Seed42Units).Numerator);
     }
 }

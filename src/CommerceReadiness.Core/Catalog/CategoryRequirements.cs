@@ -102,6 +102,10 @@ public static class CategoryRequirements
 
     public static IEnumerable<string> VariantLevelKeys(Category category) =>
         For(category).Where(r => r.Level == AttributeLevel.Variant).Select(r => r.Key);
+
+    /// <summary>Product-level attributes a description can make a claim about (everything but brand).</summary>
+    public static IEnumerable<string> DescriptionClaimKeys(Category category) =>
+        For(category).Where(r => r.Level == AttributeLevel.Product && r.Key != AttributeKeys.Brand).Select(r => r.Key);
 }
 
 public static class StructuredValues

@@ -31,14 +31,101 @@ public class MetricTests
         Assert.Equal(requirementUnits - missingWithoutText, published.SemanticCoverage.Numerator);
         Assert.Equal(DefectInjector.MissingWithoutTextEvidenceCount, missingWithoutText);
 
-        Assert.Equal(Truth.Defects.Length - missing.Count, published.DataConsistency.Denominator - published.DataConsistency.Numerator);
+        var consistencyImpacts = Truth.Defects
+            .SelectMany(d => d.ExpectedImpacts)
+            .Count(u => !u.StartsWith("completeness:", StringComparison.Ordinal) && !u.StartsWith("semantic:", StringComparison.Ordinal));
+        Assert.Equal(consistencyImpacts, published.DataConsistency.NotPassing);
+        Assert.True(consistencyImpacts > Truth.Defects.Length - missing.Count, "Some defects should affect more than one unit.");
+
+        var units = TestData.Seed42Units;
+        Assert.Equal(
+            (units.Skus.Length * 2) + units.Deliveries.Length + units.Claims.Length + units.VariantSkus.Length + units.ReturnCells.Length,
+            published.DataConsistency.Denominator);
 
         foreach (var metric in new[] { published.CatalogCompleteness, published.SemanticCoverage, published.DataConsistency })
         {
             Assert.Equal(Math.Round((double)metric.Numerator / metric.Denominator, 4), metric.Value);
-            Assert.Equal(metric.Denominator - metric.Numerator, metric.FailedUnits.Length);
+            Assert.Equal(metric.NotPassing, metric.FailedUnits.Length + metric.NotEvaluableUnits.Length);
             Assert.False(string.IsNullOrWhiteSpace(metric.Definition));
         }
+    }
+
+    [Fact]
+    public void Clean_and_published_share_the_exact_same_denominators()
+    {
+        var clean = TestData.Seed42.Metrics.Stores.Single(s => s.Store == StoreKind.Clean);
+        var published = TestData.Seed42.Metrics.Stores.Single(s => s.Store == StoreKind.Published);
+
+        Assert.Equal(clean.DataConsistency.Denominator, published.DataConsistency.Denominator);
+        Assert.Equal(clean.CatalogCompleteness.Denominator, published.CatalogCompleteness.Denominator);
+        Assert.Equal(clean.SemanticCoverage.Denominator, published.SemanticCoverage.Denominator);
+    }
+
+    [Fact]
+    public void An_out_of_stock_catalog_defect_cannot_remove_a_delivery_unit()
+    {
+        var units = TestData.Seed42Units;
+        var sku = units.Deliveries[0].Sku;
+        var observed = Clean with
+        {
+            Kind = StoreKind.Published,
+            Listings = [.. Clean.Listings.Select(l => l.Sku == sku
+                ? l with { StockStatus = StockStatus.OutOfStock, DeliveryPromiseIstanbul = null }
+                : l)],
+        };
+        var observedFacts = Truth.SemanticFacts.Where(f => f.Store == StoreKind.Clean).Select(f => f with { Store = StoreKind.Published });
+
+        var before = ReadinessMetrics.DataConsistency(Clean, units, Clean, Truth.SemanticFacts);
+        var after = ReadinessMetrics.DataConsistency(observed, units, Clean, observedFacts);
+
+        Assert.Equal(before.Denominator, after.Denominator);
+        Assert.Equal(UnitStatus.NotEvaluable, after.Units.Single(u => u.UnitId == EvaluationUnits.Delivery(sku)).Status);
+        Assert.Equal(UnitStatus.Failed, after.Units.Single(u => u.UnitId == EvaluationUnits.Stock(sku)).Status);
+        Assert.Equal(before.Numerator - 2, after.Numerator);
+    }
+
+    [Fact]
+    public void Removing_observed_data_makes_units_not_evaluable_instead_of_disappearing()
+    {
+        var units = TestData.Seed42Units;
+        var sku = units.Deliveries[0].Sku;
+        var observed = Clean with
+        {
+            Kind = StoreKind.Published,
+            Listings = [.. Clean.Listings.Where(l => l.Sku != sku)],
+            ReturnRules = [.. Clean.ReturnRules.Skip(1)],
+        };
+
+        var consistency = ReadinessMetrics.DataConsistency(observed, units, Clean, []);
+        var completeness = ReadinessMetrics.CatalogCompleteness(observed, units);
+
+        Assert.Equal(ReadinessMetrics.DataConsistency(Clean, units, Clean, Truth.SemanticFacts).Denominator, consistency.Denominator);
+        Assert.Equal(ReadinessMetrics.CatalogCompleteness(Clean, units).Denominator, completeness.Denominator);
+        Assert.Equal(UnitStatus.NotEvaluable, consistency.Units.Single(u => u.UnitId == EvaluationUnits.Stock(sku)).Status);
+        Assert.Equal(UnitStatus.NotEvaluable, consistency.Units.Single(u => u.UnitId == EvaluationUnits.Return(Clean.ReturnRules[0].CellId)).Status);
+        Assert.All(completeness.Units.Where(u => u.UnitId.Contains(sku, StringComparison.Ordinal)), u => Assert.Equal(UnitStatus.NotEvaluable, u.Status));
+    }
+
+    [Fact]
+    public void Every_injected_defect_has_an_expected_impact_that_is_observed()
+    {
+        var published = TestData.Seed42.Metrics.Stores.Single(s => s.Store == StoreKind.Published);
+        var notPassing = published.AllNotPassingUnits().ToHashSet(StringComparer.Ordinal);
+
+        Assert.Equal(24, Truth.Defects.Length);
+        Assert.All(Truth.Defects, d =>
+        {
+            Assert.NotEmpty(d.ExpectedImpacts);
+            Assert.All(d.ExpectedImpacts, unit => Assert.Contains(unit, notPassing));
+        });
+
+        var coverage = TestData.Seed42.Metrics.PublishedDefectCoverage;
+        Assert.Equal(24, coverage.InjectedDefects);
+        Assert.Equal(24, coverage.DefectsWithExpectedImpact);
+        Assert.Equal(24, coverage.DefectsDetectedByFailingUnits);
+        Assert.Equal(published.CatalogCompleteness.NotPassing, coverage.CatalogCompletenessFailures);
+        Assert.Equal(published.SemanticCoverage.NotPassing, coverage.SemanticCoverageFailures);
+        Assert.Equal(published.DataConsistency.NotPassing, coverage.DataConsistencyFailures);
     }
 
     [Fact]
@@ -71,16 +158,17 @@ public class MetricTests
             .Select(f => f with { Store = StoreKind.Published })
             .ToList();
 
-        var lie = new SemanticFact(StoreKind.Published, product.ProductId, AttributeKeys.WaterResistance,
+        var lie = new SemanticFact(StoreKind.Published, product.ProductId, null, AttributeKeys.WaterResistance,
             nameof(WaterResistance.Waterproof), DescriptionPhrases.For(AttributeKeys.WaterResistance, nameof(WaterResistance.Waterproof)), false);
         var lieFlaggedAsSupporting = lie with { SupportsAuthoritativeValue = true };
-        var honest = new SemanticFact(StoreKind.Published, product.ProductId, AttributeKeys.WaterResistance,
+        var honest = new SemanticFact(StoreKind.Published, product.ProductId, null, AttributeKeys.WaterResistance,
             truth, DescriptionPhrases.For(AttributeKeys.WaterResistance, truth), true);
 
-        var withoutText = ReadinessMetrics.SemanticCoverage(observed, Clean, baseFacts);
-        var withLie = ReadinessMetrics.SemanticCoverage(observed, Clean, [.. baseFacts, lie]);
-        var withMislabelledLie = ReadinessMetrics.SemanticCoverage(observed, Clean, [.. baseFacts, lieFlaggedAsSupporting]);
-        var withHonestText = ReadinessMetrics.SemanticCoverage(observed, Clean, [.. baseFacts, honest]);
+        var units = TestData.Seed42Units;
+        var withoutText = ReadinessMetrics.SemanticCoverage(observed, units, Clean, baseFacts);
+        var withLie = ReadinessMetrics.SemanticCoverage(observed, units, Clean, [.. baseFacts, lie]);
+        var withMislabelledLie = ReadinessMetrics.SemanticCoverage(observed, units, Clean, [.. baseFacts, lieFlaggedAsSupporting]);
+        var withHonestText = ReadinessMetrics.SemanticCoverage(observed, units, Clean, [.. baseFacts, honest]);
 
         Assert.False(withoutText.Units.Single(u => u.UnitId == unit).Passed);
         Assert.Equal(withoutText.Numerator, withLie.Numerator);
@@ -88,8 +176,12 @@ public class MetricTests
         Assert.False(withLie.Units.Single(u => u.UnitId == unit).Passed);
         Assert.Equal(withoutText.Numerator + 1, withHonestText.Numerator);
 
-        var consistency = ReadinessMetrics.DataConsistency(observed, Clean, [.. baseFacts, lie], TestData.Seed42.Context);
-        Assert.False(consistency.Units.Single(u => u.UnitId == EvaluationUnits.Claim(product.ProductId, AttributeKeys.WaterResistance)).Passed);
+        var claimUnit = EvaluationUnits.Claim(product.ProductId, AttributeKeys.WaterResistance);
+        var consistencyWithLie = ReadinessMetrics.DataConsistency(observed, units, Clean, [.. baseFacts, lie]);
+        var consistencyWithoutText = ReadinessMetrics.DataConsistency(observed, units, Clean, baseFacts);
+        Assert.False(consistencyWithLie.Units.Single(u => u.UnitId == claimUnit).Passed);
+        Assert.True(consistencyWithoutText.Units.Single(u => u.UnitId == claimUnit).Passed);
+        Assert.Equal(consistencyWithoutText.Denominator, consistencyWithLie.Denominator);
     }
 
     [Fact]
