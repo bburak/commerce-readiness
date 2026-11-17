@@ -39,6 +39,7 @@ Unit IDs:
 | Price | `price:{sku}` | always |
 | Delivery | `delivery:{sku}` | the SKU has authoritative stock, so a delivery date exists; no published promise is `NotEvaluable` |
 | Claim | `claim:{productId}:{attribute}` | per product x describable attribute (product-level, except brand); no claim passes |
+| Variant claim | `claim:{sku}:{attribute}` | per SKU x variant-level attribute (Sneakers: shoeSize, color); only SKU-scoped facts of that SKU count |
 | Variant | `variant:{sku}` | category has variant-level attributes (Sneakers) |
 | Return | `return:{category}:{question}` | per policy cell |
 
@@ -66,9 +67,22 @@ A Milestone 1 analyzer will be scored with these counts:
 ## Semantic evidence
 
 Descriptions are assembled from templated phrases; each phrase is recorded as a `SemanticFact`
-(`store`, `productId`, `attributeKey`, `assertedValue`, `phrase`, `supportsAuthoritativeValue`). A fact supports an
-attribute only if `assertedValue` equals the clean-store structured value. Metrics recompute this against the clean
-store rather than trusting the flag. Later AI extraction will be evaluated against these facts.
+(`store`, `productId`, `sku`, `attributeKey`, `assertedValue`, `phrase`, `supportsAuthoritativeValue`). A fact
+supports an attribute only if `assertedValue` equals the clean-store structured value at the fact's scope. Metrics
+recompute this against the clean store rather than trusting the flag. Later AI extraction will be evaluated against
+these facts. Scope rules (`SemanticSupport.AppliesTo` and `SemanticSupport.Supports`):
+
+| Fact | Evidences | Claim unit |
+|---|---|---|
+| Product-scoped (`sku` null), product-level attribute | that attribute for every SKU of the product | `claim:{productId}:{attribute}` |
+| SKU-scoped, variant-level attribute | that attribute for that SKU only | `claim:{sku}:{attribute}` |
+| SKU-scoped, product-level attribute | that attribute for that SKU only | `claim:{productId}:{attribute}` |
+| Product-scoped, variant-level attribute (unresolved) | nothing | none |
+
+An extractor that reads "43 numara siyah seçenek mevcut." must resolve the product's variant with `shoeSize=43` and
+`color=Siyah` and emit two SKU-scoped facts for it. If no single variant matches, the claim stays unresolved, never
+counts as evidence and is not attributed to any unit. Phantom variant claims (a size or color the product does not
+have) are not a Milestone 0 defect type.
 
 ## Shopper intents
 

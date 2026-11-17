@@ -17,13 +17,16 @@ public static class ReadinessMetrics
     public const string SemanticCoverageDefinition =
         "required attributes present structurally OR supported by explicit text evidence / applicable required attributes; " +
         "one unit per clean SKU x category requirement. Text evidence counts only when the asserted value equals the " +
-        "authoritative clean-store value, so a misleading description can never raise coverage.";
+        "authoritative clean-store value at the fact's scope, so a misleading description can never raise coverage. " +
+        "Product-scoped facts evidence product-level attributes for every SKU of the product; variant-level attributes " +
+        "need a SKU-scoped fact, so evidence never spreads to sibling variants.";
 
     public const string DataConsistencyDefinition =
         "passed consistency checks / applicable consistency checks, with the applicable set fixed by the clean store. " +
         "Checks: catalog stockStatus vs Inventory (per SKU), catalog listedPrice vs Pricing (per SKU), catalog Istanbul " +
         "delivery promise vs Shipping calculation (per SKU with authoritative stock), description vs authoritative " +
-        "attribute (per product x describable attribute; no claim passes), variant relationship (per variant of a " +
+        "attribute (per product x describable attribute and per variant SKU x variant attribute; no claim passes), " +
+        "variant relationship (per variant of a " +
         "multi-variant category), return-policy cell explicit and authoritative (per cell). A unit whose observed data " +
         "is missing is NotEvaluable and counts as not passing.";
 
@@ -56,10 +59,9 @@ public static class ReadinessMetrics
     public static MetricResult SemanticCoverage(
         StoreSnapshot observed, EvaluationUnitSet units, StoreSnapshot clean, IEnumerable<SemanticFact> observedFacts)
     {
-        var supported = observedFacts
+        var supportingByProduct = observedFacts
             .Where(f => f.Store == observed.Kind && SemanticSupport.Supports(f, clean))
-            .Select(f => (f.ProductId, f.AttributeKey))
-            .ToHashSet();
+            .ToLookup(f => f.ProductId);
 
         var result = new List<MetricUnit>();
         foreach (var (sku, requirement) in units.Requirements)
@@ -72,7 +74,8 @@ public static class ReadinessMetrics
             }
 
             var structural = StructuredValues.Get(observed, sku, requirement) is not null;
-            var textual = supported.Contains((observed.GetVariant(sku).ProductId, requirement.Key));
+            var productId = observed.GetVariant(sku).ProductId;
+            var textual = supportingByProduct[productId].Any(f => SemanticSupport.AppliesTo(f, productId, sku, requirement));
             result.Add(MetricUnit.Of(id, structural || textual, !structural && textual ? "text evidence only" : null));
         }
 
@@ -116,19 +119,24 @@ public static class ReadinessMetrics
                 : MetricUnit.NotEvaluable(id, $"no delivery promise published; shipping={InvariantFormat.Date(authoritative)}"));
         }
 
+        // Product-level units collect every claim about the attribute (product- or SKU-scoped); variant-level units only
+        // collect claims scoped to their SKU. Variant claims without a resolved SKU are attributable to no unit.
         var factsByClaim = observedFacts
             .Where(f => f.Store == observed.Kind)
             .ToLookup(f => (f.ProductId, f.AttributeKey));
-        foreach (var (productId, key) in units.Claims)
+        foreach (var unit in units.Claims)
         {
-            var id = EvaluationUnits.Claim(productId, key);
-            if (!observed.Products.Any(p => p.ProductId == productId))
+            var id = unit.UnitId;
+            if (!observed.Products.Any(p => p.ProductId == unit.ProductId)
+                || (unit.Sku is { } unitSku && !observed.Variants.Any(v => v.Sku == unitSku)))
             {
-                result.Add(MetricUnit.NotEvaluable(id, "product missing"));
+                result.Add(MetricUnit.NotEvaluable(id, unit.Sku is null ? "product missing" : "variant missing"));
                 continue;
             }
 
-            var claims = factsByClaim[(productId, key)].ToList();
+            var claims = factsByClaim[(unit.ProductId, unit.AttributeKey)]
+                .Where(f => unit.Sku is null || f.Sku == unit.Sku)
+                .ToList();
             result.Add(MetricUnit.Of(
                 id,
                 claims.All(f => SemanticSupport.Supports(f, clean)),

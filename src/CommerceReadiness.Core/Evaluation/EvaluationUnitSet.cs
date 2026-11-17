@@ -9,7 +9,11 @@ public sealed record RequirementUnit(string Sku, AttributeRequirement Requiremen
 
 public sealed record DeliveryUnit(string Sku, DateOnly AuthoritativeDate);
 
-public sealed record ClaimUnit(string ProductId, string AttributeKey);
+/// <summary>A product-level claim unit when <see cref="Sku"/> is null, otherwise a variant-level claim unit of that SKU.</summary>
+public sealed record ClaimUnit(string ProductId, string? Sku, string AttributeKey)
+{
+    public string UnitId => Sku is null ? EvaluationUnits.Claim(ProductId, AttributeKey) : EvaluationUnits.Claim(Sku, AttributeKey);
+}
 
 /// <summary>
 /// The fixed universe of evaluable units, built once from the clean authoritative store and then evaluated
@@ -43,9 +47,13 @@ public sealed record EvaluationUnitSet(
                 .Select(v => (v.Sku, Date: DeliveryCalculator.EstimateDelivery(clean, v.Sku, City.Istanbul, context.Now)))
                 .Where(x => x.Date is not null)
                 .Select(x => new DeliveryUnit(x.Sku, x.Date!.Value))],
-            [.. clean.Products
-                .OrderBy(p => p.ProductId, StringComparer.Ordinal)
-                .SelectMany(p => CategoryRequirements.DescriptionClaimKeys(p.Category).Select(k => new ClaimUnit(p.ProductId, k)))],
+            [
+                .. clean.Products
+                    .OrderBy(p => p.ProductId, StringComparer.Ordinal)
+                    .SelectMany(p => CategoryRequirements.DescriptionClaimKeys(p.Category).Select(k => new ClaimUnit(p.ProductId, null, k))),
+                .. variants
+                    .SelectMany(v => CategoryRequirements.VariantLevelKeys(CategoryOf(v)).Select(k => new ClaimUnit(v.ProductId, v.Sku, k))),
+            ],
             [.. variants.Where(v => CategoryRequirements.VariantLevelKeys(CategoryOf(v)).Any()).Select(v => v.Sku)],
             [.. clean.ReturnRules.Select(r => r.CellId)]);
     }

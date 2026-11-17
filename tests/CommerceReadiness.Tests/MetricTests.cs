@@ -158,10 +158,10 @@ public class MetricTests
             .Select(f => f with { Store = StoreKind.Published })
             .ToList();
 
-        var lie = new SemanticFact(StoreKind.Published, product.ProductId, AttributeKeys.WaterResistance,
+        var lie = new SemanticFact(StoreKind.Published, product.ProductId, null, AttributeKeys.WaterResistance,
             nameof(WaterResistance.Waterproof), DescriptionPhrases.For(AttributeKeys.WaterResistance, nameof(WaterResistance.Waterproof)), false);
         var lieFlaggedAsSupporting = lie with { SupportsAuthoritativeValue = true };
-        var honest = new SemanticFact(StoreKind.Published, product.ProductId, AttributeKeys.WaterResistance,
+        var honest = new SemanticFact(StoreKind.Published, product.ProductId, null, AttributeKeys.WaterResistance,
             truth, DescriptionPhrases.For(AttributeKeys.WaterResistance, truth), true);
 
         var units = TestData.Seed42Units;

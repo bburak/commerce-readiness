@@ -38,7 +38,8 @@ public static class EvaluationUnits
         switch (defect.Type)
         {
             case DefectType.MissingRequiredAttribute
-                when !cleanFacts.Any(f => f.Store == StoreKind.Clean && f.ProductId == defect.ProductId && f.AttributeKey == defect.Field):
+                when !cleanFacts.Any(f => f.Store == StoreKind.Clean && f.ProductId == defect.ProductId && f.AttributeKey == defect.Field
+                                          && (f.Sku is null || f.Sku == defect.Sku)):
                 return [primary, Semantic(Require(defect.Sku), defect.Field)];
             case DefectType.InventoryConflict when defect.PublishedValue == StockStatusText.OutOfStock:
                 return [primary, Delivery(Require(defect.Sku))];

@@ -183,7 +183,7 @@ public static class DefectInjector
             }
 
             state.Products[productId] = product with { Description = description };
-            state.Facts.Add(new SemanticFact(StoreKind.Published, productId, key, asserted, phrase, SupportsAuthoritativeValue: false));
+            state.Facts.Add(new SemanticFact(StoreKind.Published, productId, null, key, asserted, phrase, SupportsAuthoritativeValue: false));
 
             var authoritative = product.Attributes[key];
             defects.Add(new InjectedDefect(

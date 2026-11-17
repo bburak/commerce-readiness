@@ -17,7 +17,7 @@ foundation. There is no AI in it yet, on purpose.
   deterministic **oracle** (14 with valid products, 4 with no valid product, 2 with insufficient information).
 - **Readiness metrics** with explicit numerators and denominators, computed for the clean and published stores.
 - The **output contract** a future LLM shopper must follow, so its answers can be evaluated deterministically.
-- 80 xUnit tests proving reproducibility and internal consistency.
+- 86 xUnit tests proving reproducibility and internal consistency.
 
 ## Why ground truth comes before AI
 
@@ -99,13 +99,19 @@ Each metric is `passed units / applicable units`.
    applicable required attributes. Text evidence counts only when it asserts the authoritative clean-store value, so a
    misleading description can never raise coverage. In Milestone 0, text evidence comes from the templated semantic
    facts in ground truth, not from extraction.
+
+   Evidence is scoped:
+   - A product-scoped fact ("Malzeme: Deri.") evidences product-level attributes for every SKU of the product.
+   - Variant-level attributes need a SKU-scoped fact. For example, "43 numara siyah seçenek mevcut." becomes
+     `shoeSize` and `color` facts for that one SKU.
+   - A variant fact without a resolved SKU never counts, so evidence cannot spread to sibling variants.
 3. **Data Consistency** = passed consistency checks / applicable consistency checks. The checks are:
    - catalog stock vs inventory (one per SKU);
    - catalog price vs pricing (one per SKU);
    - Istanbul delivery promise vs calculation (one per SKU with authoritative stock; no published promise means
      `NotEvaluable`);
-   - description vs authoritative attribute (one per product x describable attribute; making no claim passes, and an
-     added false claim fails);
+   - description vs authoritative attribute (one per product x describable attribute, and one per sneaker SKU x
+     variant attribute; making no claim passes, and an added false claim fails);
    - sneaker variant relationship (one per variant);
    - explicit, authoritative return-policy cell (one per cell).
 
@@ -118,8 +124,8 @@ Seed 42 results:
 
 | Store | Catalog Completeness | Semantic Coverage | Data Consistency |
 |---|---|---|---|
-| Clean | 675 / 675 (100%) | 675 / 675 (100%) | 593 / 593 (100%) |
-| Published | 669 / 675 (99.11%) | 672 / 675 (99.56%) | 573 / 593 (96.63%) |
+| Clean | 675 / 675 (100%) | 675 / 675 (100%) | 653 / 653 (100%) |
+| Published | 669 / 675 (99.11%) | 672 / 675 (99.56%) | 633 / 653 (96.94%) |
 
 Defects and metric failures are counted separately. All 24 unique injected defects have an expected impact, and all
 24 are detected by at least one non-passing unit. The non-passing units are:
@@ -213,7 +219,9 @@ The tests cover:
 - delivery is computed from the fixed clock;
 - inventory is tracked per sneaker SKU;
 - JSON and CSV round-trip;
-- a regression test proving a misleading description cannot raise Semantic Coverage.
+- a regression test proving a misleading description cannot raise Semantic Coverage;
+- variant evidence: a SKU-scoped fact covers only its own SKU, unscoped variant evidence never counts, and a wrong
+  SKU-scoped claim fails only that SKU's claim unit.
 
 ## Not built yet (by design)
 

@@ -16,7 +16,7 @@
       },
       "semanticCoverage": {
         "name": "SemanticCoverage",
-        "definition": "required attributes present structurally OR supported by explicit text evidence / applicable required attributes; one unit per clean SKU x category requirement. Text evidence counts only when the asserted value equals the authoritative clean-store value, so a misleading description can never raise coverage.",
+        "definition": "required attributes present structurally OR supported by explicit text evidence / applicable required attributes; one unit per clean SKU x category requirement. Text evidence counts only when the asserted value equals the authoritative clean-store value at the fact's scope, so a misleading description can never raise coverage. Product-scoped facts evidence product-level attributes for every SKU of the product; variant-level attributes need a SKU-scoped fact, so evidence never spreads to sibling variants.",
         "numerator": 675,
         "denominator": 675,
         "value": 1,
@@ -26,9 +26,9 @@
       },
       "dataConsistency": {
         "name": "DataConsistency",
-        "definition": "passed consistency checks / applicable consistency checks, with the applicable set fixed by the clean store. Checks: catalog stockStatus vs Inventory (per SKU), catalog listedPrice vs Pricing (per SKU), catalog Istanbul delivery promise vs Shipping calculation (per SKU with authoritative stock), description vs authoritative attribute (per product x describable attribute; no claim passes), variant relationship (per variant of a multi-variant category), return-policy cell explicit and authoritative (per cell). A unit whose observed data is missing is NotEvaluable and counts as not passing.",
-        "numerator": 593,
-        "denominator": 593,
+        "definition": "passed consistency checks / applicable consistency checks, with the applicable set fixed by the clean store. Checks: catalog stockStatus vs Inventory (per SKU), catalog listedPrice vs Pricing (per SKU), catalog Istanbul delivery promise vs Shipping calculation (per SKU with authoritative stock), description vs authoritative attribute (per product x describable attribute and per variant SKU x variant attribute; no claim passes), variant relationship (per variant of a multi-variant category), return-policy cell explicit and authoritative (per cell). A unit whose observed data is missing is NotEvaluable and counts as not passing.",
+        "numerator": 653,
+        "denominator": 653,
         "value": 1,
         "failedUnits": [],
         "notEvaluableUnits": [],
@@ -56,7 +56,7 @@
       },
       "semanticCoverage": {
         "name": "SemanticCoverage",
-        "definition": "required attributes present structurally OR supported by explicit text evidence / applicable required attributes; one unit per clean SKU x category requirement. Text evidence counts only when the asserted value equals the authoritative clean-store value, so a misleading description can never raise coverage.",
+        "definition": "required attributes present structurally OR supported by explicit text evidence / applicable required attributes; one unit per clean SKU x category requirement. Text evidence counts only when the asserted value equals the authoritative clean-store value at the fact's scope, so a misleading description can never raise coverage. Product-scoped facts evidence product-level attributes for every SKU of the product; variant-level attributes need a SKU-scoped fact, so evidence never spreads to sibling variants.",
         "numerator": 672,
         "denominator": 675,
         "value": 0.9956,
@@ -70,10 +70,10 @@
       },
       "dataConsistency": {
         "name": "DataConsistency",
-        "definition": "passed consistency checks / applicable consistency checks, with the applicable set fixed by the clean store. Checks: catalog stockStatus vs Inventory (per SKU), catalog listedPrice vs Pricing (per SKU), catalog Istanbul delivery promise vs Shipping calculation (per SKU with authoritative stock), description vs authoritative attribute (per product x describable attribute; no claim passes), variant relationship (per variant of a multi-variant category), return-policy cell explicit and authoritative (per cell). A unit whose observed data is missing is NotEvaluable and counts as not passing.",
-        "numerator": 573,
-        "denominator": 593,
-        "value": 0.9663,
+        "definition": "passed consistency checks / applicable consistency checks, with the applicable set fixed by the clean store. Checks: catalog stockStatus vs Inventory (per SKU), catalog listedPrice vs Pricing (per SKU), catalog Istanbul delivery promise vs Shipping calculation (per SKU with authoritative stock), description vs authoritative attribute (per product x describable attribute and per variant SKU x variant attribute; no claim passes), variant relationship (per variant of a multi-variant category), return-policy cell explicit and authoritative (per cell). A unit whose observed data is missing is NotEvaluable and counts as not passing.",
+        "numerator": 633,
+        "denominator": 653,
+        "value": 0.9694,
         "failedUnits": [
           "stock:SKU-BP-007",
           "stock:SKU-BP-020",
