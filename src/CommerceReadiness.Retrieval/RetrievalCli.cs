@@ -113,7 +113,7 @@ public static class RetrievalCli
         Directory.CreateDirectory(directory);
         var path = Path.Combine(directory, $"benchmark-{embeddings.Profile.Model}.json");
         TextFiles.Write(path, JsonDefaults.Serialize(report));
-        PrintBenchmark(report, path, output);
+        BenchmarkReportPrinter.Print(report, path, output);
         return 0;
     }
 
@@ -132,41 +132,6 @@ public static class RetrievalCli
 
         return new PgVectorIndexHandle(index);
     }
-
-    private static void PrintBenchmark(RetrievalBenchmarkReport report, string path, TextWriter output)
-    {
-        var p = report.Provenance;
-        output.WriteLine("Retrieval Benchmark");
-        output.WriteLine(Rule);
-        output.WriteLine($"Store {p.StoreVersion} | {p.EmbeddingProvider} {p.EmbeddingModel} ({p.EmbeddingDimensions} dims) | K={p.K} | index {p.Index}");
-        output.WriteLine($"Scored cases {report.ScoredCases} (semantic-discriminating {report.SemanticDiscriminatingCases}); " +
-                         $"no-relevant {report.NoRelevantProductCases} reported separately; insufficient {report.ExcludedInsufficientCases} excluded");
-        output.WriteLine();
-        output.WriteLine($"{"Mode",-15}{"Group",-25}{"Cases",6}{$"Recall@{p.K}",11}{$"Precision@{p.K}",14}{$"HitRate@{p.K}",12}");
-        foreach (var mode in report.Modes)
-        {
-            Row(output, mode.Mode.ToString(), "Shopper-derived", mode.ShopperDerived);
-            Row(output, string.Empty, "Discovery-only", mode.DiscoveryOnly);
-            Row(output, string.Empty, "Combined", mode.Combined);
-            Row(output, string.Empty, "Semantic-discriminating", mode.SemanticDiscriminating);
-        }
-
-        output.WriteLine();
-        output.WriteLine($"Max achievable Recall@{p.K} (combined): {Format(report.Modes[0].Combined.MaxAchievableRecallAtK)}");
-        output.WriteLine("No-relevant cases (not scored):");
-        foreach (var mode in report.Modes)
-        {
-            var n = mode.NoRelevantProduct;
-            output.WriteLine($"  {mode.Mode,-15} empty results {n.EmptyResults}/{n.Cases}, average returned {Format(n.AverageReturned)}");
-        }
-
-        output.WriteLine($"Written to {Path.GetFullPath(path)}");
-    }
-
-    private static void Row(TextWriter output, string mode, string group, Core.Evaluation.Retrieval.RetrievalAggregate a) =>
-        output.WriteLine($"{mode,-15}{group,-25}{a.Cases,6}{Format(a.RecallAtK),11}{Format(a.PrecisionAtK),14}{Format(a.HitRateAtK),12}");
-
-    private static string Format(double? value) => value is { } v ? v.ToString("0.000", CultureInfo.InvariantCulture) : "n/a";
 
     private static void PrintUsage(TextWriter output)
     {
