@@ -1,0 +1,20 @@
+# Retrieval database only (PostgreSQL + pgvector). The applications run on the host.
+services:
+  retrieval-db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_DB: commerce_readiness
+      POSTGRES_USER: ${POSTGRES_USER:-commerce}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-commerce_dev}
+    ports:
+      - "5433:5432"
+    volumes:
+      - retrieval-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-commerce} -d commerce_readiness"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  retrieval-db-data:
