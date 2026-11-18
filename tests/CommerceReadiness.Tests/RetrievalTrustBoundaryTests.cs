@@ -22,7 +22,8 @@ public class RetrievalTrustBoundaryTests
     {
         var coreTypes = typeof(SearchDocument).Assembly.GetTypes()
             .Where(t => t.IsVisible && t.Namespace == "CommerceReadiness.Core.Retrieval");
-        var runtimeTypes = typeof(RetrievalCli).Assembly.GetTypes()
+        var runtimeTypes = new[] { typeof(RetrievalCli).Assembly, typeof(ProductSearchService).Assembly }
+            .SelectMany(a => a.GetTypes())
             .Where(t => t.IsVisible && t.Namespace?.StartsWith("CommerceReadiness.Retrieval.Benchmark", StringComparison.Ordinal) != true);
 
         var offenders = coreTypes.Concat(runtimeTypes)
@@ -45,7 +46,12 @@ public class RetrievalTrustBoundaryTests
             @"|\b(GroundTruth|InjectedDefect|DecoyCase|SemanticFact|AuthoritativeFacts|OracleShopper|RetrievalRelevanceOracle)\b");
         var root = TestData.RepoRoot();
         var benchmarkFolder = $"{Path.DirectorySeparatorChar}Benchmark{Path.DirectorySeparatorChar}";
-        var files = new[] { Path.Combine(root, "src", "CommerceReadiness.Core", "Retrieval"), Path.Combine(root, "src", "CommerceReadiness.Retrieval") }
+        var files = new[]
+            {
+                Path.Combine(root, "src", "CommerceReadiness.Core", "Retrieval"),
+                Path.Combine(root, "src", "CommerceReadiness.Retrieval"),
+                Path.Combine(root, "src", "CommerceReadiness.Retrieval.Runtime"),
+            }
             .SelectMany(d => Directory.EnumerateFiles(d, "*.cs", SearchOption.AllDirectories))
             .Where(f => !f.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.Ordinal)
                         && !f.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.Ordinal)
@@ -72,6 +78,16 @@ public class RetrievalTrustBoundaryTests
             || n.StartsWith("OpenAI", StringComparison.Ordinal)
             || n.StartsWith("Npgsql", StringComparison.Ordinal)
             || n.StartsWith("Pgvector", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void Retrieval_runtime_reads_no_configuration_sources()
+    {
+        var runtime = typeof(ProductSearchService).Assembly;
+        var references = runtime.GetReferencedAssemblies().Select(a => a.Name ?? string.Empty).ToList();
+
+        Assert.DoesNotContain(references, n => n.StartsWith("Microsoft.Extensions.Configuration", StringComparison.Ordinal));
+        Assert.Null(runtime.GetCustomAttribute<Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute>());
     }
 
     [Fact]
