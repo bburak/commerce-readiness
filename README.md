@@ -4,14 +4,14 @@ Commerce Readiness Lab tests whether an ecommerce store can be reliably understo
 can an agent find the right product, respect the shopper's constraints, and avoid confidently wrong answers when the
 store's own data is stale, incomplete or contradictory?
 
-This repository is at **Milestone 2**. It contains:
+This repository is at **Milestone 3**. It contains:
 
 - a deterministic synthetic store (DemoStore) with a trustworthy evaluation foundation (Milestone 0);
 - a deterministic Readiness Analyzer that reads only published data, scored by a separate evaluator (Milestone 1);
 - hybrid product retrieval: embeddings, a pgvector index, and structured, semantic and hybrid search, with its own
-  retrieval benchmark (Milestone 2).
-
-Milestone 2 is the retrieval foundation for RAG. It does not generate answers and contains no LLM shopper yet.
+  retrieval benchmark (Milestone 2);
+- a grounded LLM shopper with read-only commerce tools, structured `ShopperResult` output and a deterministic
+  `ShopperEvaluator` (Milestone 3).
 
 ## What Milestone 0 contains
 
@@ -22,7 +22,9 @@ Milestone 2 is the retrieval foundation for RAG. It does not generate answers an
 - 20 Turkish **shopper intents** with hidden structured constraints and expected results computed by a
   deterministic **oracle** (14 with valid products, 4 with no valid product, 2 with insufficient information).
 - **Readiness metrics** with explicit numerators and denominators, computed for the clean and published stores.
-- The **output contract** a future LLM shopper must follow, so its answers can be evaluated deterministically.
+- The **output contract** shape that Milestone 3's LLM shopper must follow, so its answers can be evaluated
+  deterministically.
+
 ## What Milestone 1 adds
 
 - A **Readiness Analyzer** with five explicit rules. It reads only the published store and emits actionable
@@ -44,6 +46,59 @@ Milestone 2 is the retrieval foundation for RAG. It does not generate answers an
 - A generated **retrieval benchmark** (`eval/retrieval-benchmark.json`) and Recall@K, Precision@K and HitRate@K
   per mode.
 - 210 xUnit tests in total: 205 unit tests and 5 pgvector integration tests.
+- Reusable runtime extracted to `CommerceReadiness.Retrieval.Runtime` (config-source agnostic).
+
+## What Milestone 3 adds
+
+- An OpenAI-powered **grounded shopper** (`CommerceReadiness.Shopper`) over Microsoft.Extensions.AI:
+  Responses API + function invocation + structured `ShopperResult`.
+- Six **read-only** tools. `search_products` always uses Milestone 2 Hybrid retrieval; product attributes, inventory,
+  delivery, returns and payments are verified separately. SKU-anchored tools resolve category/price/rules server-side.
+- Application-issued **evidence IDs** (`EVID-001`, …), a tool trace, and a deterministic Turkish renderer (no second
+  LLM call for prose).
+- A deterministic **ShopperEvaluator**: outcome accuracy, mandatory-constraint grounding, confident-wrong and
+  unsupported-claim rates, grounded NoMatch, typed clarification, all-attempted denominators. No LLM-as-judge.
+- Offline scripted-chat tests; real OpenAI only via `ask` / `benchmark`.
+
+See [docs/shopper-contract.md](docs/shopper-contract.md).
+
+### Observed OpenAI benchmark (seed 42, 20 intents × 3 runs)
+
+Active prompt: **`shopper-prompt-v2`** (general return-policy interpretation). Historical v1 file kept at
+`shopper-runs/benchmark-gpt-6.2-sol-shopper-prompt-v1.json` — do not reuse v1 scores as v2 scores.
+
+Provenance (v2): `gpt-6.2-sol` / `shopper-prompt-v2` / embeddings `text-embedding-3-small` 1536 /
+`retrievalMode=Hybrid` / `defaultSearchTop=5` / `maxSearchTop=10` (Top model-selected per `search_products`) /
+`pgvector` / file `shopper-runs/benchmark-gpt-6.2-sol-shopper-prompt-v2.json`.
+
+Search-top diagnostic (v2 traces): `totalSearchCalls=70`, distribution **10→70**.
+
+Milestone 2 retrieval metrics used **fixed K=5**; M3 agent depth is model-controlled up to 10 — not the same
+experimental configuration. Shopper correctness metrics do not assume fixed K.
+
+| Metric | v1 (historical) | v2 (current) |
+|---|---|---|
+| OutcomeAccuracy | 0.950 (57/60) | **0.983 (59/60)** |
+| PrimaryRecommendationSuccessRate | 0.929 (39/42) | **0.976 (41/42)** |
+| GroundedRecommendationSuccessRate | 0.929 (39/42) | **0.976 (41/42)** |
+| MandatoryConstraintEvidenceCoverage | 1.000 (447/447) | 1.000 (442/442) |
+| GroundedDecisionRate | 0.950 (57/60) | **0.983 (59/60)** |
+| FalseAbstentionRate | 0.071 (3/42) | **0.024 (1/42)** |
+| ConfidentWrongRate | 0.000 | 0.000 |
+| UnsupportedClaimRate | 0.000 | 0.000 |
+| CorrectNoMatchRate / GroundedNoMatchRate | 1.000 | 1.000 |
+| CorrectClarificationRate | 1.000 | 1.000 |
+| OutcomeStabilityRate | 1.000 (20/20) | **0.950 (19/20)** |
+
+v2 fixed the production/eval return-policy gap for generic “can return after opening” language: I07 went from
+stable false abstention (`NoMatch`×3) to `Recommended` / `NoMatch` / `Recommended`. I17 (“koşulsuz”) stayed
+grounded `NoMatch`. No other intent regressions vs expected outcomes.
+
+**Known limitation (intentional — do not tune away):** the single v2 miss is **I07#2**, a false abstention
+whose model reason was inability to verify “kablosuz / wireless” from authoritative structured catalog
+attributes (wireless is not a published product-attribute field; titles are not claim evidence). Return
+`Conditional` was already accepted in that run’s reasoning. This is an evidence-coverage limitation, not a
+return-policy bug. **OutcomeStabilityRate = 19/20** solely because I07’s three runs are not identical; leave it.
 
 ## Why ground truth comes before AI
 
@@ -177,7 +232,7 @@ Each intent has an `id`, a `persona`, Turkish `text`, hidden `constraints` and a
 }
 ```
 
-- A future shopper sees only `text`; the oracle sees only `constraints`.
+- The Milestone 3 shopper sees only `text`; the oracle sees only `constraints`.
 - `OracleShopper` reads only the clean store and throws if given anything else. It returns an explicit
   `IntentOutcome` (`ValidProductsExist`, `NoValidProduct` or `InsufficientInformation`), the valid SKUs, the forbidden
   SKUs in the category with the constraints each violates, and any missing information.
@@ -186,25 +241,27 @@ Each intent has an `id`, a `persona`, Turkish `text`, hidden `constraints` and a
   the oracle's outcome differs from the intended one.
 - `forbidden[].looksValidInPublished` marks traps: SKUs that broken published data makes look valid. Intent I02 always
   contains one, a SKU the catalog still shows as `IN_STOCK` although inventory holds 0 units.
-- For `NoValidProduct` and `InsufficientInformation`, the correct shopper behavior is to abstain or ask, not to bend a
-  constraint.
+- For `NoValidProduct` and `InsufficientInformation`, the correct shopper behavior is `NoMatch` or
+  `NeedsClarification`, not bending a constraint.
 
-## Future shopper contract and evaluation definitions
+## Shopper contract and evaluation (Milestone 3)
 
-Defined in `CommerceReadiness.Core.Evaluation.ShopperContract`. Nothing produces this output yet.
+Defined in `CommerceReadiness.Core.Shopping` and scored by `CommerceReadiness.Core.Evaluation.Shopping.ShopperEvaluator`.
 
 ```
-ShopperResult  { IntentId, Recommendations[], Abstained, MissingInformation[] }
-Recommendation { Sku, Claims[], Uncertain }
-Claim          { Type (InStock, DeliveryBy, Price, InstallmentCount, ReturnEligible, ...), Value, EvidenceCallId }
+ShopperResult  { SchemaVersion, Outcome, Clarification?, Recommendations[], NoMatchReason?, SupportingEvidenceCallIds[] }
+Recommendation { Sku, Confidence (Confirmed|Uncertain), Claims[] }
+GroundedClaim  { Type, AttributeField?/City?/ReturnQuestion?, Value, EvidenceCallIds[] }
 ```
 
-- **Unsupported claim**: a claim with no evidence tool call, or one that contradicts the evidence it cites.
-- **Confident wrong recommendation**: a recommended SKU that violates at least one mandatory constraint and is not
-  marked `Uncertain`.
-- **Abstention**: no recommendation because no valid answer or sufficient information exists.
+- **Unsupported claim**: missing, unknown, wrong-source, failed, wrong-entity or contradicted evidence.
+- **Confident wrong recommendation**: a Confirmed SKU that violates at least one mandatory constraint under clean truth.
+- **Grounded recommendation**: clean-valid primary SKU, every mandatory constraint supported by the right tool evidence,
+  no contradicted claim.
+- **NoMatch / NeedsClarification**: mapped from oracle `NoValidProduct` / `InsufficientInformation`. Clarification
+  must include the expected typed missing fields.
 
-See [docs/evaluation-contract.md](docs/evaluation-contract.md) for details.
+See [docs/shopper-contract.md](docs/shopper-contract.md) and [docs/evaluation-contract.md](docs/evaluation-contract.md).
 
 ## Readiness Analyzer (Milestone 1)
 
@@ -597,21 +654,36 @@ The tests cover:
 - pgvector integration: idempotent schema, exact cosine order on controlled vectors, seed-42 parity with the reference
   index, idempotent re-indexing, and the identical hashing benchmark.
 
+## Run the shopper
+
+```
+dotnet run --project src/CommerceReadiness.Shopper -- ask \
+  --dataset demo-store/generated/seed-42 \
+  --query "4.000 TL altında, yağmurda kullanabileceğim ve laptop taşıyan bir sırt çantası istiyorum" \
+  --show-tools
+
+dotnet run --project src/CommerceReadiness.Shopper -- benchmark \
+  --dataset demo-store/generated/seed-42 --runs 3
+```
+
+Requires `OPENAI_API_KEY` (same user-secrets id as Retrieval: `commerce-readiness-retrieval`). Ordinary unit tests do
+not call OpenAI. Use `--embeddings hashing --index memory` only for offline scripted tests.
+
 ## Not built yet (by design)
 
 Not built yet:
 
-- generative LLM responses, `IChatClient`, AI shopper, tool or function calling, MCP, natural-language intent parsing;
-- recommendation explanations;
-- HNSW/ANN tuning;
-- EF Core, web API or UI;
-- Shopify or other external integration, checkout, authentication;
-- semantic truth-checking of description text, repair flow, shopper evaluation runner.
+- multi-turn conversation state, MCP, web API or UI;
+- HNSW/ANN tuning, product diversification / reranking;
+- EF Core, Shopify or other external integration, checkout, authentication;
+- semantic truth-checking of description text as a repair flow;
+- LLM-as-judge.
 
 Dependencies:
 
 - **Core:** none beyond the .NET 10 SDK.
-- **Retrieval project:** `Microsoft.Extensions.AI.OpenAI`, `Npgsql`, `Pgvector` and configuration packages.
+- **Retrieval.Runtime:** `Microsoft.Extensions.AI.OpenAI`, `Npgsql`, `Pgvector`.
+- **Retrieval / Shopper executables:** configuration packages; Shopper also references `Microsoft.Extensions.AI`.
 - **Tests:** xUnit.
 
 ## Roadmap
@@ -620,20 +692,22 @@ Dependencies:
   ground truth (precision and recall, with decoys).
 - **Milestone 2 (done)**: Hybrid product retrieval: structured filters plus semantic search (pgvector), with a
   retrieval benchmark.
-- **Milestone 3**: LLM shopper with tool calling, producing the `ShopperResult` contract.
+- **Milestone 3 (done)**: Grounded LLM shopper with tool calling, structured `ShopperResult`, and deterministic
+  evaluation.
 - **Milestone 4**: Evaluation runner and before/after comparison (published vs repaired store).
 - **Milestone 5**: Thin web UI.
 
 ## Layout
 
 ```
-src/CommerceReadiness.Core        domain, source-of-truth map, delivery, oracle, metrics, contracts,
-                                  store storage (Storage/), readiness analyzer (Analysis/), retrieval contracts
-                                  and document builder (Retrieval/), evaluators and benchmarks (Evaluation/)
-src/CommerceReadiness.DemoStore   CLI: seeded generator, defect/decoy injection, intents, benchmarks, dataset output
-src/CommerceReadiness.Analyzer    CLI: published-only analysis, optional --evaluate
-src/CommerceReadiness.Retrieval   CLI: embeddings, pgvector/in-memory index, search modes, retrieval benchmark
-tests/CommerceReadiness.Tests     xUnit tests (pgvector tests tagged Category=Integration)
-demo-store/generated/seed-42      committed reference dataset
-docker-compose.yml                PostgreSQL + pgvector for retrieval only
+src/CommerceReadiness.Core                 domain, oracle, metrics, shopper contracts, analyzers, evaluators
+src/CommerceReadiness.DemoStore            CLI: seeded generator, defect/decoy injection, intents, benchmarks
+src/CommerceReadiness.Analyzer             CLI: published-only analysis, optional --evaluate
+src/CommerceReadiness.Retrieval.Runtime    reusable Hybrid search, indexer, pgvector/in-memory indexes, embeddings
+src/CommerceReadiness.Retrieval            CLI: db-init, index, search, retrieval benchmark (loads config)
+src/CommerceReadiness.Shopper              CLI: grounded ask + shopper benchmark (loads config)
+tests/CommerceReadiness.Tests              xUnit tests (pgvector tests tagged Category=Integration)
+demo-store/generated/seed-42               committed reference dataset
+docker-compose.yml                         PostgreSQL + pgvector for retrieval only
+docs/                                      evaluation, retrieval and shopper contracts
 ```
