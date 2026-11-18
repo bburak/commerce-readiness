@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json;
 using CommerceReadiness.Core.Domain;
 using CommerceReadiness.Core.Shopping;
 
@@ -41,7 +42,7 @@ public static class ShopperResultRenderer
                     text.AppendLine($"{label}: {recommendation.Sku} ({confidence})");
                     foreach (var claim in recommendation.Claims)
                     {
-                        text.AppendLine($"  - {ClaimText(claim)} [{string.Join(", ", claim.EvidenceCallIds)}]");
+                        text.AppendLine($"  - {ClaimText(claim, run.Trace)} [{string.Join(", ", claim.EvidenceCallIds)}]");
                     }
                 }
 
@@ -63,16 +64,47 @@ public static class ShopperResultRenderer
         return text.ToString();
     }
 
-    private static string ClaimText(GroundedClaim claim) => claim.Type switch
+    private static string ClaimText(GroundedClaim claim, ImmutableArray<ToolInvocationTrace> trace) => claim.Type switch
     {
         ClaimType.ProductAttribute => $"{claim.AttributeField}: {claim.Value}",
         ClaimType.Price => $"Fiyat: {claim.Value} TL",
         ClaimType.Availability => claim.Value == ClaimFormat.InStock ? "Stokta" : "Stokta değil",
         ClaimType.Delivery => $"{CityText(claim.City)} teslimat: {claim.Value}",
-        ClaimType.ReturnPolicy => $"İade ({claim.ReturnQuestion}): {claim.Value}",
+        ClaimType.ReturnPolicy => ReturnClaimText(claim, trace),
         ClaimType.PaymentOption => $"En fazla {claim.Value} taksit",
         _ => claim.Value,
     };
+
+    /// <summary>
+    /// Surfaces published ConditionTr for Conditional policies from cited tool evidence so explanations stay
+    /// factual and never restate Conditional as unconditional Yes.
+    /// </summary>
+    private static string ReturnClaimText(GroundedClaim claim, ImmutableArray<ToolInvocationTrace> trace)
+    {
+        var text = $"İade ({claim.ReturnQuestion}): {claim.Value}";
+        if (!claim.Value.StartsWith(nameof(ReturnAnswer.Conditional), StringComparison.Ordinal)
+            || claim.EvidenceCallIds.IsDefaultOrEmpty)
+        {
+            return text;
+        }
+
+        foreach (var id in claim.EvidenceCallIds)
+        {
+            var entry = trace.FirstOrDefault(t => t.EvidenceCallId == id);
+            if (entry is not { Ok: true, Data: { } data } || entry.ToolName != ShopperToolNames.GetReturnPolicy)
+            {
+                continue;
+            }
+
+            var policy = data.Deserialize<ReturnPolicyData>(ShopperJson.Options);
+            if (policy is { Answer: ReturnAnswer.Conditional, ConditionTr: { Length: > 0 } condition })
+            {
+                return $"{text} — {condition}";
+            }
+        }
+
+        return text;
+    }
 
     private static string CityText(City? city) => city switch
     {

@@ -18,7 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Agent\shopper-prompt-v1.md" LogicalName="shopper-prompt-v1.md" />
+    <!-- v1 kept on disk as historical evidence; only the active Version resource is loaded at runtime. -->
+    <EmbeddedResource Include="Agent\shopper-prompt-v2.md" LogicalName="shopper-prompt-v2.md" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ namespace CommerceReadiness.Shopper.Agent;
 /// <summary>The versioned system instructions. Changing the text requires a new version and resource.</summary>
 public static class ShopperPrompt
 {
-    public const string Version = "shopper-prompt-v1";
+    public const string Version = "shopper-prompt-v2";
 
     public static string Text { get; } = Load();
 

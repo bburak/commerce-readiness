@@ -64,24 +64,41 @@ See [docs/shopper-contract.md](docs/shopper-contract.md).
 
 ### Observed OpenAI benchmark (seed 42, 20 intents × 3 runs)
 
-Provenance: `gpt-6.2-sol` / `shopper-prompt-v1` / embeddings `text-embedding-3-small` 1536 / Hybrid K=5 /
-`pgvector` / file `shopper-runs/benchmark-gpt-6.2-sol-shopper-prompt-v1.json`.
+Active prompt: **`shopper-prompt-v2`** (general return-policy interpretation). Historical v1 file kept at
+`shopper-runs/benchmark-gpt-6.2-sol-shopper-prompt-v1.json` — do not reuse v1 scores as v2 scores.
 
-| Metric | Value |
-|---|---|
-| RunCompletionRate | 1.000 (60/60) |
-| OutcomeAccuracy | 0.950 (57/60) |
-| PrimaryRecommendationSuccessRate | 0.929 (39/42) |
-| GroundedRecommendationSuccessRate | 0.714 (30/42) |
-| ConfidentWrongRate | 0.000 (0/95) |
-| UnsupportedClaimRate | 0.000 (0/433) |
-| CorrectNoMatchRate | 1.000 (12/12) |
-| GroundedNoMatchRate | 1.000 (12/12) |
-| CorrectClarificationRate | 1.000 (6/6) |
-| OutcomeStabilityRate | 1.000 (20/20) |
+Provenance (v2): `gpt-6.2-sol` / `shopper-prompt-v2` / embeddings `text-embedding-3-small` 1536 /
+`retrievalMode=Hybrid` / `defaultSearchTop=5` / `maxSearchTop=10` (Top model-selected per `search_products`) /
+`pgvector` / file `shopper-runs/benchmark-gpt-6.2-sol-shopper-prompt-v2.json`.
 
-I07 (conditional opened-return headphones) was a stable false abstention (`NoMatch` × 3). Ground truth was not
-changed. I17/I18 stayed `NoMatch`; I19/I20 stayed typed `NeedsClarification`.
+Search-top diagnostic (v2 traces): `totalSearchCalls=70`, distribution **10→70**.
+
+Milestone 2 retrieval metrics used **fixed K=5**; M3 agent depth is model-controlled up to 10 — not the same
+experimental configuration. Shopper correctness metrics do not assume fixed K.
+
+| Metric | v1 (historical) | v2 (current) |
+|---|---|---|
+| OutcomeAccuracy | 0.950 (57/60) | **0.983 (59/60)** |
+| PrimaryRecommendationSuccessRate | 0.929 (39/42) | **0.976 (41/42)** |
+| GroundedRecommendationSuccessRate | 0.929 (39/42) | **0.976 (41/42)** |
+| MandatoryConstraintEvidenceCoverage | 1.000 (447/447) | 1.000 (442/442) |
+| GroundedDecisionRate | 0.950 (57/60) | **0.983 (59/60)** |
+| FalseAbstentionRate | 0.071 (3/42) | **0.024 (1/42)** |
+| ConfidentWrongRate | 0.000 | 0.000 |
+| UnsupportedClaimRate | 0.000 | 0.000 |
+| CorrectNoMatchRate / GroundedNoMatchRate | 1.000 | 1.000 |
+| CorrectClarificationRate | 1.000 | 1.000 |
+| OutcomeStabilityRate | 1.000 (20/20) | **0.950 (19/20)** |
+
+v2 fixed the production/eval return-policy gap for generic “can return after opening” language: I07 went from
+stable false abstention (`NoMatch`×3) to `Recommended` / `NoMatch` / `Recommended`. I17 (“koşulsuz”) stayed
+grounded `NoMatch`. No other intent regressions vs expected outcomes.
+
+**Known limitation (intentional — do not tune away):** the single v2 miss is **I07#2**, a false abstention
+whose model reason was inability to verify “kablosuz / wireless” from authoritative structured catalog
+attributes (wireless is not a published product-attribute field; titles are not claim evidence). Return
+`Conditional` was already accepted in that run’s reasoning. This is an evidence-coverage limitation, not a
+return-policy bug. **OutcomeStabilityRate = 19/20** solely because I07’s three runs are not identical; leave it.
 
 ## Why ground truth comes before AI
 

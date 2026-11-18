@@ -37,7 +37,9 @@ public sealed class ShopperToolSession(CommerceTools tools, int maxToolCalls)
             "Deterministic delivery estimate for one SKU to a city at the store clock. Pass withinDays to get the " +
             "deadline and whether the estimate meets it. Never compute dates yourself.",
             GetDeliveryEstimateAsync),
-        Function(ShopperToolNames.GetReturnPolicy, "Published return policy for one SKU and one return question.", GetReturnPolicyAsync),
+        Function(ShopperToolNames.GetReturnPolicy,
+            "Published return policy for one SKU and one return question. Answer is Yes (no ConditionTr), Conditional (see ConditionTr and WindowDays), or No.",
+            GetReturnPolicyAsync),
         Function(ShopperToolNames.GetPaymentOptions, "Published installment options for one SKU at its published price.", GetPaymentOptionsAsync),
     ];
 
