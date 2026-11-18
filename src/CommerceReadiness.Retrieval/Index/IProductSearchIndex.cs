@@ -13,6 +13,20 @@ public sealed record IndexPartition(string StoreVersion, string EmbeddingModel, 
 public sealed record IndexEntry(SearchDocument Document, float[]? Embedding);
 
 /// <summary>
+/// Shared ranking rule: cosine distance compared at 1e-6 precision, then SKU ordinal. pgvector stores float4 while the
+/// reference index accumulates in double, so near-identical documents (sibling variants) would otherwise reorder on
+/// floating-point noise.
+/// </summary>
+public static class IndexOrdering
+{
+    public const int DistanceDecimals = 6;
+
+    /// <remarks>Rounds half away from zero, like PostgreSQL round(numeric, n).</remarks>
+    public static decimal RankingDistance(double similarity) =>
+        Math.Round((decimal)(1 - similarity), DistanceDecimals, MidpointRounding.AwayFromZero);
+}
+
+/// <summary>
 /// The one storage seam of retrieval: pgvector at runtime, an in-memory reference implementation for tests and offline
 /// runs. Both apply the same semantics: optional hard filters, then cosine ordering when a query vector is given
 /// (otherwise neutral SKU ordering), with ties broken by SKU ordinal.

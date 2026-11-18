@@ -90,10 +90,11 @@ public class PgVectorIntegrationTests
         {
             var fromPg = await ProductSearchService.SearchAsync(request, embeddings, pg);
             var fromMemory = await ProductSearchService.SearchAsync(request, embeddings, memory);
-            Assert.Equal(TieGroups(fromMemory), TieGroups(fromPg));
             Assert.Equal(
-                fromMemory.Select(r => (r.Sku, r.PriceTry, r.AvailableQuantity, r.ShoeSize, r.Color)).Order(),
-                fromPg.Select(r => (r.Sku, r.PriceTry, r.AvailableQuantity, r.ShoeSize, r.Color)).Order());
+                fromMemory.Select(r => (r.Rank, r.Sku, r.PriceTry, r.AvailableQuantity, r.ShoeSize, r.Color)),
+                fromPg.Select(r => (r.Rank, r.Sku, r.PriceTry, r.AvailableQuantity, r.ShoeSize, r.Color)));
+            Assert.All(fromMemory.Zip(fromPg), pair =>
+                Assert.Equal(pair.First.SimilarityScore ?? 0, pair.Second.SimilarityScore ?? 0, 5));
         }
 
         await pg.DeleteAsync(IndexPartition.For(storeVersion, embeddings.Profile), [.. published.Variants.Select(v => v.Sku)]);
@@ -123,23 +124,25 @@ public class PgVectorIntegrationTests
         await pg.DeleteAsync(partition, [.. hashes.Keys]);
     }
 
-    /// <summary>Consecutive results with scores within 1e-6 form one group: pgvector stores float4 while C# accumulates in double.</summary>
-    private static List<string> TieGroups(IReadOnlyList<SearchResult> results)
+    [PostgresFact]
+    public async Task Hashing_benchmark_on_pgvector_matches_the_in_memory_baseline_exactly()
     {
-        var groups = new List<List<SearchResult>>();
-        foreach (var result in results)
-        {
-            if (groups.Count > 0 && result.SimilarityScore is { } score && groups[^1][^1].SimilarityScore is { } previous
-                && Math.Abs(score - previous) < 1e-6)
-            {
-                groups[^1].Add(result);
-            }
-            else
-            {
-                groups.Add([result]);
-            }
-        }
+        await using var pg = new PgVectorProductSearchIndex(PostgresFactAttribute.ConnectionString);
+        await pg.InitializeAsync();
+        var storeVersion = $"it-{Guid.NewGuid():N}";
+        var published = TestData.Seed42.Published with { StoreVersion = storeVersion };
+        var benchmark = TestData.Seed42.RetrievalBenchmark with { StoreVersion = storeVersion };
+        var embeddings = RetrievalTestSupport.Hashing();
+        var memory = new InMemoryProductSearchIndex();
+        await ProductIndexer.IndexAsync(published, embeddings, pg);
+        await ProductIndexer.IndexAsync(published, embeddings, memory);
 
-        return [.. groups.Select(g => string.Join(",", g.Select(r => r.Sku).Order(StringComparer.Ordinal)))];
+        var fromPg = await Retrieval.Benchmark.RetrievalBenchmarkRunner.RunAsync(benchmark, published, embeddings, pg, 5, TimeProvider.System);
+        var fromMemory = await Retrieval.Benchmark.RetrievalBenchmarkRunner.RunAsync(benchmark, published, embeddings, memory, 5, TimeProvider.System);
+
+        Assert.Equal(
+            Core.Serialization.JsonDefaults.Serialize(fromMemory with { Provenance = fromMemory.Provenance with { Index = "any" } }),
+            Core.Serialization.JsonDefaults.Serialize(fromPg with { Provenance = fromPg.Provenance with { Index = "any" } }));
+        await pg.DeleteAsync(IndexPartition.For(storeVersion, embeddings.Profile), [.. published.Variants.Select(v => v.Sku)]);
     }
 }

@@ -1090,7 +1090,7 @@
             "SKU-BP-008",
             "SKU-BP-001",
             "SKU-BP-021",
-            "SKU-BP-019"
+            "SKU-BP-011"
           ],
           "recall": 0.5,
           "precision": 0.6,

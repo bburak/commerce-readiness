@@ -191,7 +191,7 @@ public sealed class PgVectorProductSearchIndex : IProductSearchIndex, IAsyncDisp
         {
             command.Parameters.AddWithValue("query", new Vector(queryEmbedding));
             similarity = "1 - (embedding <=> @query)";
-            order = "embedding <=> @query, sku COLLATE \"C\"";
+            order = $"round((embedding <=> @query)::numeric, {IndexOrdering.DistanceDecimals}), sku COLLATE \"C\"";
         }
 
         command.Parameters.AddWithValue("top", top);

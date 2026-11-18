@@ -48,7 +48,7 @@ public sealed class InMemoryProductSearchIndex : IProductSearchIndex
         var ranked = queryEmbedding is null
             ? candidates.Select(r => (r.Document, Similarity: (double?)null)).OrderBy(r => r.Document.Sku, StringComparer.Ordinal)
             : candidates.Select(r => (r.Document, Similarity: (double?)CosineSimilarity(queryEmbedding, r.Embedding)))
-                .OrderByDescending(r => r.Similarity)
+                .OrderBy(r => IndexOrdering.RankingDistance(r.Similarity!.Value))
                 .ThenBy(r => r.Document.Sku, StringComparer.Ordinal);
 
         IReadOnlyList<SearchResult> results = [.. ranked.Take(top).Select((r, i) => ToResult(r.Document, i + 1, r.Similarity))];
