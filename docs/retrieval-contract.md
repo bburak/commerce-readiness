@@ -95,8 +95,11 @@ Re-indexing:
   - discovery-only: templates R01-R10; generation fails if a template leaves semantic retrieval no job.
 - Outcomes:
   - `RelevantProductsExist` cases are scored.
-  - `NoRelevantProduct` cases are reported separately (empty results and average returned count).
-  - `InsufficientDiscoveryInformation` cases (derived from shopper intents that need clarification) are excluded.
+  - `NoRelevantProduct` cases are reported separately (empty results and average returned count). Hybrid correctly
+    returned empty for 2/2 cases on the observed OpenAI run; SemanticOnly returned 5 candidates for both. Nearest-
+    neighbor retrieval alone cannot reliably express “no suitable product”.
+  - `InsufficientDiscoveryInformation` cases (derived from shopper intents that need clarification) are excluded from
+    retrieval scoring. Clarification belongs to the later shopper reasoning layer, not to candidate generation.
 
 Relevance comes from hidden clean truth while the index is built from published observable data. Scores therefore
 measure published-data retrieval readiness plus retrieval strategy, not isolated embedding-model quality. Missing or
@@ -114,7 +117,16 @@ Per scored case at K:
 - Max achievable recall = min(K, relevant) / relevant.
 
 Aggregates are macro averages per mode for each group: shopper-derived, discovery-only, combined, and the
-semantic-discriminating subset. HitRate@K is the share of cases with a hit.
+semantic-discriminating subset (also broken down by shopper-derived vs discovery-only in the README results).
+HitRate@K is the share of cases with a hit.
+
+Accepted Milestone 2 discriminating Recall@5 (OpenAI `text-embedding-3-small`, observed run): ShopperDerived
+Structured 0.3475 / Semantic 0.6553 / Hybrid 0.7460; DiscoveryOnly 0.3664 / 0.3306 / 0.5239; Combined 0.3574 /
+0.4844 / 0.6290. Corresponding Precision@5 and HitRate@5 are recorded in the README. Do not tune the retrieval
+algorithm further against these numbers.
+
+Observed per-query regressions (not tuned away): on the same OpenAI run, Hybrid Recall@5 falls below StructuredOnly
+on R03 (0.1667 vs 0.3333; laptop bag that stays dry in rain) and R05 (0.3750 vs 0.5000; budget meeting headset).
 
 ## Benchmark report provenance
 
@@ -154,3 +166,8 @@ hashing baseline omits it, so it stays byte-identical and reproducible offline.
   query text.
 - The corpus is small and synthetic; absolute scores do not transfer to real catalogs.
 - Retrieval does not verify description claims (MisleadingDescription remains a later concern).
+- **SKU variant saturation.** Results are ranked per SKU, so near-duplicate size/color variants of one product can
+  occupy several top-K slots. Product-level diversification is deferred beyond Milestone 2.
+- **NoRelevantProduct.** Semantic-only nearest-neighbor search always returns K neighbors when the index is non-
+  empty; it cannot express “no suitable product”. Hybrid emptiness on those cases comes from hard filters.
+- **Per-query Hybrid regressions** on R03 and R05 are accepted observations, not targets for further retrieval tuning.

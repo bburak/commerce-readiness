@@ -428,17 +428,52 @@ byte-identical on every machine, and identical on the in-memory and pgvector ind
 | | Semantic-discriminating | 0.585 | 0.632 | 0.947 |
 
 - Max achievable Recall@5 (combined) is 0.836.
-- On the 2 no-relevant cases, StructuredOnly and Hybrid return nothing, while SemanticOnly returns 5 candidates each.
+- Provenance: `Hashing` / `hashing-v1` / 256 dims / K=5 / `memory` (matches pgvector under the shared ranking rule).
 
 Reading the baseline: a lexical hashing model is weak at paraphrases (SemanticOnly discovery-only recall is 0.216),
-yet combined with exact filters it already beats filters alone. Real embeddings are expected to help most on the
-discovery-only group; that has to be measured, not assumed.
+yet combined with exact filters it already beats filters alone.
 
-**Real-provider run (OpenAI `text-embedding-3-small`).** Not yet recorded: no `OPENAI_API_KEY` was available in the
-environment that produced this milestone. When run, the report is written to
-`retrieval/benchmark-text-embedding-3-small.json`. Its provenance block (store version, benchmark schema version,
-provider, model, dimensions, K, index, run timestamp) documents it as an observed run, while the hashing benchmark
-remains the reproducible baseline.
+**Observed real-provider run (OpenAI `text-embedding-3-small`, `retrieval/benchmark-text-embedding-3-small.json`).**
+Provenance: `OpenAI` / `text-embedding-3-small` / 1536 dims / K=5 / `pgvector` /
+`runTimestampUtc=2026-11-18T14:12:32.2941183+00:00`. This is an observed run; the hashing file remains the
+reproducible offline baseline.
+
+Semantic-discriminating subset breakdown (9 shopper-derived + 10 discovery-only = 19):
+
+| Mode | Group | Recall@5 | Precision@5 | HitRate@5 |
+|---|---|---|---|---|
+| StructuredOnly | Shopper-derived discriminating (9) | 0.3475 | 0.3333 | 0.7778 |
+| | Discovery-only discriminating (10) | 0.3664 | 0.4800 | 0.9000 |
+| | Combined discriminating (19) | 0.3574 | 0.4105 | 0.8421 |
+| SemanticOnly | Shopper-derived discriminating | 0.6553 | 0.6000 | 1.0000 |
+| | Discovery-only discriminating | 0.3306 | 0.3800 | 0.9000 |
+| | Combined discriminating | 0.4844 | 0.4842 | 0.9474 |
+| Hybrid | Shopper-derived discriminating | 0.7460 | 0.7111 | 1.0000 |
+| | Discovery-only discriminating | 0.5239 | 0.5800 | 1.0000 |
+| | Combined discriminating | 0.6290 | 0.6421 | 1.0000 |
+
+Hybrid is the accepted Milestone 2 mode on this discriminating subset. The retrieval algorithm is not tuned further
+against these numbers.
+
+**Observed per-query regressions (documented, not tuned away):**
+
+| Case | Query need | StructuredOnly Recall@5 | Hybrid Recall@5 |
+|---|---|---|---|
+| R03 | 15.6" laptop bag that stays dry in rain | 0.3333 | 0.1667 |
+| R05 | Budget headset usable in meetings / calls | 0.5000 | 0.3750 |
+
+On both cases Hybrid underperforms filters alone (OpenAI run). They remain known regressions.
+
+**NoRelevantProduct (I15, I16):** Hybrid (and StructuredOnly) correctly returned empty results for 2/2 cases.
+SemanticOnly returned 5 candidates for both. Nearest-neighbor retrieval alone cannot reliably express “no suitable
+product”; empty Hybrid results come from hard filters emptying the pool, not from the embedding saying “none”.
+
+**Insufficient-information cases** (I19, I20) stay excluded from retrieval scoring. Clarification belongs to the later
+shopper reasoning layer, not to candidate generation.
+
+**Known limitation — SKU variant saturation.** Ranking is per SKU. Near-duplicate size/color variants of the same
+sneaker can fill top-K (especially under SemanticOnly; e.g. I03/I04/I11/R10). Product-level diversification is
+deferred; it is out of scope for Milestone 2.
 
 See [docs/retrieval-contract.md](docs/retrieval-contract.md) for the full contract.
 
