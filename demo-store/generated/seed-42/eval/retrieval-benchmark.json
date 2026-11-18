@@ -1,0 +1,762 @@
+{
+  "schemaVersion": 1,
+  "storeVersion": "demostore-v0-seed-42",
+  "asOf": "2026-11-17T10:00:00+03:00",
+  "cases": [
+    {
+      "caseId": "I01",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I01",
+      "queryText": "İstanbul'a iki gün içinde gelecek, 3.500 TL altında, 17 inç laptop sığan ve yağmurda kullanılabilecek bir sırt çantası arıyorum.",
+      "filters": {
+        "category": "Backpacks",
+        "maxPriceTry": 3500,
+        "inStockOnly": true,
+        "minimumLaptopSizeIn": 17
+      },
+      "relevanceConstraints": {
+        "category": "Backpacks",
+        "maxPriceTry": 3500,
+        "minimumLaptopSizeIn": 17,
+        "minimumWaterResistance": "WaterRepellent"
+      },
+      "relevantSkus": [
+        "SKU-BP-007",
+        "SKU-BP-015",
+        "SKU-BP-022",
+        "SKU-BP-024",
+        "SKU-BP-025"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 6,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "I02",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I02",
+      "queryText": "Bütçem kısıtlı: 2.500 TL'yi geçmeyen, stokta olan bir sırt çantası arıyorum.",
+      "filters": {
+        "category": "Backpacks",
+        "maxPriceTry": 2500,
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "Backpacks",
+        "maxPriceTry": 2500
+      },
+      "relevantSkus": [
+        "SKU-BP-003",
+        "SKU-BP-013",
+        "SKU-BP-014",
+        "SKU-BP-015",
+        "SKU-BP-016",
+        "SKU-BP-017"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 6,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "I03",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I03",
+      "queryText": "44 numara, yeşil renkte bir spor ayakkabı arıyorum. Bütçem 2.500 TL.",
+      "filters": {
+        "category": "Sneakers",
+        "maxPriceTry": 2500,
+        "inStockOnly": true,
+        "shoeSize": 44,
+        "color": "Yeşil"
+      },
+      "relevanceConstraints": {
+        "category": "Sneakers",
+        "maxPriceTry": 2500,
+        "shoeSize": 44,
+        "color": "Yeşil"
+      },
+      "relevantSkus": [
+        "SKU-SN-004-44-GRN"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 1,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "I04",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I04",
+      "queryText": "Ankara'ya 3 gün içinde teslim edilecek, 36 numara bir kadın spor ayakkabısı istiyorum.",
+      "filters": {
+        "category": "Sneakers",
+        "inStockOnly": true,
+        "shoeSize": 36
+      },
+      "relevanceConstraints": {
+        "category": "Sneakers",
+        "shoeSize": 36,
+        "targetGroup": "Kadın"
+      },
+      "relevantSkus": [
+        "SKU-SN-005-36-WHT",
+        "SKU-SN-006-36-WHT"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 2,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "I05",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I05",
+      "queryText": "Kredi kartıma 6 taksitle alabileceğim, aktif gürültü engellemeli bir kulaklık arıyorum. En fazla 3.500 TL ödeyebilirim.",
+      "filters": {
+        "category": "Headphones",
+        "maxPriceTry": 3500,
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "Headphones",
+        "maxPriceTry": 3500,
+        "noiseCancellation": true
+      },
+      "relevantSkus": [
+        "SKU-HP-001",
+        "SKU-HP-005",
+        "SKU-HP-006",
+        "SKU-HP-011",
+        "SKU-HP-013",
+        "SKU-HP-020"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 12,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "I06",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I06",
+      "queryText": "Telefon görüşmeleri için mikrofonlu ve en az 20 saat pil ömrü olan kulaklıkları karşılaştırmak istiyorum. Üst limitim 4.000 TL.",
+      "filters": {
+        "category": "Headphones",
+        "maxPriceTry": 4000,
+        "inStockOnly": true,
+        "minimumBatteryHours": 20
+      },
+      "relevanceConstraints": {
+        "category": "Headphones",
+        "maxPriceTry": 4000,
+        "minimumBatteryHours": 20,
+        "microphone": true
+      },
+      "relevantSkus": [
+        "SKU-HP-003",
+        "SKU-HP-004",
+        "SKU-HP-009",
+        "SKU-HP-011",
+        "SKU-HP-014",
+        "SKU-HP-016",
+        "SKU-HP-017",
+        "SKU-HP-019"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 11,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "I07",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I07",
+      "queryText": "Açtıktan sonra beğenmezsem iade edebileceğim, 2.000 TL altında kablosuz bir kulaklık istiyorum.",
+      "filters": {
+        "category": "Headphones",
+        "maxPriceTry": 2000,
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "Headphones",
+        "maxPriceTry": 2000
+      },
+      "relevantSkus": [
+        "SKU-HP-002",
+        "SKU-HP-004",
+        "SKU-HP-007",
+        "SKU-HP-009",
+        "SKU-HP-014",
+        "SKU-HP-015"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 6,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "I08",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I08",
+      "queryText": "Babama hediye olarak 1.500 TL altında, en az 24 ay garantili bir powerbank arıyorum; İzmir'e 3 gün içinde ulaşması gerekiyor.",
+      "filters": {
+        "category": "SmallElectronics",
+        "maxPriceTry": 1500,
+        "inStockOnly": true,
+        "minimumWarrantyMonths": 24
+      },
+      "relevanceConstraints": {
+        "category": "SmallElectronics",
+        "productType": "Powerbank",
+        "maxPriceTry": 1500,
+        "minimumWarrantyMonths": 24
+      },
+      "relevantSkus": [
+        "SKU-SE-003",
+        "SKU-SE-012",
+        "SKU-SE-018"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 7,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "I09",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I09",
+      "queryText": "Yarın İstanbul'da elimde olacak, stokta olan bir akıllı bileklik lazım.",
+      "filters": {
+        "category": "SmallElectronics",
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "SmallElectronics",
+        "productType": "Akıllı Bileklik"
+      },
+      "relevantSkus": [
+        "SKU-SE-009",
+        "SKU-SE-013",
+        "SKU-SE-016",
+        "SKU-SE-022",
+        "SKU-SE-025"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 20,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "I10",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I10",
+      "queryText": "6 taksit seçeneği olan ve 3.000 TL'yi geçmeyen bir saç kurutma makinesi almak istiyorum.",
+      "filters": {
+        "category": "SmallElectronics",
+        "maxPriceTry": 3000,
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "SmallElectronics",
+        "productType": "Saç Kurutma Makinesi",
+        "maxPriceTry": 3000
+      },
+      "relevantSkus": [
+        "SKU-SE-004",
+        "SKU-SE-015"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 20,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "I11",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I11",
+      "queryText": "44 numara, 2.250 TL altındaki en uygun spor ayakkabı hangisi?",
+      "filters": {
+        "category": "Sneakers",
+        "maxPriceTry": 2250,
+        "inStockOnly": true,
+        "shoeSize": 44
+      },
+      "relevanceConstraints": {
+        "category": "Sneakers",
+        "maxPriceTry": 2250,
+        "shoeSize": 44
+      },
+      "relevantSkus": [
+        "SKU-SN-004-44-GRN",
+        "SKU-SN-004-44-GRY"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 2,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "I12",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I12",
+      "queryText": "Yarın İstanbul'a teslim edilebilecek, 3.500 TL altında bir kulaklık arıyorum.",
+      "filters": {
+        "category": "Headphones",
+        "maxPriceTry": 3500,
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "Headphones",
+        "maxPriceTry": 3500
+      },
+      "relevantSkus": [
+        "SKU-HP-001",
+        "SKU-HP-002",
+        "SKU-HP-004",
+        "SKU-HP-005",
+        "SKU-HP-006",
+        "SKU-HP-007",
+        "SKU-HP-009",
+        "SKU-HP-011",
+        "SKU-HP-013",
+        "SKU-HP-014",
+        "SKU-HP-015",
+        "SKU-HP-020"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 12,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "I13",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I13",
+      "queryText": "Tamamen su geçirmez bir sırt çantası istiyorum. İzmir'e 3 gün içinde gelmeli ve açtıktan sonra da en az 14 gün içinde iade edebilmeliyim.",
+      "filters": {
+        "category": "Backpacks",
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "Backpacks",
+        "minimumWaterResistance": "Waterproof"
+      },
+      "relevantSkus": [
+        "SKU-BP-002",
+        "SKU-BP-010",
+        "SKU-BP-011",
+        "SKU-BP-019",
+        "SKU-BP-021",
+        "SKU-BP-024",
+        "SKU-BP-025"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 20,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "I14",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I14",
+      "queryText": "En az 15 litre, 14 inç laptop sığan sırt çantalarını karşılaştırmak istiyorum. Bütçem 2.000 TL.",
+      "filters": {
+        "category": "Backpacks",
+        "maxPriceTry": 2000,
+        "inStockOnly": true,
+        "minimumLaptopSizeIn": 14,
+        "minimumCapacityLiters": 15
+      },
+      "relevanceConstraints": {
+        "category": "Backpacks",
+        "maxPriceTry": 2000,
+        "minimumLaptopSizeIn": 14,
+        "minimumCapacityLiters": 15
+      },
+      "relevantSkus": [
+        "SKU-BP-003",
+        "SKU-BP-013",
+        "SKU-BP-017"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 3,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "I15",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I15",
+      "queryText": "47 numara siyah bir koşu ayakkabısı arıyorum.",
+      "filters": {
+        "category": "Sneakers",
+        "inStockOnly": true,
+        "shoeSize": 47,
+        "color": "Siyah"
+      },
+      "relevanceConstraints": {
+        "category": "Sneakers",
+        "shoeSize": 47,
+        "color": "Siyah"
+      },
+      "relevantSkus": [],
+      "outcome": "NoRelevantProduct",
+      "hardFilterPoolSize": 0,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "I16",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I16",
+      "queryText": "500 TL altında, aktif gürültü engellemeli ve en az 60 saat pil ömrü olan bir kulaklık istiyorum.",
+      "filters": {
+        "category": "Headphones",
+        "maxPriceTry": 500,
+        "inStockOnly": true,
+        "minimumBatteryHours": 60
+      },
+      "relevanceConstraints": {
+        "category": "Headphones",
+        "maxPriceTry": 500,
+        "minimumBatteryHours": 60,
+        "noiseCancellation": true
+      },
+      "relevantSkus": [],
+      "outcome": "NoRelevantProduct",
+      "hardFilterPoolSize": 0,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "I17",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I17",
+      "queryText": "Kutusunu açtıktan sonra da koşulsuz iade edebileceğim bir akıllı bileklik istiyorum.",
+      "filters": {
+        "category": "SmallElectronics",
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "SmallElectronics",
+        "productType": "Akıllı Bileklik"
+      },
+      "relevantSkus": [
+        "SKU-SE-009",
+        "SKU-SE-013",
+        "SKU-SE-016",
+        "SKU-SE-022",
+        "SKU-SE-025"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 20,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "I18",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I18",
+      "queryText": "Yarın Ankara'da olacak, tamamen su geçirmez bir sırt çantası lazım.",
+      "filters": {
+        "category": "Backpacks",
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "Backpacks",
+        "minimumWaterResistance": "Waterproof"
+      },
+      "relevantSkus": [
+        "SKU-BP-002",
+        "SKU-BP-010",
+        "SKU-BP-011",
+        "SKU-BP-019",
+        "SKU-BP-021",
+        "SKU-BP-024",
+        "SKU-BP-025"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 20,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "I19",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I19",
+      "queryText": "Kız arkadaşıma hediye olarak beyaz bir spor ayakkabı almak istiyorum, bütçem 3.000 TL civarı.",
+      "filters": {
+        "category": "Sneakers",
+        "maxPriceTry": 3000,
+        "inStockOnly": true,
+        "color": "Beyaz"
+      },
+      "relevanceConstraints": {
+        "category": "Sneakers",
+        "maxPriceTry": 3000,
+        "color": "Beyaz"
+      },
+      "relevantSkus": [],
+      "outcome": "InsufficientDiscoveryInformation",
+      "hardFilterPoolSize": 0,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "I20",
+      "group": "ShopperDerived",
+      "sourceIntentId": "I20",
+      "queryText": "En geç iki gün içinde elimde olacak bir Bluetooth hoparlör istiyorum.",
+      "filters": {
+        "category": "SmallElectronics",
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "SmallElectronics",
+        "productType": "Bluetooth Hoparlör"
+      },
+      "relevantSkus": [],
+      "outcome": "InsufficientDiscoveryInformation",
+      "hardFilterPoolSize": 0,
+      "isSemanticDiscriminating": false
+    },
+    {
+      "caseId": "R01",
+      "group": "DiscoveryOnly",
+      "queryText": "3.000 TL altında, yağmurlu havalarda işe giderken kullanabileceğim bir sırt çantası arıyorum.",
+      "filters": {
+        "category": "Backpacks",
+        "maxPriceTry": 3000,
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "Backpacks",
+        "maxPriceTry": 3000,
+        "minimumWaterResistance": "WaterRepellent"
+      },
+      "relevantSkus": [
+        "SKU-BP-001",
+        "SKU-BP-008",
+        "SKU-BP-010",
+        "SKU-BP-012",
+        "SKU-BP-014",
+        "SKU-BP-015",
+        "SKU-BP-022",
+        "SKU-BP-023"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 13,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "R02",
+      "group": "DiscoveryOnly",
+      "queryText": "Sağanak yağmurda bile içindekileri kuru tutacak bir çanta arıyorum.",
+      "filters": {
+        "category": "Backpacks",
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "Backpacks",
+        "minimumWaterResistance": "Waterproof"
+      },
+      "relevantSkus": [
+        "SKU-BP-002",
+        "SKU-BP-010",
+        "SKU-BP-011",
+        "SKU-BP-019",
+        "SKU-BP-021",
+        "SKU-BP-024",
+        "SKU-BP-025"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 20,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "R03",
+      "group": "DiscoveryOnly",
+      "queryText": "15,6 inç laptopumu taşıyabileceğim, yağmurda ıslanmayan bir çanta istiyorum.",
+      "filters": {
+        "category": "Backpacks",
+        "inStockOnly": true,
+        "minimumLaptopSizeIn": 15.6
+      },
+      "relevanceConstraints": {
+        "category": "Backpacks",
+        "minimumLaptopSizeIn": 15.6,
+        "minimumWaterResistance": "Waterproof"
+      },
+      "relevantSkus": [
+        "SKU-BP-002",
+        "SKU-BP-011",
+        "SKU-BP-019",
+        "SKU-BP-021",
+        "SKU-BP-024",
+        "SKU-BP-025"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 14,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "R04",
+      "group": "DiscoveryOnly",
+      "queryText": "Uzun bir seyahat için en az 25 litrelik, hafif yağmura dayanıklı bir çanta arıyorum.",
+      "filters": {
+        "category": "Backpacks",
+        "inStockOnly": true,
+        "minimumCapacityLiters": 25
+      },
+      "relevanceConstraints": {
+        "category": "Backpacks",
+        "minimumCapacityLiters": 25,
+        "minimumWaterResistance": "WaterRepellent"
+      },
+      "relevantSkus": [
+        "SKU-BP-007",
+        "SKU-BP-008",
+        "SKU-BP-010",
+        "SKU-BP-011",
+        "SKU-BP-012",
+        "SKU-BP-015",
+        "SKU-BP-019",
+        "SKU-BP-022",
+        "SKU-BP-023",
+        "SKU-BP-024",
+        "SKU-BP-025"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 14,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "R05",
+      "group": "DiscoveryOnly",
+      "queryText": "3.500 TL altında, toplantılarda ve telefon görüşmelerinde kullanabileceğim bir kulaklık.",
+      "filters": {
+        "category": "Headphones",
+        "maxPriceTry": 3500,
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "Headphones",
+        "maxPriceTry": 3500,
+        "microphone": true
+      },
+      "relevantSkus": [
+        "SKU-HP-001",
+        "SKU-HP-002",
+        "SKU-HP-004",
+        "SKU-HP-006",
+        "SKU-HP-009",
+        "SKU-HP-011",
+        "SKU-HP-013",
+        "SKU-HP-014"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 12,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "R06",
+      "group": "DiscoveryOnly",
+      "queryText": "Kalabalık metroda dış sesi kesen bir kulaklık istiyorum.",
+      "filters": {
+        "category": "Headphones",
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "Headphones",
+        "noiseCancellation": true
+      },
+      "relevantSkus": [
+        "SKU-HP-001",
+        "SKU-HP-003",
+        "SKU-HP-005",
+        "SKU-HP-006",
+        "SKU-HP-011",
+        "SKU-HP-013",
+        "SKU-HP-016",
+        "SKU-HP-017",
+        "SKU-HP-019",
+        "SKU-HP-020"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 16,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "R07",
+      "group": "DiscoveryOnly",
+      "queryText": "En az 25 saat pil ömrü olan, dış sesi kesen bir kulaklık arıyorum.",
+      "filters": {
+        "category": "Headphones",
+        "inStockOnly": true,
+        "minimumBatteryHours": 25
+      },
+      "relevanceConstraints": {
+        "category": "Headphones",
+        "minimumBatteryHours": 25,
+        "noiseCancellation": true
+      },
+      "relevantSkus": [
+        "SKU-HP-011",
+        "SKU-HP-016",
+        "SKU-HP-017",
+        "SKU-HP-019",
+        "SKU-HP-020"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 7,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "R08",
+      "group": "DiscoveryOnly",
+      "queryText": "Seyahatte telefonumu yolda şarj edebileceğim bir cihaz arıyorum.",
+      "filters": {
+        "category": "SmallElectronics",
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "SmallElectronics",
+        "productType": "Powerbank"
+      },
+      "relevantSkus": [
+        "SKU-SE-003",
+        "SKU-SE-012",
+        "SKU-SE-018"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 20,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "R09",
+      "group": "DiscoveryOnly",
+      "queryText": "Sabah işe hazırlanırken saçımı hızlıca kurutacak bir cihaz istiyorum.",
+      "filters": {
+        "category": "SmallElectronics",
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "SmallElectronics",
+        "productType": "Saç Kurutma Makinesi"
+      },
+      "relevantSkus": [
+        "SKU-SE-004",
+        "SKU-SE-015"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 20,
+      "isSemanticDiscriminating": true
+    },
+    {
+      "caseId": "R10",
+      "group": "DiscoveryOnly",
+      "queryText": "Spor yaparken adımlarımı takip edecek bir cihaz arıyorum.",
+      "filters": {
+        "category": "SmallElectronics",
+        "inStockOnly": true
+      },
+      "relevanceConstraints": {
+        "category": "SmallElectronics",
+        "productType": "Akıllı Bileklik"
+      },
+      "relevantSkus": [
+        "SKU-SE-009",
+        "SKU-SE-013",
+        "SKU-SE-016",
+        "SKU-SE-022",
+        "SKU-SE-025"
+      ],
+      "outcome": "RelevantProductsExist",
+      "hardFilterPoolSize": 20,
+      "isSemanticDiscriminating": true
+    }
+  ]
+}

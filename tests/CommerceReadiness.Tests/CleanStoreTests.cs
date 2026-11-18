@@ -106,4 +106,18 @@ public class CleanStoreTests
             ReadinessMetrics.CatalogCompleteness(Clean, TestData.Seed42Units).Numerator,
             ReadinessMetrics.CatalogCompleteness(published, TestData.Seed42Units).Numerator);
     }
+
+    [Fact]
+    public void Attribute_keys_never_mix_product_and_variant_level_across_categories()
+    {
+        var levels = Enum.GetValues<Category>()
+            .SelectMany(c => CategoryRequirements.For(c))
+            .Where(r => r.Level != AttributeLevel.Listing)
+            .GroupBy(r => r.Key, StringComparer.Ordinal);
+
+        Assert.All(levels, group => Assert.Single(group.Select(r => r.Level).Distinct()));
+        Assert.True(CategoryRequirements.IsVariantLevelKey(AttributeKeys.ShoeSize));
+        Assert.True(CategoryRequirements.IsVariantLevelKey(AttributeKeys.Color));
+        Assert.False(CategoryRequirements.IsVariantLevelKey(AttributeKeys.Material));
+    }
 }

@@ -8,7 +8,7 @@ ever used as a judge.
 | Store | Who reads it | Authoritative? |
 |---|---|---|
 | Clean | Oracle, ground-truth metrics | Yes, it is the hidden ground truth |
-| Published | Future analyzer and shopper | Only per source, for that source's own domain |
+| Published | Readiness analyzer, future shopper | Only per source, for that source's own domain |
 | Repaired (future) | Future evaluation runner | Same rules as Published |
 
 Within the published store:
@@ -21,6 +21,10 @@ Within the published store:
 - The catalog is authoritative for identity, attributes and description.
 
 Catalog columns that copy another source (`listedPrice`, `stockStatus`, `deliveryPromiseIstanbul`) are projections.
+
+Each store folder carries a `store.json` manifest: `schemaVersion`, `storeVersion`, `kind` and `asOf`. The current
+schema version is 1, and readers reject any other version. `asOf` is the simulation clock the folder's
+time-sensitive data refers to, so an observable store can be analyzed without reading `eval/`.
 
 ## Evaluable units
 
@@ -96,6 +100,47 @@ have) are not a Milestone 0 defect type.
 - `forbidden[]` lists every SKU in the requested category that violates a constraint. Each entry gives the
   violations and `looksValidInPublished`, which is true when the published storefront alone would make the SKU look
   valid.
+
+## Analyzer evaluation (Milestone 1)
+
+The readiness analyzer reads only the published store and its manifest. `AnalyzerEvaluator` is the only place where
+analyzer findings meet ground truth.
+
+**Matching.** Findings, injected defects and decoys are reduced to `CaseKey(type, target, field)`. The finding type
+maps one-to-one onto a defect type, and the target is chosen by type:
+
+| Type | Target |
+|---|---|
+| `AmbiguousReturnRule` | policy cell `{category}:{question}` |
+| `MissingRequiredAttribute` | SKU for variant-level keys (`shoeSize`, `color`), product otherwise |
+| `InventoryConflict`, `PriceConflict`, `DeliveryConflict` | SKU |
+| `MisleadingDescription` (defects only) | product |
+
+The `field` value uses the published field names (`stockStatus`, `listedPrice`, `deliveryPromiseIstanbul`, `answer`)
+or the attribute key. Summary text and IDs never take part in matching.
+
+Matching is one-to-one:
+
+- Findings are processed in ordinal `findingId` order.
+- The first finding with a defect's key matches that defect.
+- Further findings with the same key are false positives, reported with `duplicateOfDefectId`.
+- A finding whose key equals a decoy's key is a false positive that hits that decoy.
+
+**Rates** (null when the denominator is 0):
+
+- Precision = true-positive findings / findings
+- Deterministic recall = detected defects of supported types / injected defects of supported types
+- Overall recall = detected defects / all injected defects
+- Decoy false-positive rate = decoys flagged by at least one finding / decoys
+
+Supported types come from `ReadinessAnalyzer.SupportedFindingTypes`. `MisleadingDescription` is not supported by the
+deterministic baseline; its defects are reported as `deferredDefects`, not as false negatives.
+
+## Retrieval benchmark (Milestone 2)
+
+`eval/retrieval-benchmark.json` holds the generated retrieval cases (shopper-derived and discovery-only), their hard
+filters, hidden relevance constraints and oracle-computed relevant SKUs. Its relevance definition, metrics and
+provenance rules are specified in [retrieval-contract.md](retrieval-contract.md).
 
 ## Shopper output (Milestone 3) and scoring (Milestone 4)
 

@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace CommerceReadiness.DemoStore.Output;
+namespace CommerceReadiness.Core.Storage;
 
 /// <summary>Minimal RFC 4180 CSV with LF line endings.</summary>
 public static class Csv
