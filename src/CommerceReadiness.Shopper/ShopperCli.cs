@@ -14,6 +14,7 @@ namespace CommerceReadiness.Shopper;
 
 /// <summary>
 /// ask uses only published/ plus tools. benchmark additionally loads clean/ and eval/intents.json for scoring.
+/// rescore re-evaluates a frozen benchmark file without calling the model.
 /// </summary>
 public static class ShopperCli
 {
@@ -40,6 +41,7 @@ public static class ShopperCli
             {
                 "ask" => await AskAsync(options, output, retrieval, shopper, cancellationToken),
                 "benchmark" => await BenchmarkAsync(options, output, retrieval, shopper, clock, cancellationToken),
+                "rescore" => Rescore(options, output),
                 _ => Unknown(error, args[0]),
             };
         }
@@ -108,6 +110,7 @@ public static class ShopperCli
         }
 
         var report = ShopperEvaluator.Evaluate(clean.Store, host.Published.Store, intents, groundTruth, records);
+        var searchTop = SearchTopDiagnostic.FromRuns(records, CommerceTools.DefaultTop);
         var file = new ShopperBenchmarkFile(
             SchemaVersion: 1,
             StoreVersion: host.Published.Store.StoreVersion,
@@ -118,7 +121,10 @@ public static class ShopperCli
             EmbeddingModel: host.Embeddings.Profile.Model,
             EmbeddingDimensions: host.Embeddings.Profile.Dimensions,
             RetrievalMode: "Hybrid",
-            DefaultTop: CommerceTools.DefaultTop,
+            DefaultSearchTop: CommerceTools.DefaultTop,
+            MaxSearchTop: CommerceTools.MaxTop,
+            TotalSearchCalls: searchTop.TotalSearchCalls,
+            SearchTopDistribution: searchTop.SearchTopDistribution,
             RunsPerIntent: options.Runs,
             RunTimestampUtc: clock.GetUtcNow(),
             Report: report,
@@ -128,8 +134,57 @@ public static class ShopperCli
         Directory.CreateDirectory(directory);
         var path = Path.Combine(directory, $"benchmark-{Sanitize(shopper.Model)}-{shopper.PromptVersion}.json");
         TextFiles.Write(path, JsonDefaults.Serialize(file));
-        PrintReport(output, report, path);
+        PrintReport(output, report, searchTop, path);
         return 0;
+    }
+
+    /// <summary>Re-runs <see cref="ShopperEvaluator"/> on a frozen benchmark JSON; does not call OpenAI or tools.</summary>
+    private static int Rescore(Options options, TextWriter output)
+    {
+        var path = options.File
+            ?? throw new ArgumentException("--file is required for rescore (path to a frozen benchmark JSON).");
+        var file = ReadBenchmarkFile(path);
+        var intents = EvalFiles.ReadIntents(Path.Combine(options.Dataset, EvalFiles.Folder));
+        var clean = StoreFiles.Read(Path.Combine(options.Dataset, DatasetLayout.CleanFolder));
+        var published = StoreFiles.Read(Path.Combine(options.Dataset, DatasetLayout.PublishedFolder));
+        if (clean.Manifest.Kind != StoreKind.Clean)
+        {
+            throw new InvalidDataException("rescore needs the clean authoritative store.");
+        }
+
+        var groundTruth = EvalFiles.ReadGroundTruth(Path.Combine(options.Dataset, EvalFiles.Folder));
+        var report = ShopperEvaluator.Evaluate(clean.Store, published.Store, intents, groundTruth, file.Runs);
+        var searchTop = SearchTopDiagnostic.FromRuns(file.Runs, CommerceTools.DefaultTop);
+        var updated = file with
+        {
+            Report = report,
+            DefaultSearchTop = CommerceTools.DefaultTop,
+            MaxSearchTop = CommerceTools.MaxTop,
+            TotalSearchCalls = searchTop.TotalSearchCalls,
+            SearchTopDistribution = searchTop.SearchTopDistribution,
+        };
+        TextFiles.Write(path, JsonDefaults.Serialize(updated));
+        PrintReport(output, report, searchTop, path);
+        return 0;
+    }
+
+    /// <summary>Loads a benchmark file, migrating legacy <c>defaultTop</c> provenance to the current schema.</summary>
+    private static ShopperBenchmarkFile ReadBenchmarkFile(string path)
+    {
+        var node = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(path)) as System.Text.Json.Nodes.JsonObject
+            ?? throw new InvalidDataException("benchmark file must be a JSON object.");
+        if (node.ContainsKey("defaultTop") && !node.ContainsKey("defaultSearchTop"))
+        {
+            node["defaultSearchTop"] = node["defaultTop"]!.DeepClone();
+            node.Remove("defaultTop");
+        }
+
+        node["defaultSearchTop"] ??= CommerceTools.DefaultTop;
+        node["maxSearchTop"] ??= CommerceTools.MaxTop;
+        node["totalSearchCalls"] ??= 0;
+        node["searchTopDistribution"] ??= new System.Text.Json.Nodes.JsonObject();
+        return System.Text.Json.JsonSerializer.Deserialize<ShopperBenchmarkFile>(node, JsonDefaults.Options)
+            ?? throw new InvalidDataException("Could not deserialize ShopperBenchmarkFile.");
     }
 
     private static IChatClient CreateChat(RetrievalSettings retrieval, ShopperSettings shopper, IChatClient? overrideChat) =>
@@ -161,13 +216,20 @@ public static class ShopperCli
         }
     }
 
-    private static void PrintReport(TextWriter output, ShopperEvaluationReport report, string path)
+    private static void PrintReport(TextWriter output, ShopperEvaluationReport report, SearchTopDiagnostic searchTop, string path)
     {
         output.WriteLine("───────────────────────────");
         output.WriteLine($"Shopper evaluation  attempted={report.AttemptedRuns} intents={report.Intents}");
         foreach (var metric in report.Primary)
         {
             output.WriteLine($"  {metric.Name,-36} {Format(metric)}");
+        }
+
+        output.WriteLine(
+            $"search-top  totalSearchCalls={searchTop.TotalSearchCalls}  defaultSearchTop={CommerceTools.DefaultTop}  maxSearchTop={CommerceTools.MaxTop}");
+        foreach (var (top, count) in searchTop.SearchTopDistribution)
+        {
+            output.WriteLine($"  top={top,-3} {count}");
         }
 
         output.WriteLine("diagnostics:");
@@ -213,12 +275,15 @@ public static class ShopperCli
         output.WriteLine("  ask        --query <text> [--dataset <dir>] [--model <id>] [--embeddings openai|hashing]");
         output.WriteLine("             [--index pgvector|memory] [--show-tools]");
         output.WriteLine("  benchmark  --dataset <dir> [--runs 3] [--model <id>] [--embeddings ...] [--index ...] [--out <dir>] [--show-tools]");
+        output.WriteLine("  rescore    --file <benchmark.json> [--dataset <dir>]");
         output.WriteLine("ask reads only <dataset>/published/. benchmark also reads clean/ and eval/ for scoring.");
+        output.WriteLine("rescore re-evaluates a frozen benchmark JSON without calling OpenAI.");
     }
 
     private sealed record Options(
         string Dataset,
         string? Out,
+        string? File,
         string? Query,
         string? Model,
         int Runs,
@@ -268,6 +333,7 @@ public static class ShopperCli
             return new Options(
                 Get("--dataset") ?? Path.Combine("demo-store", "generated", "seed-42"),
                 Get("--out"),
+                Get("--file"),
                 Get("--query"),
                 Get("--model"),
                 runs,
@@ -278,7 +344,12 @@ public static class ShopperCli
     }
 }
 
-/// <summary>Compact evaluated shopper benchmark file. Secrets and raw provider payloads are never written.</summary>
+/// <summary>
+/// Compact evaluated shopper benchmark file. Secrets and raw provider payloads are never written.
+/// Retrieval depth is model-controlled per <c>search_products</c> call (default/max recorded here; actual
+/// requested <c>top</c> is preserved in each tool trace). Milestone 2 retrieval benchmarks used fixed K=5;
+/// those depths must not be treated as the same experimental configuration.
+/// </summary>
 public sealed record ShopperBenchmarkFile(
     int SchemaVersion,
     string StoreVersion,
@@ -289,7 +360,10 @@ public sealed record ShopperBenchmarkFile(
     string EmbeddingModel,
     int EmbeddingDimensions,
     string RetrievalMode,
-    int DefaultTop,
+    int DefaultSearchTop,
+    int MaxSearchTop,
+    int TotalSearchCalls,
+    ImmutableSortedDictionary<int, int> SearchTopDistribution,
     int RunsPerIntent,
     DateTimeOffset RunTimestampUtc,
     ShopperEvaluationReport Report,

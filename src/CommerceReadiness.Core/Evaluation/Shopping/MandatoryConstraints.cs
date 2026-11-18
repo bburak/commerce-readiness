@@ -5,8 +5,9 @@ using CommerceReadiness.Core.Shopping;
 namespace CommerceReadiness.Core.Evaluation.Shopping;
 
 /// <summary>
-/// One mandatory constraint of a hidden intent, the claim that must ground it, and whether a claimed (evidence-backed)
-/// value satisfies it. Satisfaction mirrors <see cref="ConstraintEvaluator"/> semantics.
+/// One mandatory constraint of a hidden intent and how an authoritative evidence value must satisfy it.
+/// Used for trace-based decision grounding; satisfaction mirrors <see cref="ConstraintEvaluator"/> semantics.
+/// Emitting a matching <see cref="GroundedClaim"/> is optional and scored separately via claim metrics.
 /// </summary>
 public sealed record RequiredClaim(
     string Constraint,
@@ -22,7 +23,7 @@ public sealed record RequiredClaim(
 
 public static class MandatoryConstraints
 {
-    /// <summary>The claims a recommendation must carry: being in stock always, plus every non-null constraint.</summary>
+    /// <summary>Mandatory constraints that need satisfying authoritative tool evidence: in stock always, plus every non-null constraint.</summary>
     public static ImmutableArray<RequiredClaim> For(ShopperConstraints c, DateTimeOffset asOf)
     {
         var required = new List<RequiredClaim>();

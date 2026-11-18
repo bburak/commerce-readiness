@@ -6,7 +6,10 @@ public sealed record ShopperRunRecord(string IntentId, int RunIndex, ShopperRun 
 
 public sealed record ClaimCheck(ClaimType Type, ProductAttributeField? Field, string Value, ClaimVerdict Verdict);
 
-/// <param name="Detail">Why the constraint is (not) grounded: no claim, an unsupported claim, or evidence that does not satisfy it.</param>
+/// <param name="Detail">
+/// Why the constraint is (not) grounded from the tool trace: e.g. missing evidence, evidence that does not satisfy
+/// it, or the satisfying EvidenceCallId. Trace grounding is decision evidence, not a claim about model reasoning.
+/// </param>
 public sealed record ConstraintGrounding(string Constraint, bool Grounded, string Detail);
 
 public sealed record RecommendationEvaluation(

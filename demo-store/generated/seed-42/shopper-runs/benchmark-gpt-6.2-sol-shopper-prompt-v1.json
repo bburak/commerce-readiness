@@ -7,7 +7,13 @@
   "embeddingModel": "text-embedding-3-small",
   "embeddingDimensions": 1536,
   "retrievalMode": "Hybrid",
-  "defaultTop": 5,
+  "defaultSearchTop": 5,
+  "maxSearchTop": 10,
+  "totalSearchCalls": 62,
+  "searchTopDistribution": {
+    "5": 1,
+    "10": 61
+  },
   "runsPerIntent": 3,
   "runTimestampUtc": "2026-11-18T16:45:32.2813579+00:00",
   "report": {
@@ -51,56 +57,25 @@
       },
       {
         "name": "GroundedRecommendationSuccessRate",
-        "definition": "valid-product runs whose primary recommendation is valid, has every mandatory constraint grounded and no contradicted claim / attempted valid-product runs",
+        "definition": "valid-product runs whose primary is clean-valid, every mandatory constraint has satisfying authoritative trace evidence, no contradicted emitted claim, and the ShopperResult is well-formed / attempted valid-product runs",
         "higherIsBetter": true,
-        "numerator": 30,
+        "numerator": 39,
         "denominator": 42,
-        "value": 0.7143,
+        "value": 0.9286,
         "flagged": [
           "I07#1",
           "I07#2",
-          "I07#3",
-          "I08#1",
-          "I08#2",
-          "I08#3",
-          "I09#1",
-          "I09#2",
-          "I09#3",
-          "I10#1",
-          "I10#2",
-          "I10#3"
+          "I07#3"
         ]
       },
       {
         "name": "MandatoryConstraintEvidenceCoverage",
-        "definition": "grounded (recommendation, mandatory constraint) pairs / all such pairs of completed Recommended runs",
+        "definition": "trace-grounded (recommendation, mandatory constraint) pairs / all such pairs of completed Recommended runs (decision evidence; does not require an emitted claim)",
         "higherIsBetter": true,
-        "numerator": 426,
+        "numerator": 447,
         "denominator": 447,
-        "value": 0.953,
-        "flagged": [
-          "I08#1:SKU-SE-012:category",
-          "I08#1:SKU-SE-003:category",
-          "I08#1:SKU-SE-018:category",
-          "I08#2:SKU-SE-012:category",
-          "I08#2:SKU-SE-018:category",
-          "I08#2:SKU-SE-003:category",
-          "I08#3:SKU-SE-012:category",
-          "I08#3:SKU-SE-003:category",
-          "I08#3:SKU-SE-018:category",
-          "I09#1:SKU-SE-016:category",
-          "I09#1:SKU-SE-013:category",
-          "I09#1:SKU-SE-025:category",
-          "I09#2:SKU-SE-013:category",
-          "I09#2:SKU-SE-016:category",
-          "I09#2:SKU-SE-025:category",
-          "I09#3:SKU-SE-016:category",
-          "I09#3:SKU-SE-013:category",
-          "I09#3:SKU-SE-025:category",
-          "I10#1:SKU-SE-004:category",
-          "I10#2:SKU-SE-004:category",
-          "I10#3:SKU-SE-004:category"
-        ]
+        "value": 1,
+        "flagged": []
       },
       {
         "name": "ValidRecommendationRate",
@@ -198,24 +173,15 @@
       },
       {
         "name": "GroundedDecisionRate",
-        "definition": "runs with a grounded recommendation, a grounded NoMatch or a correct typed clarification / attempted runs",
+        "definition": "runs with a trace-grounded valid recommendation, an evidence-backed NoMatch or a correct missing-field clarification / attempted runs",
         "higherIsBetter": true,
-        "numerator": 48,
+        "numerator": 57,
         "denominator": 60,
-        "value": 0.8,
+        "value": 0.95,
         "flagged": [
           "I07#1",
           "I07#2",
-          "I07#3",
-          "I08#1",
-          "I08#2",
-          "I08#3",
-          "I09#1",
-          "I09#2",
-          "I09#3",
-          "I10#1",
-          "I10#2",
-          "I10#3"
+          "I07#3"
         ]
       }
     ],
@@ -714,32 +680,32 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -790,32 +756,32 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-007"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -866,32 +832,32 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -976,32 +942,32 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -1086,32 +1052,32 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -1196,17 +1162,17 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               }
             ],
             "claims": [
@@ -1240,17 +1206,17 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               }
             ],
             "claims": [
@@ -1284,17 +1250,17 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               }
             ],
             "claims": [
@@ -1356,17 +1322,17 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               }
             ],
             "claims": [
@@ -1400,17 +1366,17 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               }
             ],
             "claims": [
@@ -1444,17 +1410,17 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               }
             ],
             "claims": [
@@ -1516,17 +1482,17 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               }
             ],
             "claims": [
@@ -1560,17 +1526,17 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               }
             ],
             "claims": [
@@ -1604,17 +1570,17 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               }
             ],
             "claims": [
@@ -1676,27 +1642,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "color",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -1782,27 +1748,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "color",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -1888,27 +1854,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "color",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -1994,27 +1960,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "targetGroup",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -2060,27 +2026,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "targetGroup",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -2154,27 +2120,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "targetGroup",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -2220,27 +2186,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "targetGroup",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -2314,27 +2280,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "targetGroup",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -2380,27 +2346,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "targetGroup",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -2474,27 +2440,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "noiseCancellation",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               }
             ],
             "claims": [
@@ -2539,27 +2505,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "noiseCancellation",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               }
             ],
             "claims": [
@@ -2604,27 +2570,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "noiseCancellation",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-007"
               }
             ],
             "claims": [
@@ -2697,27 +2663,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "noiseCancellation",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               }
             ],
             "claims": [
@@ -2762,27 +2728,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "noiseCancellation",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-007"
               }
             ],
             "claims": [
@@ -2827,27 +2793,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "noiseCancellation",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               }
             ],
             "claims": [
@@ -2920,27 +2886,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "noiseCancellation",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               }
             ],
             "claims": [
@@ -2985,27 +2951,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "noiseCancellation",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               }
             ],
             "claims": [
@@ -3050,27 +3016,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "noiseCancellation",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               }
             ],
             "claims": [
@@ -3143,27 +3109,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "microphone",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumBatteryHours",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -3215,27 +3181,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "microphone",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumBatteryHours",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -3281,27 +3247,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "microphone",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumBatteryHours",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -3387,27 +3353,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "microphone",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumBatteryHours",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -3453,27 +3419,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "microphone",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumBatteryHours",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -3519,27 +3485,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "microphone",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumBatteryHours",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -3619,27 +3585,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "microphone",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumBatteryHours",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -3685,27 +3651,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "microphone",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumBatteryHours",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -3751,27 +3717,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "microphone",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumBatteryHours",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -3937,33 +3903,33 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumWarrantyMonths",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -3995,7 +3961,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -4007,33 +3973,33 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumWarrantyMonths",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4065,7 +4031,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -4077,33 +4043,33 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumWarrantyMonths",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4135,11 +4101,11 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           }
         ],
-        "groundedRecommendation": false,
+        "groundedRecommendation": true,
         "extraneousClarificationFields": [],
         "searchFilters": [
           {
@@ -4181,33 +4147,33 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumWarrantyMonths",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4239,7 +4205,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -4251,33 +4217,33 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumWarrantyMonths",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4309,7 +4275,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -4321,33 +4287,33 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumWarrantyMonths",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4379,11 +4345,11 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           }
         ],
-        "groundedRecommendation": false,
+        "groundedRecommendation": true,
         "extraneousClarificationFields": [],
         "searchFilters": [
           {
@@ -4425,33 +4391,33 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumWarrantyMonths",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4483,7 +4449,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -4495,33 +4461,33 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumWarrantyMonths",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4553,7 +4519,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -4565,33 +4531,33 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumWarrantyMonths",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4623,11 +4589,11 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           }
         ],
-        "groundedRecommendation": false,
+        "groundedRecommendation": true,
         "extraneousClarificationFields": [],
         "searchFilters": [
           {
@@ -4669,23 +4635,23 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4706,7 +4672,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -4718,23 +4684,23 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4755,7 +4721,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -4767,23 +4733,23 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4804,11 +4770,11 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           }
         ],
-        "groundedRecommendation": false,
+        "groundedRecommendation": true,
         "extraneousClarificationFields": [],
         "searchFilters": [
           {
@@ -4838,23 +4804,23 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4875,7 +4841,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -4887,23 +4853,23 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4924,7 +4890,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -4936,23 +4902,23 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -4973,11 +4939,11 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           }
         ],
-        "groundedRecommendation": false,
+        "groundedRecommendation": true,
         "extraneousClarificationFields": [],
         "searchFilters": [
           {
@@ -5007,23 +4973,23 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -5044,7 +5010,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -5056,23 +5022,23 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -5093,7 +5059,7 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           },
           {
@@ -5105,23 +5071,23 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -5142,11 +5108,11 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           }
         ],
-        "groundedRecommendation": false,
+        "groundedRecommendation": true,
         "extraneousClarificationFields": [],
         "searchFilters": [
           {
@@ -5176,28 +5142,28 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               }
             ],
             "claims": [
@@ -5223,11 +5189,11 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           }
         ],
-        "groundedRecommendation": false,
+        "groundedRecommendation": true,
         "extraneousClarificationFields": [],
         "searchFilters": [
           {
@@ -5263,28 +5229,28 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               }
             ],
             "claims": [
@@ -5310,11 +5276,11 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           }
         ],
-        "groundedRecommendation": false,
+        "groundedRecommendation": true,
         "extraneousClarificationFields": [],
         "searchFilters": [
           {
@@ -5350,28 +5316,28 @@
             "constraints": [
               {
                 "constraint": "category",
-                "grounded": false,
-                "detail": "no claim"
+                "grounded": true,
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "productType",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "installmentCount",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               }
             ],
             "claims": [
@@ -5397,11 +5363,11 @@
                 "verdict": "Supported"
               }
             ],
-            "allConstraintsGrounded": false,
+            "allConstraintsGrounded": true,
             "anyContradicted": false
           }
         ],
-        "groundedRecommendation": false,
+        "groundedRecommendation": true,
         "extraneousClarificationFields": [],
         "searchFilters": [
           {
@@ -5438,22 +5404,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -5499,22 +5465,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -5594,22 +5560,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -5649,22 +5615,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -5738,22 +5704,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -5799,22 +5765,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "shoeSize",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -5894,22 +5860,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               }
             ],
             "claims": [
@@ -5948,22 +5914,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-012"
               }
             ],
             "claims": [
@@ -6002,22 +5968,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               }
             ],
             "claims": [
@@ -6084,22 +6050,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               }
             ],
             "claims": [
@@ -6138,22 +6104,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-012"
               }
             ],
             "claims": [
@@ -6192,22 +6158,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               }
             ],
             "claims": [
@@ -6274,22 +6240,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               }
             ],
             "claims": [
@@ -6328,22 +6294,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-012"
               }
             ],
             "claims": [
@@ -6382,22 +6348,22 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               }
             ],
             "claims": [
@@ -6464,27 +6430,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "returnRequirement",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-007"
               }
             ],
             "claims": [
@@ -6529,27 +6495,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "returnRequirement",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-009"
               }
             ],
             "claims": [
@@ -6594,27 +6560,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "returnRequirement",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               }
             ],
             "claims": [
@@ -6681,27 +6647,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "returnRequirement",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               }
             ],
             "claims": [
@@ -6746,27 +6712,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "returnRequirement",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-009"
               }
             ],
             "claims": [
@@ -6811,27 +6777,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-006"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "returnRequirement",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-010"
               }
             ],
             "claims": [
@@ -6898,27 +6864,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-004"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "returnRequirement",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-008"
               }
             ],
             "claims": [
@@ -6963,27 +6929,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-005"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "returnRequirement",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-009"
               }
             ],
             "claims": [
@@ -7028,27 +6994,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "deliverWithinDays",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-007"
               },
               {
                 "constraint": "minimumWaterResistance",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "returnRequirement",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-011"
               }
             ],
             "claims": [
@@ -7115,27 +7081,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumCapacityLiters",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -7181,27 +7147,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumCapacityLiters",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -7247,27 +7213,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumCapacityLiters",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -7353,27 +7319,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumCapacityLiters",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -7419,27 +7385,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumCapacityLiters",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -7485,27 +7451,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumCapacityLiters",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -7591,27 +7557,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumCapacityLiters",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -7657,27 +7623,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumCapacityLiters",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [
@@ -7723,27 +7689,27 @@
               {
                 "constraint": "category",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "inStock",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-003"
               },
               {
                 "constraint": "maxPriceTry",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-001"
               },
               {
                 "constraint": "minimumLaptopSizeIn",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               },
               {
                 "constraint": "minimumCapacityLiters",
                 "grounded": true,
-                "detail": "supported"
+                "detail": "trace EVID-002"
               }
             ],
             "claims": [

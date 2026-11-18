@@ -8,8 +8,11 @@ namespace CommerceReadiness.Core.Evaluation.Shopping;
 
 /// <summary>
 /// Deterministic shopper evaluation. It reads the hidden clean store, the intents with their oracle expectations,
-/// ground truth and the captured tool traces; it never uses a model. Outcome correctness comes from the oracle;
-/// grounding checks that the shopper's own tool evidence supports its decision.
+/// ground truth and the captured tool traces; it never uses a model. Outcome correctness comes from the oracle.
+/// Decision grounding checks that authoritative tool evidence for the recommended SKU (or a decisive NoMatch
+/// blocker) is present in the trace; claim grounding separately scores only facts emitted in <see cref="ShopperResult"/>.
+/// Trace grounding proves evidence was obtained and available to support the decision — not that the model's
+/// hidden causal reasoning is known.
 /// </summary>
 public static class ShopperEvaluator
 {
@@ -58,11 +61,11 @@ public static class ShopperEvaluator
                 "valid-product runs whose primary recommendation is valid in clean truth / attempted valid-product runs", true,
                 Expected(evaluations, ShopperOutcome.Recommended).Select(e => (Unit(e), PrimaryValid(e)))),
             ShopperMetric.Rate("GroundedRecommendationSuccessRate",
-                "valid-product runs whose primary recommendation is valid, has every mandatory constraint grounded and no contradicted claim / attempted valid-product runs",
+                "valid-product runs whose primary is clean-valid, every mandatory constraint has satisfying authoritative trace evidence, no contradicted emitted claim, and the ShopperResult is well-formed / attempted valid-product runs",
                 true, Expected(evaluations, ShopperOutcome.Recommended).Select(e => (Unit(e), e.GroundedRecommendation == true))),
             ShopperMetric.Rate("MandatoryConstraintEvidenceCoverage",
-                "grounded (recommendation, mandatory constraint) pairs / all such pairs of completed Recommended runs", true,
-                recommendations.SelectMany(x => x.Rec.Constraints.Select(c => ($"{Unit(x.Run)}:{x.Rec.Sku}:{c.Constraint}", c.Grounded)))),
+                "trace-grounded (recommendation, mandatory constraint) pairs / all such pairs of completed Recommended runs (decision evidence; does not require an emitted claim)",
+                true, recommendations.SelectMany(x => x.Rec.Constraints.Select(c => ($"{Unit(x.Run)}:{x.Rec.Sku}:{c.Constraint}", c.Grounded)))),
             ShopperMetric.Rate("ValidRecommendationRate", "recommended SKUs valid in clean truth / all recommended SKUs", true,
                 recommendations.Select(x => ($"{Unit(x.Run)}:{x.Rec.Sku}", x.Rec.ValidInClean))),
             ShopperMetric.Rate("ConfidentWrongRate", "Confirmed recommendations violating at least one mandatory constraint / all Confirmed recommendations", false,
@@ -88,8 +91,8 @@ public static class ShopperEvaluator
             ShopperMetric.Rate("ToolErrorRate", "failed tool calls / all tool calls", false,
                 runs.SelectMany(r => r.Run.Trace.Select(t => ($"{r.IntentId}#{r.RunIndex}:{t.EvidenceCallId}", !t.Ok)))),
             ShopperMetric.Rate("GroundedDecisionRate",
-                "runs with a grounded recommendation, a grounded NoMatch or a correct typed clarification / attempted runs", true,
-                evaluations.Select(e => (Unit(e), e.GroundedRecommendation == true || e.GroundedNoMatch == true || e.ClarificationCorrect == true))),
+                "runs with a trace-grounded valid recommendation, an evidence-backed NoMatch or a correct missing-field clarification / attempted runs",
+                true, evaluations.Select(e => (Unit(e), e.GroundedRecommendation == true || e.GroundedNoMatch == true || e.ClarificationCorrect == true))),
         ];
 
         var stability = Stability(evaluations);
@@ -151,7 +154,9 @@ public static class ShopperEvaluator
             : [];
 
         bool? groundedRecommendation = expected == ShopperOutcome.Recommended
-            ? result?.Outcome == ShopperOutcome.Recommended && recommendations is [var first, ..]
+            ? result is { Outcome: ShopperOutcome.Recommended }
+              && ShopperResultValidator.Validate(result).IsEmpty
+              && recommendations is [var first, ..]
               && first.ValidInClean && first.AllConstraintsGrounded && !first.AnyContradicted
             : null;
         bool? groundedNoMatch = expected == ShopperOutcome.NoMatch
@@ -191,26 +196,10 @@ public static class ShopperEvaluator
         var violations = facts.AllSkus.Contains(sku)
             ? ConstraintEvaluator.Evaluate(intent.Constraints, sku, facts, asOf).Select(v => $"{v.Constraint}: required {v.Required}, actual {v.Actual}")
             : [Unknown];
+        // Claim grounding (emitted facts only) stays separate from decision/constraint grounding (trace evidence).
         var checks = recommendation.Claims.Select(c => (Claim: c, Verdict: ClaimEvidence.Verify(sku, c, trace))).ToList();
-
-        var grounding = MandatoryConstraints.For(intent.Constraints, asOf).Select(required =>
-        {
-            var matching = checks.Where(c => required.Matches(c.Claim)).ToList();
-            if (matching.Count == 0)
-            {
-                return new ConstraintGrounding(required.Constraint, false, "no claim");
-            }
-
-            var supported = matching.Where(c => c.Verdict == ClaimVerdict.Supported).ToList();
-            if (supported.Count == 0)
-            {
-                return new ConstraintGrounding(required.Constraint, false, $"claim {string.Join("/", matching.Select(c => c.Verdict).Distinct())}");
-            }
-
-            return supported.Any(c => required.IsSatisfiedBy(c.Claim.Value))
-                ? new ConstraintGrounding(required.Constraint, true, "supported")
-                : new ConstraintGrounding(required.Constraint, false, "evidence does not satisfy the constraint");
-        });
+        var grounding = MandatoryConstraints.For(intent.Constraints, asOf)
+            .Select(required => ConstraintEvidence.Ground(sku, required, trace));
 
         return new RecommendationEvaluation(
             sku,

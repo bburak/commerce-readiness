@@ -20,18 +20,7 @@ public class ShopperEvaluatorTests
         var sku = I01.Expected.ValidSkus[0];
         var price = TestData.Seed42.Clean.GetPrice(sku);
         var delivery = DeliveryCalculator.EstimateDelivery(TestData.Seed42.Clean, sku, City.Istanbul, TestData.Seed42.Context.Now)!;
-        var traces = new[]
-        {
-            ShopperTestSupport.Trace(1, ShopperToolNames.SearchProducts, new SearchProductsArguments("q", "Backpacks", 3500, true, null, null, 17, null, null, null, 5),
-                new SearchProductsData([new(1, sku, "P", "t", Category.Backpacks, price, 3, null, null, 0.9)])),
-            ShopperTestSupport.Trace(2, ShopperToolNames.GetProductDetails, new SkuListArguments([sku]),
-                new ProductDetailsData([Details(sku)])),
-            ShopperTestSupport.Trace(3, ShopperToolNames.GetInventory, new SkuListArguments([sku]),
-                new InventoryData([new(sku, 3, "IST-TUZLA")])),
-            ShopperTestSupport.Trace(4, ShopperToolNames.GetDeliveryEstimate, new DeliveryEstimateArguments(sku, "Istanbul", 2),
-                new DeliveryEstimateData(sku, City.Istanbul, DateOnly.FromDateTime(TestData.Seed42.Context.Now.DateTime), true, delivery.Value, "IST-TUZLA", 14, 1,
-                    DeliveryCalculator.Deadline(TestData.Seed42.Context.Now, 2), true)),
-        };
+        var traces = I01Traces(sku, price, delivery.Value);
         var result = ShopperTestSupport.Recommended(ShopperTestSupport.Rec(sku, RecommendationConfidence.Confirmed,
             ShopperTestSupport.Attr(ProductAttributeField.Category, nameof(Category.Backpacks), "EVID-002"),
             ShopperTestSupport.Attr(ProductAttributeField.WaterResistance, nameof(WaterResistance.WaterRepellent), "EVID-002"),
@@ -47,7 +36,7 @@ public class ShopperEvaluatorTests
     }
 
     [Fact]
-    public void Valid_sku_with_zero_claims_gets_no_grounding_credit()
+    public void Valid_sku_without_trace_evidence_gets_no_decision_grounding_credit()
     {
         var sku = I01.Expected.ValidSkus[0];
         var result = ShopperTestSupport.Recommended(ShopperTestSupport.Rec(sku, RecommendationConfidence.Confirmed));
@@ -55,7 +44,101 @@ public class ShopperEvaluatorTests
 
         Assert.Equal(0, report.Primary.Single(m => m.Name == "GroundedRecommendationSuccessRate").Numerator);
         Assert.Equal(1, report.Primary.Single(m => m.Name == "PrimaryRecommendationSuccessRate").Numerator);
-        Assert.Contains(report.Runs[0].Recommendations[0].Constraints, c => c.Detail == "no claim");
+        Assert.Contains(report.Runs[0].Recommendations[0].Constraints, c => c.Detail == "missing evidence");
+    }
+
+    [Fact]
+    public void Complete_trace_with_omitted_redundant_category_claim_is_decision_grounded()
+    {
+        var sku = I01.Expected.ValidSkus[0];
+        var price = TestData.Seed42.Clean.GetPrice(sku);
+        var delivery = DeliveryCalculator.EstimateDelivery(TestData.Seed42.Clean, sku, City.Istanbul, TestData.Seed42.Context.Now)!;
+        var traces = I01Traces(sku, price, delivery.Value);
+        // Omits Category (and other attribute) claims on purpose — decision grounding uses the trace.
+        var result = ShopperTestSupport.Recommended(ShopperTestSupport.Rec(sku, RecommendationConfidence.Confirmed,
+            ShopperTestSupport.Price(InvariantFormat.Money(price), "EVID-001"),
+            ShopperTestSupport.Stock(ClaimFormat.InStock, "EVID-003"),
+            ShopperTestSupport.Delivery(City.Istanbul, InvariantFormat.Date(delivery.Value), "EVID-004")));
+
+        var report = Evaluate(("I01", result, traces));
+        Assert.Equal(1, report.Primary.Single(m => m.Name == "GroundedRecommendationSuccessRate").Numerator);
+        Assert.All(report.Runs[0].Recommendations[0].Constraints, c => Assert.True(c.Grounded, c.Constraint + ": " + c.Detail));
+        Assert.Contains(report.Runs[0].Recommendations[0].Constraints, c => c.Constraint == "category" && c.Detail.StartsWith("trace ", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void Evidence_for_another_sku_does_not_ground_the_recommendation()
+    {
+        var sku = I01.Expected.ValidSkus[0];
+        var other = I01.Expected.ValidSkus[1];
+        var price = TestData.Seed42.Clean.GetPrice(other);
+        var delivery = DeliveryCalculator.EstimateDelivery(TestData.Seed42.Clean, other, City.Istanbul, TestData.Seed42.Context.Now)!;
+        var traces = I01Traces(other, price, delivery.Value);
+        var result = ShopperTestSupport.Recommended(ShopperTestSupport.Rec(sku, RecommendationConfidence.Confirmed));
+
+        var report = Evaluate(("I01", result, traces));
+        Assert.Equal(0, report.Primary.Single(m => m.Name == "GroundedRecommendationSuccessRate").Numerator);
+        Assert.Contains(report.Runs[0].Recommendations[0].Constraints, c => c is { Constraint: "category", Grounded: false });
+        Assert.Contains(report.Runs[0].Recommendations[0].Constraints, c => c is { Constraint: "inStock", Grounded: false });
+    }
+
+    [Fact]
+    public void Wrong_field_tool_or_delivery_context_does_not_ground_the_constraint()
+    {
+        var sku = I01.Expected.ValidSkus[0];
+        var price = TestData.Seed42.Clean.GetPrice(sku);
+        // Details omit Category; delivery is for Ankara while I01 requires Istanbul.
+        var traces = new[]
+        {
+            ShopperTestSupport.Trace(1, ShopperToolNames.SearchProducts,
+                new SearchProductsArguments("q", "Backpacks", 3500, true, null, null, 17, null, null, null, 5),
+                new SearchProductsData([new(1, sku, "P", "t", Category.Backpacks, price, 3, null, null, 0.9)])),
+            ShopperTestSupport.Trace(2, ShopperToolNames.GetProductDetails, new SkuListArguments([sku]),
+                new ProductDetailsData([new(sku, "P", "t", Category.Backpacks, price,
+                [
+                    new(ProductAttributeField.ProductType, "Sırt Çantası"),
+                    new(ProductAttributeField.WaterResistance, nameof(WaterResistance.WaterRepellent)),
+                    new(ProductAttributeField.LaptopSizeIn, "17"),
+                ])])),
+            ShopperTestSupport.Trace(3, ShopperToolNames.GetInventory, new SkuListArguments([sku]),
+                new InventoryData([new(sku, 3, "IST-TUZLA")])),
+            ShopperTestSupport.Trace(4, ShopperToolNames.GetDeliveryEstimate, new DeliveryEstimateArguments(sku, "Ankara", 2),
+                new DeliveryEstimateData(sku, City.Ankara, DateOnly.FromDateTime(TestData.Seed42.Context.Now.DateTime), true,
+                    DateOnly.FromDateTime(TestData.Seed42.Context.Now.DateTime), "IST-TUZLA", 14, 2,
+                    DeliveryCalculator.Deadline(TestData.Seed42.Context.Now, 2), true)),
+            // Wrong tool for a product attribute: inventory cannot ground Category either.
+            ShopperTestSupport.Trace(5, ShopperToolNames.GetInventory, new SkuListArguments([sku]),
+                new InventoryData([new(sku, 3, "IST-TUZLA")])),
+        };
+        var result = ShopperTestSupport.Recommended(ShopperTestSupport.Rec(sku, RecommendationConfidence.Confirmed));
+        var report = Evaluate(("I01", result, traces));
+        var constraints = report.Runs[0].Recommendations[0].Constraints;
+        Assert.Contains(constraints, c => c is { Constraint: "category", Grounded: false });
+        Assert.Contains(constraints, c => c.Constraint is "deliverTo" or "deliverWithinDays" && !c.Grounded);
+        Assert.Equal(0, report.Primary.Single(m => m.Name == "GroundedRecommendationSuccessRate").Numerator);
+    }
+
+    [Fact]
+    public void Unsupported_emitted_claim_fails_claim_metrics_even_when_decision_is_trace_grounded()
+    {
+        var sku = I01.Expected.ValidSkus[0];
+        var price = TestData.Seed42.Clean.GetPrice(sku);
+        var delivery = DeliveryCalculator.EstimateDelivery(TestData.Seed42.Clean, sku, City.Istanbul, TestData.Seed42.Context.Now)!;
+        var traces = I01Traces(sku, price, delivery.Value);
+        var result = ShopperTestSupport.Recommended(ShopperTestSupport.Rec(sku, RecommendationConfidence.Confirmed,
+            ShopperTestSupport.Attr(ProductAttributeField.Category, nameof(Category.Backpacks), "EVID-002"),
+            ShopperTestSupport.Attr(ProductAttributeField.WaterResistance, nameof(WaterResistance.WaterRepellent), "EVID-002"),
+            ShopperTestSupport.Attr(ProductAttributeField.LaptopSizeIn, "17", "EVID-002"),
+            ShopperTestSupport.Price(InvariantFormat.Money(price), "EVID-001"),
+            ShopperTestSupport.Stock(ClaimFormat.InStock, "EVID-003"),
+            ShopperTestSupport.Delivery(City.Istanbul, InvariantFormat.Date(delivery.Value), "EVID-004"),
+            // Well-formed claim with a non-existent evidence id — decision still has full trace evidence.
+            ShopperTestSupport.Attr(ProductAttributeField.Color, "Siyah", "EVID-999")));
+
+        var report = Evaluate(("I01", result, traces));
+        Assert.Equal(1, report.Primary.Single(m => m.Name == "GroundedRecommendationSuccessRate").Numerator);
+        Assert.Equal(1, report.Primary.Single(m => m.Name == "UnsupportedClaimRate").Numerator);
+        Assert.Contains(report.Runs[0].Recommendations[0].Claims, c => c is { Field: ProductAttributeField.Color, Verdict: ClaimVerdict.UnknownEvidence });
     }
 
     [Fact]
@@ -169,6 +252,33 @@ public class ShopperEvaluatorTests
     }
 
     [Fact]
+    public void Search_top_diagnostic_is_derived_from_traces_not_hardcoded()
+    {
+        var traces = new[]
+        {
+            ShopperTestSupport.Trace(1, ShopperToolNames.SearchProducts,
+                new SearchProductsArguments("a", null, null, null, null, null, null, null, null, null, 10),
+                new SearchProductsData([])),
+            ShopperTestSupport.Trace(2, ShopperToolNames.SearchProducts,
+                new SearchProductsArguments("b", null, null, null, null, null, null, null, null, null, 10),
+                new SearchProductsData([])),
+            ShopperTestSupport.Trace(3, ShopperToolNames.SearchProducts,
+                new SearchProductsArguments("c", null, null, null, null, null, null, null, null, null, 5),
+                new SearchProductsData([])),
+            ShopperTestSupport.Trace(4, ShopperToolNames.SearchProducts,
+                new SearchProductsArguments("d", null, null, null, null, null, null, null, null, null, null),
+                new SearchProductsData([])),
+        };
+        var diagnostic = SearchTopDiagnostic.FromRuns(
+            [new ShopperRunRecord("I01", 1, ShopperTestSupport.Completed(ShopperTestSupport.NoMatch("x"), traces))],
+            defaultSearchTop: 5);
+
+        Assert.Equal(4, diagnostic.TotalSearchCalls);
+        Assert.Equal(2, diagnostic.SearchTopDistribution[5]); // one explicit 5 + one omitted → default 5
+        Assert.Equal(2, diagnostic.SearchTopDistribution[10]);
+    }
+
+    [Fact]
     public void Provider_error_counts_in_attempted_denominators_and_zero_rates_are_null()
     {
         var failed = new ShopperRunRecord("I01", 1, ShopperTestSupport.Failed(ShopperRunStatus.ProviderError, "timeout"));
@@ -209,6 +319,20 @@ public class ShopperEvaluatorTests
             TestData.Seed42.Intents,
             TestData.Seed42.GroundTruth,
             runs.Select((r, i) => new ShopperRunRecord(r.IntentId, i + 1, ShopperTestSupport.Completed(r.Result, r.Traces))).ToList());
+
+    private static ToolInvocationTrace[] I01Traces(string sku, decimal price, DateOnly deliveryDate) =>
+    [
+        ShopperTestSupport.Trace(1, ShopperToolNames.SearchProducts,
+            new SearchProductsArguments("q", "Backpacks", 3500, true, null, null, 17, null, null, null, 5),
+            new SearchProductsData([new(1, sku, "P", "t", Category.Backpacks, price, 3, null, null, 0.9)])),
+        ShopperTestSupport.Trace(2, ShopperToolNames.GetProductDetails, new SkuListArguments([sku]),
+            new ProductDetailsData([Details(sku)])),
+        ShopperTestSupport.Trace(3, ShopperToolNames.GetInventory, new SkuListArguments([sku]),
+            new InventoryData([new(sku, 3, "IST-TUZLA")])),
+        ShopperTestSupport.Trace(4, ShopperToolNames.GetDeliveryEstimate, new DeliveryEstimateArguments(sku, "Istanbul", 2),
+            new DeliveryEstimateData(sku, City.Istanbul, DateOnly.FromDateTime(TestData.Seed42.Context.Now.DateTime), true, deliveryDate, "IST-TUZLA", 14, 1,
+                DeliveryCalculator.Deadline(TestData.Seed42.Context.Now, 2), true)),
+    ];
 
     private static ProductDetails Details(string sku)
     {
