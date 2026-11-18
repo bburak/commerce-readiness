@@ -142,20 +142,22 @@ deterministic baseline; its defects are reported as `deferredDefects`, not as fa
 filters, hidden relevance constraints and oracle-computed relevant SKUs. Its relevance definition, metrics and
 provenance rules are specified in [retrieval-contract.md](retrieval-contract.md).
 
-## Shopper output (Milestone 3) and scoring (Milestone 4)
+## Shopper output and scoring (Milestone 3)
+
+The authoritative shopper contract and metrics live in [shopper-contract.md](shopper-contract.md). Summary:
 
 ```
-ShopperResult  { intentId, recommendations[], abstained, missingInformation[] }
-Recommendation { sku, claims[], uncertain }
-Claim          { type, value, evidenceCallId }
-EvidenceRecord { callId, tool, source, facts }
+ShopperResult  { schemaVersion, outcome, clarification?, recommendations[], noMatchReason?, supportingEvidenceCallIds[] }
+Recommendation { sku, confidence, claims[] }
+GroundedClaim  { type, attributeField?/city?/returnQuestion?, value, evidenceCallIds[] }
+ToolInvocationTrace { evidenceCallId, toolName, arguments, ok, data?, ... }
 ```
 
-- **Unsupported Claim**: `evidenceCallId` is null or unknown, or the referenced `EvidenceRecord` facts contradict
-  `value`.
-- **Confident Wrong Recommendation**: the recommended SKU is not in `expected.validSkus` (it violates at least one
-  mandatory constraint per the oracle) and `uncertain` is false.
-- **Correct Abstention**: `abstained` is true with no recommendations, and the intent outcome is `NoValidProduct` or
-  `InsufficientInformation`. Abstaining when valid products exist is a missed answer.
-- **Trap hit**: recommending a SKU whose `forbidden` entry has `looksValidInPublished = true`, meaning the shopper was
-  misled by broken published data.
+- **Unsupported Claim**: missing, unknown, wrong-source, failed, wrong-entity or contradicted evidence relative to the
+  claim-evidence matrix.
+- **Confident Wrong Recommendation**: a Confirmed SKU not in `expected.validSkus`.
+- **Grounded recommendation**: clean-valid primary SKU, every mandatory constraint grounded by tool evidence, no
+  contradicted claim.
+- **Correct NoMatch / Clarification**: mapped from `NoValidProduct` / `InsufficientInformation`. Clarification must
+  include every expected typed missing field. Grounded NoMatch is a separate diagnostic of decisive tool evidence.
+- **Trap hit**: recommending a SKU whose `forbidden` entry has `looksValidInPublished = true`.

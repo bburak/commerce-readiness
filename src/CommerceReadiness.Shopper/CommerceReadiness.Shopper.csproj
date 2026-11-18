@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Shares the Retrieval CLI's user-secrets store on purpose, so one local OPENAI_API_KEY serves both executables. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UserSecretsId>commerce-readiness-retrieval</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommerceReadiness.Core\CommerceReadiness.Core.csproj" />
+    <ProjectReference Include="..\CommerceReadiness.Retrieval.Runtime\CommerceReadiness.Retrieval.Runtime.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.AI" Version="11.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="11.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Agent\shopper-prompt-v1.md" LogicalName="shopper-prompt-v1.md" />
+  </ItemGroup>
+
+</Project>
