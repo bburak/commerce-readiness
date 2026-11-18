@@ -25,7 +25,7 @@ public class DeterminismTests
         var firstFiles = TestData.ReadAllFiles(first);
         var secondFiles = TestData.ReadAllFiles(second);
         Assert.Equal(firstFiles.Keys, secondFiles.Keys);
-        Assert.Equal(17, firstFiles.Count);
+        Assert.Equal(18, firstFiles.Count);
         foreach (var (path, bytes) in firstFiles)
         {
             Assert.True(bytes.AsSpan().SequenceEqual(secondFiles[path]), $"{path} differs between runs.");
