@@ -26,5 +26,6 @@ public static class DatasetWriter
         TextFiles.Write(Path.Combine(eval, EvalFiles.GroundTruthFileName), JsonDefaults.Serialize(dataset.GroundTruth));
         TextFiles.Write(Path.Combine(eval, EvalFiles.IntentsFileName), JsonDefaults.Serialize(dataset.Intents));
         TextFiles.Write(Path.Combine(eval, EvalFiles.MetricsFileName), JsonDefaults.Serialize(dataset.Metrics));
+        TextFiles.Write(Path.Combine(eval, EvalFiles.RetrievalBenchmarkFileName), JsonDefaults.Serialize(dataset.RetrievalBenchmark));
     }
 }

@@ -1,6 +1,7 @@
 using CommerceReadiness.Core.Domain;
 using CommerceReadiness.Core.Evaluation;
 using CommerceReadiness.Core.Evaluation.Metrics;
+using CommerceReadiness.Core.Evaluation.Retrieval;
 using CommerceReadiness.Core.Shopping;
 using CommerceReadiness.Core.SourceOfTruth;
 using CommerceReadiness.Core.Time;
@@ -14,7 +15,8 @@ public sealed record DemoStoreDataset(
     StoreSnapshot Published,
     GroundTruth GroundTruth,
     IntentsFile Intents,
-    MetricsReport Metrics);
+    MetricsReport Metrics,
+    RetrievalBenchmarkFile RetrievalBenchmark);
 
 /// <summary>
 /// Clean store, then decoy selection, then defect injection into the published store, then oracle-labelled intents
@@ -46,6 +48,9 @@ public static class DemoStoreBuilder
         var metrics = new MetricsReport(
             storeVersion, context.Now, [cleanMetrics, publishedMetrics], DefectCoverage.Compute(defects, publishedMetrics));
 
-        return new DemoStoreDataset(context, clean, published, groundTruth, new IntentsFile(storeVersion, context.Now, intents), metrics);
+        var retrievalBenchmark = RetrievalBenchmarkGenerator.Generate(clean, intents, context);
+
+        return new DemoStoreDataset(
+            context, clean, published, groundTruth, new IntentsFile(storeVersion, context.Now, intents), metrics, retrievalBenchmark);
     }
 }

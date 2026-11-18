@@ -1,0 +1,1445 @@
+{
+  "provenance": {
+    "storeVersion": "demostore-v0-seed-42",
+    "benchmarkSchemaVersion": 1,
+    "embeddingProvider": "Hashing",
+    "embeddingModel": "hashing-v1",
+    "embeddingDimensions": 256,
+    "k": 5,
+    "index": "memory"
+  },
+  "scoredCases": 26,
+  "semanticDiscriminatingCases": 19,
+  "noRelevantProductCases": 2,
+  "excludedInsufficientCases": 2,
+  "modes": [
+    {
+      "mode": "StructuredOnly",
+      "shopperDerived": {
+        "cases": 16,
+        "recallAtK": 0.5757,
+        "precisionAtK": 0.625,
+        "casesWithResults": 16,
+        "hitRateAtK": 0.875,
+        "maxAchievableRecallAtK": 0.8731
+      },
+      "discoveryOnly": {
+        "cases": 10,
+        "recallAtK": 0.3664,
+        "precisionAtK": 0.48,
+        "casesWithResults": 10,
+        "hitRateAtK": 0.9,
+        "maxAchievableRecallAtK": 0.7752
+      },
+      "combined": {
+        "cases": 26,
+        "recallAtK": 0.4952,
+        "precisionAtK": 0.5692,
+        "casesWithResults": 26,
+        "hitRateAtK": 0.8846,
+        "maxAchievableRecallAtK": 0.8355
+      },
+      "semanticDiscriminating": {
+        "cases": 19,
+        "recallAtK": 0.3574,
+        "precisionAtK": 0.4105,
+        "casesWithResults": 19,
+        "hitRateAtK": 0.8421,
+        "maxAchievableRecallAtK": 0.8231
+      },
+      "noRelevantProduct": {
+        "cases": 2,
+        "emptyResults": 2,
+        "averageReturned": 0
+      }
+    },
+    {
+      "mode": "SemanticOnly",
+      "shopperDerived": {
+        "cases": 16,
+        "recallAtK": 0.5828,
+        "precisionAtK": 0.4625,
+        "casesWithResults": 16,
+        "hitRateAtK": 1,
+        "maxAchievableRecallAtK": 0.8731
+      },
+      "discoveryOnly": {
+        "cases": 10,
+        "recallAtK": 0.2156,
+        "precisionAtK": 0.26,
+        "casesWithResults": 10,
+        "hitRateAtK": 0.7,
+        "maxAchievableRecallAtK": 0.7752
+      },
+      "combined": {
+        "cases": 26,
+        "recallAtK": 0.4416,
+        "precisionAtK": 0.3846,
+        "casesWithResults": 26,
+        "hitRateAtK": 0.8846,
+        "maxAchievableRecallAtK": 0.8355
+      },
+      "semanticDiscriminating": {
+        "cases": 19,
+        "recallAtK": 0.3674,
+        "precisionAtK": 0.3789,
+        "casesWithResults": 19,
+        "hitRateAtK": 0.8421,
+        "maxAchievableRecallAtK": 0.8231
+      },
+      "noRelevantProduct": {
+        "cases": 2,
+        "emptyResults": 0,
+        "averageReturned": 5
+      }
+    },
+    {
+      "mode": "Hybrid",
+      "shopperDerived": {
+        "cases": 16,
+        "recallAtK": 0.7814,
+        "precisionAtK": 0.8375,
+        "casesWithResults": 16,
+        "hitRateAtK": 1,
+        "maxAchievableRecallAtK": 0.8731
+      },
+      "discoveryOnly": {
+        "cases": 10,
+        "recallAtK": 0.4703,
+        "precisionAtK": 0.56,
+        "casesWithResults": 10,
+        "hitRateAtK": 0.9,
+        "maxAchievableRecallAtK": 0.7752
+      },
+      "combined": {
+        "cases": 26,
+        "recallAtK": 0.6617,
+        "precisionAtK": 0.7308,
+        "casesWithResults": 26,
+        "hitRateAtK": 0.9615,
+        "maxAchievableRecallAtK": 0.8355
+      },
+      "semanticDiscriminating": {
+        "cases": 19,
+        "recallAtK": 0.5854,
+        "precisionAtK": 0.6316,
+        "casesWithResults": 19,
+        "hitRateAtK": 0.9474,
+        "maxAchievableRecallAtK": 0.8231
+      },
+      "noRelevantProduct": {
+        "cases": 2,
+        "emptyResults": 2,
+        "averageReturned": 0
+      }
+    }
+  ],
+  "cases": [
+    {
+      "caseId": "I01",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 5,
+      "hardFilterPoolSize": 6,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-BP-007",
+            "SKU-BP-015",
+            "SKU-BP-018",
+            "SKU-BP-022",
+            "SKU-BP-024"
+          ],
+          "recall": 0.8,
+          "precision": 0.8,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-BP-025",
+            "SKU-HP-004",
+            "SKU-HP-013",
+            "SKU-HP-007",
+            "SKU-HP-012"
+          ],
+          "recall": 0.2,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-BP-025",
+            "SKU-BP-022",
+            "SKU-BP-024",
+            "SKU-BP-007",
+            "SKU-BP-018"
+          ],
+          "recall": 0.8,
+          "precision": 0.8,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I02",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 6,
+      "hardFilterPoolSize": 6,
+      "semanticDiscriminating": false,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-BP-003",
+            "SKU-BP-013",
+            "SKU-BP-014",
+            "SKU-BP-015",
+            "SKU-BP-016"
+          ],
+          "recall": 0.8333,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-BP-003",
+            "SKU-BP-018",
+            "SKU-BP-013",
+            "SKU-BP-020",
+            "SKU-BP-025"
+          ],
+          "recall": 0.3333,
+          "precision": 0.4,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-BP-003",
+            "SKU-BP-013",
+            "SKU-BP-016",
+            "SKU-BP-017",
+            "SKU-BP-014"
+          ],
+          "recall": 0.8333,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I03",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 1,
+      "hardFilterPoolSize": 1,
+      "semanticDiscriminating": false,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-SN-004-44-GRN"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SN-006-38-GRN",
+            "SKU-SN-006-40-GRN",
+            "SKU-SN-006-41-GRN",
+            "SKU-SN-001-44-NVY",
+            "SKU-SN-004-44-GRN"
+          ],
+          "recall": 1,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-SN-004-44-GRN"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I04",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 2,
+      "hardFilterPoolSize": 2,
+      "semanticDiscriminating": false,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-SN-005-36-WHT",
+            "SKU-SN-006-36-WHT"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SN-006-36-WHT",
+            "SKU-SN-006-38-GRN",
+            "SKU-SN-006-40-GRN",
+            "SKU-SN-006-41-GRN",
+            "SKU-SN-005-36-WHT"
+          ],
+          "recall": 1,
+          "precision": 0.4,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-SN-006-36-WHT",
+            "SKU-SN-005-36-WHT"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I05",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 6,
+      "hardFilterPoolSize": 12,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-HP-001",
+            "SKU-HP-002",
+            "SKU-HP-004",
+            "SKU-HP-005",
+            "SKU-HP-006"
+          ],
+          "recall": 0.5,
+          "precision": 0.6,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-HP-004",
+            "SKU-HP-016",
+            "SKU-HP-009",
+            "SKU-HP-013",
+            "SKU-HP-007"
+          ],
+          "recall": 0.1667,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-HP-004",
+            "SKU-HP-009",
+            "SKU-HP-013",
+            "SKU-HP-007",
+            "SKU-HP-002"
+          ],
+          "recall": 0.1667,
+          "precision": 0.2,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I06",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 8,
+      "hardFilterPoolSize": 11,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-HP-003",
+            "SKU-HP-004",
+            "SKU-HP-005",
+            "SKU-HP-007",
+            "SKU-HP-009"
+          ],
+          "recall": 0.375,
+          "precision": 0.6,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-HP-017",
+            "SKU-SE-008",
+            "SKU-SE-023",
+            "SKU-SE-002",
+            "SKU-SE-021"
+          ],
+          "recall": 0.125,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-HP-017",
+            "SKU-HP-014",
+            "SKU-HP-016",
+            "SKU-HP-019",
+            "SKU-HP-007"
+          ],
+          "recall": 0.5,
+          "precision": 0.8,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I07",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 6,
+      "hardFilterPoolSize": 6,
+      "semanticDiscriminating": false,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-HP-002",
+            "SKU-HP-004",
+            "SKU-HP-007",
+            "SKU-HP-009",
+            "SKU-HP-014"
+          ],
+          "recall": 0.8333,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-HP-014",
+            "SKU-HP-001",
+            "SKU-HP-020",
+            "SKU-BP-007",
+            "SKU-BP-020"
+          ],
+          "recall": 0.1667,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-HP-014",
+            "SKU-HP-007",
+            "SKU-HP-015",
+            "SKU-HP-002",
+            "SKU-HP-004"
+          ],
+          "recall": 0.8333,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I08",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 3,
+      "hardFilterPoolSize": 7,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-SE-002",
+            "SKU-SE-003",
+            "SKU-SE-008",
+            "SKU-SE-010",
+            "SKU-SE-012"
+          ],
+          "recall": 0.6667,
+          "precision": 0.4,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SE-018",
+            "SKU-SE-006",
+            "SKU-SE-015",
+            "SKU-SE-011",
+            "SKU-SE-013"
+          ],
+          "recall": 0.3333,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-SE-018",
+            "SKU-SE-015",
+            "SKU-SE-002",
+            "SKU-SE-003",
+            "SKU-SE-008"
+          ],
+          "recall": 0.6667,
+          "precision": 0.4,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I09",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 5,
+      "hardFilterPoolSize": 20,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-SE-002",
+            "SKU-SE-003",
+            "SKU-SE-004",
+            "SKU-SE-005",
+            "SKU-SE-008"
+          ],
+          "recall": 0,
+          "precision": 0,
+          "hit": false
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SE-016",
+            "SKU-SE-009",
+            "SKU-SE-022",
+            "SKU-SE-025",
+            "SKU-SE-013"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-SE-016",
+            "SKU-SE-009",
+            "SKU-SE-022",
+            "SKU-SE-025",
+            "SKU-SE-013"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I10",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 2,
+      "hardFilterPoolSize": 20,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-SE-002",
+            "SKU-SE-003",
+            "SKU-SE-004",
+            "SKU-SE-005",
+            "SKU-SE-008"
+          ],
+          "recall": 0.5,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SE-015",
+            "SKU-SE-011",
+            "SKU-SE-017",
+            "SKU-SE-004",
+            "SKU-SE-021"
+          ],
+          "recall": 1,
+          "precision": 0.4,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-SE-015",
+            "SKU-SE-004",
+            "SKU-SE-021",
+            "SKU-SE-020",
+            "SKU-SE-002"
+          ],
+          "recall": 1,
+          "precision": 0.4,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I11",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 2,
+      "hardFilterPoolSize": 2,
+      "semanticDiscriminating": false,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-SN-004-44-GRN",
+            "SKU-SN-004-44-GRY"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SN-004-44-GRY",
+            "SKU-SN-004-44-GRN",
+            "SKU-SN-006-36-WHT",
+            "SKU-SN-006-38-GRN",
+            "SKU-SN-006-40-GRN"
+          ],
+          "recall": 1,
+          "precision": 0.4,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-SN-004-44-GRY",
+            "SKU-SN-004-44-GRN"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I12",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 12,
+      "hardFilterPoolSize": 12,
+      "semanticDiscriminating": false,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-HP-001",
+            "SKU-HP-002",
+            "SKU-HP-004",
+            "SKU-HP-005",
+            "SKU-HP-006"
+          ],
+          "recall": 0.4167,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-HP-004",
+            "SKU-HP-005",
+            "SKU-HP-013",
+            "SKU-HP-012",
+            "SKU-HP-009"
+          ],
+          "recall": 0.3333,
+          "precision": 0.8,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-HP-004",
+            "SKU-HP-005",
+            "SKU-HP-013",
+            "SKU-HP-009",
+            "SKU-HP-007"
+          ],
+          "recall": 0.4167,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I13",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 7,
+      "hardFilterPoolSize": 20,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-BP-001",
+            "SKU-BP-002",
+            "SKU-BP-003",
+            "SKU-BP-007",
+            "SKU-BP-008"
+          ],
+          "recall": 0.1429,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-BP-025",
+            "SKU-BP-005",
+            "SKU-BP-020",
+            "SKU-BP-010",
+            "SKU-BP-024"
+          ],
+          "recall": 0.4286,
+          "precision": 0.6,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-BP-025",
+            "SKU-BP-010",
+            "SKU-BP-024",
+            "SKU-BP-021",
+            "SKU-BP-019"
+          ],
+          "recall": 0.7143,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I14",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 3,
+      "hardFilterPoolSize": 3,
+      "semanticDiscriminating": false,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-BP-003",
+            "SKU-BP-013",
+            "SKU-BP-017"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-BP-003",
+            "SKU-BP-016",
+            "SKU-BP-018",
+            "SKU-BP-013",
+            "SKU-BP-005"
+          ],
+          "recall": 0.6667,
+          "precision": 0.4,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-BP-003",
+            "SKU-BP-013",
+            "SKU-BP-017"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I15",
+      "group": "ShopperDerived",
+      "outcome": "NoRelevantProduct",
+      "relevantCount": 0,
+      "hardFilterPoolSize": 0,
+      "semanticDiscriminating": false,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": []
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SN-008-43-BLK",
+            "SKU-SN-008-44-BLK",
+            "SKU-SN-004-44-GRY",
+            "SKU-SN-004-45-GRY",
+            "SKU-SN-004-42-GRN"
+          ]
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": []
+        }
+      ]
+    },
+    {
+      "caseId": "I16",
+      "group": "ShopperDerived",
+      "outcome": "NoRelevantProduct",
+      "relevantCount": 0,
+      "hardFilterPoolSize": 0,
+      "semanticDiscriminating": false,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": []
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-HP-002",
+            "SKU-HP-004",
+            "SKU-HP-005",
+            "SKU-HP-007",
+            "SKU-HP-009"
+          ]
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": []
+        }
+      ]
+    },
+    {
+      "caseId": "I17",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 5,
+      "hardFilterPoolSize": 20,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-SE-002",
+            "SKU-SE-003",
+            "SKU-SE-004",
+            "SKU-SE-005",
+            "SKU-SE-008"
+          ],
+          "recall": 0,
+          "precision": 0,
+          "hit": false
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SE-013",
+            "SKU-SE-009",
+            "SKU-SE-016",
+            "SKU-SE-022",
+            "SKU-SE-025"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-SE-013",
+            "SKU-SE-009",
+            "SKU-SE-016",
+            "SKU-SE-022",
+            "SKU-SE-025"
+          ],
+          "recall": 1,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "I18",
+      "group": "ShopperDerived",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 7,
+      "hardFilterPoolSize": 20,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-BP-001",
+            "SKU-BP-002",
+            "SKU-BP-003",
+            "SKU-BP-007",
+            "SKU-BP-008"
+          ],
+          "recall": 0.1429,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-BP-025",
+            "SKU-BP-010",
+            "SKU-BP-019",
+            "SKU-BP-002",
+            "SKU-BP-003"
+          ],
+          "recall": 0.5714,
+          "precision": 0.8,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-BP-025",
+            "SKU-BP-010",
+            "SKU-BP-019",
+            "SKU-BP-002",
+            "SKU-BP-003"
+          ],
+          "recall": 0.5714,
+          "precision": 0.8,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "R01",
+      "group": "DiscoveryOnly",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 8,
+      "hardFilterPoolSize": 13,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-BP-001",
+            "SKU-BP-003",
+            "SKU-BP-008",
+            "SKU-BP-010",
+            "SKU-BP-012"
+          ],
+          "recall": 0.5,
+          "precision": 0.8,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-BP-025",
+            "SKU-BP-018",
+            "SKU-BP-010",
+            "SKU-BP-002",
+            "SKU-HP-013"
+          ],
+          "recall": 0.125,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-BP-018",
+            "SKU-BP-010",
+            "SKU-BP-003",
+            "SKU-BP-017",
+            "SKU-BP-023"
+          ],
+          "recall": 0.25,
+          "precision": 0.4,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "R02",
+      "group": "DiscoveryOnly",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 7,
+      "hardFilterPoolSize": 20,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-BP-001",
+            "SKU-BP-002",
+            "SKU-BP-003",
+            "SKU-BP-007",
+            "SKU-BP-008"
+          ],
+          "recall": 0.1429,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-BP-010",
+            "SKU-BP-019",
+            "SKU-BP-025",
+            "SKU-BP-002",
+            "SKU-BP-024"
+          ],
+          "recall": 0.7143,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-BP-010",
+            "SKU-BP-019",
+            "SKU-BP-025",
+            "SKU-BP-002",
+            "SKU-BP-024"
+          ],
+          "recall": 0.7143,
+          "precision": 1,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "R03",
+      "group": "DiscoveryOnly",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 6,
+      "hardFilterPoolSize": 14,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-BP-001",
+            "SKU-BP-002",
+            "SKU-BP-007",
+            "SKU-BP-008",
+            "SKU-BP-011"
+          ],
+          "recall": 0.3333,
+          "precision": 0.4,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-BP-002",
+            "SKU-BP-008",
+            "SKU-BP-001",
+            "SKU-BP-010",
+            "SKU-BP-006"
+          ],
+          "recall": 0.1667,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-BP-002",
+            "SKU-BP-008",
+            "SKU-BP-001",
+            "SKU-BP-021",
+            "SKU-BP-011"
+          ],
+          "recall": 0.5,
+          "precision": 0.6,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "R04",
+      "group": "DiscoveryOnly",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 11,
+      "hardFilterPoolSize": 14,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-BP-007",
+            "SKU-BP-008",
+            "SKU-BP-010",
+            "SKU-BP-011",
+            "SKU-BP-012"
+          ],
+          "recall": 0.4545,
+          "precision": 1,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-HP-013",
+            "SKU-HP-003",
+            "SKU-HP-001",
+            "SKU-BP-003",
+            "SKU-BP-018"
+          ],
+          "recall": 0,
+          "precision": 0,
+          "hit": false
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-BP-018",
+            "SKU-BP-008",
+            "SKU-BP-025",
+            "SKU-BP-022",
+            "SKU-BP-010"
+          ],
+          "recall": 0.3636,
+          "precision": 0.8,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "R05",
+      "group": "DiscoveryOnly",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 8,
+      "hardFilterPoolSize": 12,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-HP-001",
+            "SKU-HP-002",
+            "SKU-HP-004",
+            "SKU-HP-005",
+            "SKU-HP-006"
+          ],
+          "recall": 0.5,
+          "precision": 0.8,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-HP-004",
+            "SKU-HP-017",
+            "SKU-HP-014",
+            "SKU-HP-005",
+            "SKU-HP-007"
+          ],
+          "recall": 0.25,
+          "precision": 0.4,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-HP-004",
+            "SKU-HP-014",
+            "SKU-HP-005",
+            "SKU-HP-007",
+            "SKU-HP-009"
+          ],
+          "recall": 0.375,
+          "precision": 0.6,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "R06",
+      "group": "DiscoveryOnly",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 10,
+      "hardFilterPoolSize": 16,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-HP-001",
+            "SKU-HP-002",
+            "SKU-HP-003",
+            "SKU-HP-004",
+            "SKU-HP-005"
+          ],
+          "recall": 0.3,
+          "precision": 0.6,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-HP-014",
+            "SKU-HP-004",
+            "SKU-HP-013",
+            "SKU-HP-003",
+            "SKU-HP-012"
+          ],
+          "recall": 0.2,
+          "precision": 0.4,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-HP-014",
+            "SKU-HP-004",
+            "SKU-HP-013",
+            "SKU-HP-003",
+            "SKU-HP-001"
+          ],
+          "recall": 0.3,
+          "precision": 0.6,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "R07",
+      "group": "DiscoveryOnly",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 5,
+      "hardFilterPoolSize": 7,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-HP-004",
+            "SKU-HP-011",
+            "SKU-HP-014",
+            "SKU-HP-016",
+            "SKU-HP-017"
+          ],
+          "recall": 0.6,
+          "precision": 0.6,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-HP-017",
+            "SKU-SE-008",
+            "SKU-SE-021",
+            "SKU-HP-007",
+            "SKU-HP-004"
+          ],
+          "recall": 0.2,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-HP-017",
+            "SKU-HP-004",
+            "SKU-HP-020",
+            "SKU-HP-014",
+            "SKU-HP-019"
+          ],
+          "recall": 0.6,
+          "precision": 0.6,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "R08",
+      "group": "DiscoveryOnly",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 3,
+      "hardFilterPoolSize": 20,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-SE-002",
+            "SKU-SE-003",
+            "SKU-SE-004",
+            "SKU-SE-005",
+            "SKU-SE-008"
+          ],
+          "recall": 0.3333,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SN-007-40-GRN",
+            "SKU-SN-007-41-GRN",
+            "SKU-SN-007-42-GRN",
+            "SKU-SN-007-43-GRN",
+            "SKU-SN-001-41-BLK"
+          ],
+          "recall": 0,
+          "precision": 0,
+          "hit": false
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-SE-009",
+            "SKU-SE-016",
+            "SKU-SE-013",
+            "SKU-SE-020",
+            "SKU-SE-022"
+          ],
+          "recall": 0,
+          "precision": 0,
+          "hit": false
+        }
+      ]
+    },
+    {
+      "caseId": "R09",
+      "group": "DiscoveryOnly",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 2,
+      "hardFilterPoolSize": 20,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-SE-002",
+            "SKU-SE-003",
+            "SKU-SE-004",
+            "SKU-SE-005",
+            "SKU-SE-008"
+          ],
+          "recall": 0.5,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SE-002",
+            "SKU-SE-004",
+            "SKU-SN-003-39-GRY",
+            "SKU-SN-003-42-GRY",
+            "SKU-SN-003-43-GRY"
+          ],
+          "recall": 0.5,
+          "precision": 0.2,
+          "hit": true
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-SE-002",
+            "SKU-SE-004",
+            "SKU-SE-018",
+            "SKU-SE-020",
+            "SKU-SE-015"
+          ],
+          "recall": 1,
+          "precision": 0.4,
+          "hit": true
+        }
+      ]
+    },
+    {
+      "caseId": "R10",
+      "group": "DiscoveryOnly",
+      "outcome": "RelevantProductsExist",
+      "relevantCount": 5,
+      "hardFilterPoolSize": 20,
+      "semanticDiscriminating": true,
+      "modes": [
+        {
+          "mode": "StructuredOnly",
+          "topSkus": [
+            "SKU-SE-002",
+            "SKU-SE-003",
+            "SKU-SE-004",
+            "SKU-SE-005",
+            "SKU-SE-008"
+          ],
+          "recall": 0,
+          "precision": 0,
+          "hit": false
+        },
+        {
+          "mode": "SemanticOnly",
+          "topSkus": [
+            "SKU-SN-007-40-GRN",
+            "SKU-SN-007-41-GRN",
+            "SKU-SN-007-43-GRN",
+            "SKU-SN-007-42-GRN",
+            "SKU-SN-008-44-RED"
+          ],
+          "recall": 0,
+          "precision": 0,
+          "hit": false
+        },
+        {
+          "mode": "Hybrid",
+          "topSkus": [
+            "SKU-SE-020",
+            "SKU-SE-009",
+            "SKU-SE-016",
+            "SKU-SE-013",
+            "SKU-SE-014"
+          ],
+          "recall": 0.6,
+          "precision": 0.6,
+          "hit": true
+        }
+      ]
+    }
+  ]
+}

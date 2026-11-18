@@ -4,9 +4,14 @@ Commerce Readiness Lab tests whether an ecommerce store can be reliably understo
 can an agent find the right product, respect the shopper's constraints, and avoid confidently wrong answers when the
 store's own data is stale, incomplete or contradictory?
 
-This repository is at **Milestone 1**. It contains a deterministic synthetic store (DemoStore) with a trustworthy
-evaluation foundation (Milestone 0) and a deterministic Readiness Analyzer that reads only published data, scored by a
-separate evaluator (Milestone 1). There is no AI in it yet, on purpose.
+This repository is at **Milestone 2**. It contains:
+
+- a deterministic synthetic store (DemoStore) with a trustworthy evaluation foundation (Milestone 0);
+- a deterministic Readiness Analyzer that reads only published data, scored by a separate evaluator (Milestone 1);
+- hybrid product retrieval: embeddings, a pgvector index, and structured, semantic and hybrid search, with its own
+  retrieval benchmark (Milestone 2).
+
+Milestone 2 is the retrieval foundation for RAG. It does not generate answers and contains no LLM shopper yet.
 
 ## What Milestone 0 contains
 
@@ -26,7 +31,19 @@ separate evaluator (Milestone 1). There is no AI in it yet, on purpose.
   overall recall and decoy hits.
 - An analyzer CLI whose normal mode never touches the clean store or ground truth.
 - A `store.json` manifest per store folder (schema version, store version, kind, as-of time).
-- 165 xUnit tests in total, including trust-boundary tests.
+
+## What Milestone 2 adds
+
+- One deterministic **semantic search document per published SKU**, with a content hash. Volatile commerce facts are
+  never embedded.
+- **Embeddings** through `Microsoft.Extensions.AI` `IEmbeddingGenerator`. The runtime uses the OpenAI adapter
+  (`text-embedding-3-small`, 1536 dimensions); tests and CI use a deterministic offline hashing generator.
+- **PostgreSQL + pgvector** (Docker) with exact cosine search, an idempotent content-hash-aware indexer, and an
+  in-memory reference index.
+- Three search modes, **StructuredOnly**, **SemanticOnly** and **Hybrid**, through a small retrieval CLI.
+- A generated **retrieval benchmark** (`eval/retrieval-benchmark.json`) and Recall@K, Precision@K and HitRate@K
+  per mode.
+- 210 xUnit tests in total: 205 unit tests and 5 pgvector integration tests.
 
 ## Why ground truth comes before AI
 
@@ -279,6 +296,187 @@ Seed 42 runtime results:
 
 A 40-seed test confirms that precision and deterministic recall stay at 100% with no seed-specific logic.
 
+## Hybrid Product Retrieval (Milestone 2)
+
+Milestone 2 answers a narrower question than the final shopper: **given a product-discovery intent, can we retrieve
+the right candidate SKUs?** It covers embedding generation, vector indexing, semantic retrieval, hybrid retrieval and
+retrieval evaluation. It is the retrieval foundation for RAG, not yet a RAG application: nothing generates grounded
+output from the retrieved context until the Milestone 3 shopper does. No generative model, `IChatClient`, tool calling or
+intent parsing is used.
+
+```
+Shopper query --+--> structured filters (exact) ------+
+                |                                     +--> candidate SKUs --> ranked results
+                +--> query embedding --> pgvector ----+
+```
+
+### Structured vs semantic responsibilities
+
+The principle: exact numeric or categorical meaning goes to deterministic filters; fuzzy buyer meaning goes to semantic
+retrieval.
+
+| Responsibility | Constraints |
+|---|---|
+| Hard filters (`StructuredFilters`) | category, max price (Pricing), in stock (Inventory), shoe size, color, minimum laptop size, capacity, battery hours and warranty months |
+| Semantic (query text only) | weather or water suitability, product type and use intent, target group, noise cancellation, microphone |
+| Excluded (later shopper tools) | delivery city and deadline, installments, return requirements |
+
+"4.000 TL altında", "43 numara" and "stokta" are filters. "Yağmurda kullanabileceğim", "işe giderken" and
+"toplantılarda kullanabileceğim" are semantic. Retrieval is candidate generation: it never decides delivery, return or
+installment eligibility, or whether a recommendation is safe.
+
+### Retrieval unit and semantic document
+
+There is one search document per published SKU. Results are SKUs, sneaker size and color live on the SKU, price and
+stock are per SKU, and with roughly 100 SKUs simplicity beats de-duplicating product text.
+
+The semantic text is deterministic Turkish:
+
+```
+Ürün: <title>
+Kategori: <category>
+Marka: <brand>
+Ürün tipi: <type>
+Açıklama: <published description>
+Özellikler: Malzeme: ...; Su dayanımı: su itici; Laptop bölmesi: 15,6 inç; ...
+Varyant: 43 numara, Siyah
+```
+
+It hashes to a SHA-256 content hash over a versioned template.
+
+- **Not embedded:** price, stock, delivery promises, installments and return eligibility. They change often and belong
+  to structured or tool sources.
+- **Filter fields:** price and quantity come from the authoritative published Pricing and Inventory files, not catalog
+  projections. A SKU the catalog shows as `IN_STOCK` with 0 units is therefore filtered out.
+
+### Embeddings, index and search modes
+
+- **Embedding providers.** `IEmbeddingGenerator<string, Embedding<float>>` is the only abstraction the retrieval code
+  uses.
+  - The OpenAI adapter (`Microsoft.Extensions.AI.OpenAI`, `text-embedding-3-small`, 1536 dimensions, configurable) is
+    composed only in the retrieval project.
+  - `HashingEmbeddingGenerator` is a deterministic, lexical, offline stand-in for tests and CI. It does not measure
+    semantic quality.
+  - Core references no AI or database package.
+- **Index.** PostgreSQL + pgvector with exact cosine search. The demo corpus is intentionally small, so exact search
+  is preferable; approximate vector indexing (HNSW/IVFFlat) would only be justified at larger scale.
+- **Indexing** is idempotent:
+  - unchanged content hashes are never re-embedded;
+  - a changed document is re-embedded alone;
+  - price and stock changes update the row without re-embedding;
+  - unpublished SKUs are deleted.
+- **Search modes:**
+  - **StructuredOnly**: hard filters with neutral SKU ordering ("filters without relevance ranking").
+  - **SemanticOnly**: cosine similarity over the whole index, no filters.
+  - **Hybrid**: `WHERE <filters> ORDER BY cosine distance LIMIT K`.
+
+  Both the pgvector and the in-memory index compare distances at 1e-6 precision and break ties by SKU ordinal, so they
+  rank identically.
+
+### Benchmark methodology
+
+`eval/retrieval-benchmark.json` is generated by DemoStore. Relevant SKUs are computed by an evaluation-only oracle from
+the hidden clean store using the existing shopper-constraint semantics; nothing is hand-labelled.
+
+- **Shopper-derived (20 cases):** the intent text verbatim plus the policy's hard filters. Delivery, installment and
+  return constraints are dropped, so I17 and I18 have relevant products even though their final shopping outcome is
+  "no valid product".
+- **Discovery-only (10 cases):** templates whose differentiating need is semantic, for example "Kalabalık metroda dış
+  sesi kesen bir kulaklık". Generation fails if hard filters alone would already return exactly the relevant set.
+- **Scored:** only `RelevantProductsExist` cases (26). `NoRelevantProduct` cases (2) are reported separately, since
+  retrieval returning candidates is not "wrong" by itself. Insufficient-information cases (2) are excluded, because the
+  shopper should ask first.
+- **Semantic-discriminating subset (19 cases):** cases where the filtered pool is larger than the relevant set.
+- **Metrics:** macro averages.
+  - Recall@K = relevant in top K / all relevant.
+  - Precision@K = relevant in top K / returned.
+  - HitRate@K = share of cases with at least one relevant SKU in the top K.
+
+  Max achievable Recall@5 is shown because some cases have more than 5 relevant SKUs.
+
+**What the benchmark measures.** Relevance comes from hidden clean truth while indexing and search run on published
+observable data. The benchmark therefore measures the commerce retrieval readiness of the published data plus the
+retrieval strategy, not isolated embedding-model quality. Published defects legitimately lower scores, and the
+retrieval pipeline never "corrects" published data. For example, `SKU-BP-011` is truly waterproof, but its published
+structured water resistance is missing, so it is relevant to R02 ("sağanak yağmurda...") yet absent from the
+semantic and hybrid top 5.
+
+**Retrieval relevance is not factual correctness.** Semantic search finds text by meaning; it does not check whether
+the text is true. A misleading published description (for example "tamamen su geçirmez" on the water-repellent
+`P-BP-009`) may be retrieved for a waterproof query, and the benchmark correctly counts it as non-relevant.
+MisleadingDescription stays unresolved in Milestone 2; truth checking belongs to later semantic analysis and shopper
+reasoning.
+
+### Results (seed 42, K = 5)
+
+**Reproducible offline baseline (hashing embeddings, `retrieval/benchmark-hashing-v1.json`).** This run is
+byte-identical on every machine, and identical on the in-memory and pgvector indexes.
+
+| Mode | Group | Recall@5 | Precision@5 | HitRate@5 |
+|---|---|---|---|---|
+| StructuredOnly | Shopper-derived (16) | 0.576 | 0.625 | 0.875 |
+| | Discovery-only (10) | 0.366 | 0.480 | 0.900 |
+| | Combined (26) | 0.495 | 0.569 | 0.885 |
+| | Semantic-discriminating (19) | 0.357 | 0.411 | 0.842 |
+| SemanticOnly | Shopper-derived | 0.583 | 0.463 | 1.000 |
+| | Discovery-only | 0.216 | 0.260 | 0.700 |
+| | Combined | 0.442 | 0.385 | 0.885 |
+| | Semantic-discriminating | 0.367 | 0.379 | 0.842 |
+| Hybrid | Shopper-derived | 0.781 | 0.838 | 1.000 |
+| | Discovery-only | 0.470 | 0.560 | 0.900 |
+| | Combined | 0.662 | 0.731 | 0.962 |
+| | Semantic-discriminating | 0.585 | 0.632 | 0.947 |
+
+- Max achievable Recall@5 (combined) is 0.836.
+- Provenance: `Hashing` / `hashing-v1` / 256 dims / K=5 / `memory` (matches pgvector under the shared ranking rule).
+
+Reading the baseline: a lexical hashing model is weak at paraphrases (SemanticOnly discovery-only recall is 0.216),
+yet combined with exact filters it already beats filters alone.
+
+**Observed real-provider run (OpenAI `text-embedding-3-small`, `retrieval/benchmark-text-embedding-3-small.json`).**
+Provenance: `OpenAI` / `text-embedding-3-small` / 1536 dims / K=5 / `pgvector` /
+`runTimestampUtc=2026-11-18T14:12:32.2941183+00:00`. This is an observed run; the hashing file remains the
+reproducible offline baseline.
+
+Semantic-discriminating subset breakdown (9 shopper-derived + 10 discovery-only = 19):
+
+| Mode | Group | Recall@5 | Precision@5 | HitRate@5 |
+|---|---|---|---|---|
+| StructuredOnly | Shopper-derived discriminating (9) | 0.3475 | 0.3333 | 0.7778 |
+| | Discovery-only discriminating (10) | 0.3664 | 0.4800 | 0.9000 |
+| | Combined discriminating (19) | 0.3574 | 0.4105 | 0.8421 |
+| SemanticOnly | Shopper-derived discriminating | 0.6553 | 0.6000 | 1.0000 |
+| | Discovery-only discriminating | 0.3306 | 0.3800 | 0.9000 |
+| | Combined discriminating | 0.4844 | 0.4842 | 0.9474 |
+| Hybrid | Shopper-derived discriminating | 0.7460 | 0.7111 | 1.0000 |
+| | Discovery-only discriminating | 0.5239 | 0.5800 | 1.0000 |
+| | Combined discriminating | 0.6290 | 0.6421 | 1.0000 |
+
+Hybrid is the accepted Milestone 2 mode on this discriminating subset. The retrieval algorithm is not tuned further
+against these numbers.
+
+**Observed per-query regressions (documented, not tuned away):**
+
+| Case | Query need | StructuredOnly Recall@5 | Hybrid Recall@5 |
+|---|---|---|---|
+| R03 | 15.6" laptop bag that stays dry in rain | 0.3333 | 0.1667 |
+| R05 | Budget headset usable in meetings / calls | 0.5000 | 0.3750 |
+
+On both cases Hybrid underperforms filters alone (OpenAI run). They remain known regressions.
+
+**NoRelevantProduct (I15, I16):** Hybrid (and StructuredOnly) correctly returned empty results for 2/2 cases.
+SemanticOnly returned 5 candidates for both. Nearest-neighbor retrieval alone cannot reliably express “no suitable
+product”; empty Hybrid results come from hard filters emptying the pool, not from the embedding saying “none”.
+
+**Insufficient-information cases** (I19, I20) stay excluded from retrieval scoring. Clarification belongs to the later
+shopper reasoning layer, not to candidate generation.
+
+**Known limitation — SKU variant saturation.** Ranking is per SKU. Near-duplicate size/color variants of the same
+sneaker can fill top-K (especially under SemanticOnly; e.g. I03/I04/I11/R10). Product-level diversification is
+deferred; it is out of scope for Milestone 2.
+
+See [docs/retrieval-contract.md](docs/retrieval-contract.md) for the full contract.
+
 ## Generate the dataset
 
 ```
@@ -290,8 +488,9 @@ The command writes `demo-store/generated/seed-42/`:
 ```
 clean/      store.json, catalog.csv, price-list.json, inventory.json, shipping.json, payments.json, returns.json
 published/  same files, with defects injected
-eval/       ground-truth.json, intents.json, metrics.json
+eval/       ground-truth.json, intents.json, metrics.json, retrieval-benchmark.json
 analysis/   findings.json, summary.json, evaluation.json (written by the analyzer)
+retrieval/  benchmark-<model>.json (written by the retrieval benchmark)
 ```
 
 `store.json` is the store manifest: `schemaVersion` (currently 1), `storeVersion`, `kind` and `asOf`, the simulation
@@ -315,12 +514,49 @@ dotnet run --project src/CommerceReadiness.Analyzer -- --dataset demo-store/gene
 
 `--out <dir>` changes the analysis output directory. Output is byte-identical for the same dataset.
 
+## Run retrieval
+
+Start the database. Docker is used for this dependency only.
+
+```
+docker compose up -d      # PostgreSQL + pgvector on localhost:5433
+docker compose down       # stop (add -v to drop the data volume)
+```
+
+Configuration comes from environment variables or user-secrets; see `.env.example` (placeholders only, never commit
+secrets):
+
+- `ConnectionStrings__RetrievalDb` defaults to the compose database:
+  `Host=localhost;Port=5433;Database=commerce_readiness;Username=commerce;Password=commerce_dev`.
+- `OPENAI_API_KEY`, for example `dotnet user-secrets set OPENAI_API_KEY <key> --project src/CommerceReadiness.Retrieval`.
+- `Retrieval__EmbeddingModel` (default `text-embedding-3-small`) and `Retrieval__EmbeddingDimensions` (default 1536).
+
+```
+dotnet run --project src/CommerceReadiness.Retrieval -- db-init
+dotnet run --project src/CommerceReadiness.Retrieval -- index --dataset demo-store/generated/seed-42
+dotnet run --project src/CommerceReadiness.Retrieval -- search --query "yağmurda kullanılabilecek laptop çantası" \
+  --category Backpacks --max-price 4000 --in-stock --top 5 --mode Hybrid
+dotnet run --project src/CommerceReadiness.Retrieval -- benchmark --dataset demo-store/generated/seed-42 --top 5
+```
+
+- `--embeddings openai|hashing` (default `openai`) selects the provider.
+- `--index pgvector|memory` (default `pgvector`) selects the index; `--embeddings hashing --index memory` runs fully
+  offline.
+- `index` and `search` read only `published/`. `benchmark` is the only command that also reads
+  `eval/retrieval-benchmark.json`.
+- Vector rows and database volumes are never committed. The index is reproducible from the committed published data.
+
 ## Run the tests
 
 ```
 dotnet build
-dotnet test
+dotnet test                                   # unit tests; pgvector tests are skipped
+docker compose up -d
+$env:RETRIEVAL_TEST_DB = "Host=localhost;Port=5433;Database=commerce_readiness;Username=commerce;Password=commerce_dev"
+dotnet test --filter Category=Integration     # pgvector integration tests
 ```
+
+No test calls OpenAI or needs an API key.
 
 The tests cover:
 
@@ -348,19 +584,42 @@ The tests cover:
 - evaluator: correct TP/FP/FN counts, deterministic vs overall recall, duplicate findings counted as false positives,
   per-decoy hits, and matching by semantic identity only;
 - analyzer determinism: stable and unique finding IDs, byte-identical analysis files, and 40 seeds analyzed
-  generically.
+  generically;
+- retrieval documents: determinism, no volatile facts, authoritative price and stock, content hash, SKU scope;
+- indexing: no re-embedding when unchanged, single re-embed on change, price refresh without re-embedding, removal,
+  schema rejection;
+- search: exact filters (including numeric thresholds and missing values), neutral StructuredOnly ordering, hybrid
+  filters before ranking, SKU tie-break;
+- retrieval trust boundary: reflection, a narrow source scan, published-only and poisoned datasets, and a clear error
+  without an API key;
+- retrieval benchmark: metric formulas, oracle relevance, filter policy, discovery guards, byte-identical offline
+  runs, provenance;
+- pgvector integration: idempotent schema, exact cosine order on controlled vectors, seed-42 parity with the reference
+  index, idempotent re-indexing, and the identical hashing benchmark.
 
 ## Not built yet (by design)
 
-No LLM or AI calls, RAG, embeddings, vector search or pgvector; no database or EF Core; no web API or UI; no Shopify
-or other external integration; no checkout or authentication; no semantic analysis of description text; no repair
-flow; no shopper evaluation runner. The only dependencies are the .NET 10 SDK and xUnit.
+Not built yet:
+
+- generative LLM responses, `IChatClient`, AI shopper, tool or function calling, MCP, natural-language intent parsing;
+- recommendation explanations;
+- HNSW/ANN tuning;
+- EF Core, web API or UI;
+- Shopify or other external integration, checkout, authentication;
+- semantic truth-checking of description text, repair flow, shopper evaluation runner.
+
+Dependencies:
+
+- **Core:** none beyond the .NET 10 SDK.
+- **Retrieval project:** `Microsoft.Extensions.AI.OpenAI`, `Npgsql`, `Pgvector` and configuration packages.
+- **Tests:** xUnit.
 
 ## Roadmap
 
 - **Milestone 1 (done)**: Deterministic Readiness Analyzer that reads only published data and is scored against this
   ground truth (precision and recall, with decoys).
-- **Milestone 2**: Hybrid product retrieval: structured filters plus semantic search (pgvector).
+- **Milestone 2 (done)**: Hybrid product retrieval: structured filters plus semantic search (pgvector), with a
+  retrieval benchmark.
 - **Milestone 3**: LLM shopper with tool calling, producing the `ShopperResult` contract.
 - **Milestone 4**: Evaluation runner and before/after comparison (published vs repaired store).
 - **Milestone 5**: Thin web UI.
@@ -369,9 +628,12 @@ flow; no shopper evaluation runner. The only dependencies are the .NET 10 SDK an
 
 ```
 src/CommerceReadiness.Core        domain, source-of-truth map, delivery, oracle, metrics, contracts,
-                                  store storage (Storage/), readiness analyzer (Analysis/), evaluators (Evaluation/)
-src/CommerceReadiness.DemoStore   CLI: seeded generator, defect/decoy injection, intents, dataset output
+                                  store storage (Storage/), readiness analyzer (Analysis/), retrieval contracts
+                                  and document builder (Retrieval/), evaluators and benchmarks (Evaluation/)
+src/CommerceReadiness.DemoStore   CLI: seeded generator, defect/decoy injection, intents, benchmarks, dataset output
 src/CommerceReadiness.Analyzer    CLI: published-only analysis, optional --evaluate
-tests/CommerceReadiness.Tests     xUnit tests
+src/CommerceReadiness.Retrieval   CLI: embeddings, pgvector/in-memory index, search modes, retrieval benchmark
+tests/CommerceReadiness.Tests     xUnit tests (pgvector tests tagged Category=Integration)
 demo-store/generated/seed-42      committed reference dataset
+docker-compose.yml                PostgreSQL + pgvector for retrieval only
 ```
