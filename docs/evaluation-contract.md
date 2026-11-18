@@ -136,6 +136,12 @@ Matching is one-to-one:
 Supported types come from `ReadinessAnalyzer.SupportedFindingTypes`. `MisleadingDescription` is not supported by the
 deterministic baseline; its defects are reported as `deferredDefects`, not as false negatives.
 
+## Retrieval benchmark (Milestone 2)
+
+`eval/retrieval-benchmark.json` holds the generated retrieval cases (shopper-derived and discovery-only), their hard
+filters, hidden relevance constraints and oracle-computed relevant SKUs. Its relevance definition, metrics and
+provenance rules are specified in [retrieval-contract.md](retrieval-contract.md).
+
 ## Shopper output (Milestone 3) and scoring (Milestone 4)
 
 ```
